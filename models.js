@@ -1,7 +1,6 @@
 exports = module.exports = function(app, mongoose) {
   //general sub docs
   require('./schema/Note')(app, mongoose);
-  require('./schema/Category')(app, mongoose);
 
   //user system
   require('./schema/User')(app, mongoose);

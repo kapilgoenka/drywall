@@ -102,13 +102,6 @@ exports = module.exports = function(app, passport) {
   app.post('/admin/accounts/:id/notes/', require('./views/admin/accounts/index').newNote);
   app.delete('/admin/accounts/:id/', require('./views/admin/accounts/index').delete);
 
-  //admin > categories
-  app.get('/admin/categories/', require('./views/admin/categories/index').find);
-  app.post('/admin/categories/', require('./views/admin/categories/index').create);
-  app.get('/admin/categories/:id/', require('./views/admin/categories/index').read);
-  app.put('/admin/categories/:id/', require('./views/admin/categories/index').update);
-  app.delete('/admin/categories/:id/', require('./views/admin/categories/index').delete);
-
   //admin > search
   app.get('/admin/search/', require('./views/admin/search/index').find);
 
