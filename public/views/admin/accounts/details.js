@@ -14,7 +14,7 @@
       return '/admin/accounts/'+ this.id +'/';
     }
   });
-  
+
   app.Delete = Backbone.Model.extend({
     idAttribute: '_id',
     defaults: {
@@ -26,7 +26,7 @@
       return '/admin/accounts/'+ app.mainView.model.id +'/';
     }
   });
-  
+
   app.Details = Backbone.Model.extend({
     idAttribute: '_id',
     defaults: {
@@ -51,7 +51,7 @@
       return response;
     }
   });
-  
+
   app.Login = Backbone.Model.extend({
     idAttribute: '_id',
     defaults: {
@@ -73,7 +73,7 @@
       return response;
     }
   });
-  
+
   app.Note = Backbone.Model.extend({
     idAttribute: '_id',
     defaults: {
@@ -93,36 +93,10 @@
       return response;
     }
   });
-  
+
   app.NoteCollection = Backbone.Collection.extend({
     model: app.Note
   });
-  
-  app.Status = Backbone.Model.extend({
-    idAttribute: '_id',
-    defaults: {
-      success: false,
-      errors: [],
-      status: '',
-      name: '',
-    },
-    url: function() {
-      return '/admin/accounts/'+ app.mainView.model.id +'/status/'+ (this.isNew() ? '' : this.id +'/');
-    },
-    parse: function(response) {
-      if (response.account) {
-        app.mainView.model.set(response.account);
-        delete response.account;
-      }
-      return response;
-    }
-  });
-  
-  app.StatusCollection = Backbone.Collection.extend({
-    model: app.Status
-  });
-
-
 
 /**
  * VIEWS
@@ -139,7 +113,7 @@
       this.$el.html(this.template( this.model.attributes ));
     }
   });
-  
+
   app.DetailsView = Backbone.View.extend({
     el: '#details',
     template: _.template( $('#tmpl-details').html() ),
@@ -150,7 +124,7 @@
       this.model = new app.Details();
       this.syncUp();
       app.mainView.model.bind('change', this.syncUp, this);
-      
+
       this.model.on('change', this.render, this);
       this.render();
     },
@@ -168,7 +142,7 @@
     render: function() {
       //render
       this.$el.html(this.template( this.model.attributes ));
-      
+
       //set input values
       for(var key in this.model.attributes) {
         this.$el.find('[name="'+ key +'"]').val(this.model.attributes[key]);
@@ -185,7 +159,7 @@
       });
     }
   });
-  
+
   app.DeleteView = Backbone.View.extend({
     el: '#delete',
     template: _.template( $('#tmpl-delete').html() ),
@@ -215,7 +189,7 @@
       }
     }
   });
-  
+
   app.LoginView = Backbone.View.extend({
     el: '#login',
     template: _.template( $('#tmpl-login').html() ),
@@ -228,7 +202,7 @@
       this.model = new app.Login();
       this.syncUp();
       app.mainView.model.bind('change', this.syncUp, this);
-      
+
       this.model.on('change', this.render, this);
       this.render();
     },
@@ -242,7 +216,7 @@
     render: function() {
       //render
       this.$el.html(this.template( this.model.attributes ));
-      
+
       //set input values
       for(var key in this.model.attributes) {
         this.$el.find('[name="'+ key +'"]').val(this.model.attributes[key]);
@@ -270,7 +244,7 @@
       }
     }
   });
-  
+
   app.NewNoteView = Backbone.View.extend({
     el: '#notes-new',
     template: _.template( $('#tmpl-notes-new').html() ),
@@ -290,7 +264,7 @@
       if (this.$el.find('[name="data"]').val() == '') {
         errors.push('Please enter some notes.');
       }
-      
+
       if (errors.length > 0) {
         this.model.set({ errors: errors })
         return false;
@@ -305,7 +279,7 @@
       }
     }
   });
-  
+
   app.NoteCollectionView = Backbone.View.extend({
     el: '#notes-collection',
     template: _.template( $('#tmpl-notes-collection').html() ),
@@ -313,7 +287,7 @@
       this.collection = new app.NoteCollection();
       this.syncUp();
       app.mainView.model.bind('change', this.syncUp, this);
-      
+
       this.collection.on('reset', this.render, this);
       this.render();
     },
@@ -322,25 +296,25 @@
     },
     render: function() {
       this.$el.html(this.template());
-      
+
       this.collection.each(function(model) {
         var view = new app.NotesItemView({ model: model });
         $('#notes-items').prepend( view.render().$el );
       }, this);
-      
+
       if (this.collection.length == 0) {
         $('#notes-items').append( $('#tmpl-notes-none').html() );
       }
     }
   });
-  
+
   app.NotesItemView = Backbone.View.extend({
     tagName: 'div',
     className: 'note',
     template: _.template( $('#tmpl-notes-item').html() ),
     render: function() {
       this.$el.html( this.template(this.model.attributes) );
-      
+
       this.$el.find('.timeago').each(function(index, indexValue) {
         if (indexValue.innerText) {
           var myMoment = moment(indexValue.innerText);
@@ -350,109 +324,15 @@
       return this;
     }
   });
-  
-  app.NewStatusView = Backbone.View.extend({
-    el: '#status-new',
-    template: _.template( $('#tmpl-status-new').html() ),
-    events: {
-      'click .btn-add': 'addNew'
-    },
-    initialize: function() {
-      this.model = new app.Status();
-      this.syncUp();
-      app.mainView.model.bind('change', this.syncUp, this);
-      
-      this.model.bind('change', this.render, this);
-      this.render();
-    },
-    syncUp: function() {
-      this.model.set({
-        id: app.mainView.model.get('status').id,
-        name: app.mainView.model.get('status').name
-      });
-    },
-    render: function() {
-      this.$el.html( this.template(this.model.attributes) );
-      
-      //selected value
-      if (app.mainView.model.get('status') && app.mainView.model.get('status').id) {
-        this.$el.find('[name="status"]').val(app.mainView.model.get('status').id);
-      }
-    },
-    validates: function() {
-      var errors = [];
-      if (this.$el.find('[name="status"]').val() == '') {
-        errors.push('Please choose a status.');
-      }
-      if (this.$el.find('[name="status"]').val() == app.mainView.model.get('status').id) {
-        errors.push('That is the current status.');
-      }
-      
-      if (errors.length > 0) {
-        this.model.set({ errors: errors })
-        return false;
-      }
-      return true;
-    },
-    addNew: function() {
-      if (this.validates()) {
-        this.model.save({
-          id: this.$el.find('[name="status"]').val(),
-          name: this.$el.find('[name="status"] option:selected').text()
-        });
-      }
-    }
-  });
-  
-  app.StatusCollectionView = Backbone.View.extend({
-    el: '#status-collection',
-    template: _.template( $('#tmpl-status-collection').html() ),
-    initialize: function() {
-      this.collection = new app.StatusCollection();
-      this.syncUp();
-      app.mainView.model.bind('change', this.syncUp, this);
-      
-      this.collection.on('reset', this.render, this);
-      this.render();
-    },
-    syncUp: function() {
-      this.collection.reset(app.mainView.model.get('statusLog'));
-    },
-    render: function() {
-      this.$el.html( this.template() );
-      
-      this.collection.each(function(model) {
-        var view = new app.StatusItemView({ model: model });
-        $('#status-items').prepend( view.render().$el );
-      }, this);
-    }
-  });
-  
-  app.StatusItemView = Backbone.View.extend({
-    tagName: 'div',
-    className: 'status',
-    template: _.template( $('#tmpl-status-item').html() ),
-    render: function() {
-      this.$el.html( this.template(this.model.attributes) );
-      
-      this.$el.find('.timeago').each(function(index, indexValue) {
-        if (indexValue.innerText) {
-          var myMoment = moment(indexValue.innerText);
-          indexValue.innerText = myMoment.from();
-        }
-      });
-      return this;
-    }
-  });
-  
+
   app.MainView = Backbone.View.extend({
     el: '.page .container',
     initialize: function() {
       app.mainView = this;
-      
+
       //setup model
       this.model = new app.Account( JSON.parse($('#data-record').html()) );
-      
+
       //sub views
       app.headerView = new app.HeaderView();
       app.detailsView = new app.DetailsView();
@@ -460,8 +340,6 @@
       app.loginView = new app.LoginView();
       app.newNoteView = new app.NewNoteView();
       app.notesCollectionView = new app.NoteCollectionView();
-      app.newStatusView = new app.NewStatusView();
-      app.statusCollectionView = new app.StatusCollectionView();
     }
   });
 
@@ -473,5 +351,3 @@
   $(document).ready(function() {
     app.mainView = new app.MainView();
   });
-
-

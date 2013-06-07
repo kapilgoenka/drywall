@@ -24,11 +24,10 @@ html
             ul.nav
               li.dropdown
                 a.dropdown-toggle(href='#', data-toggle='dropdown')
-                  | System 
+                  | System
                   span.caret
                 ul.dropdown-menu
                   li.nav-header Pivoted Settings
-                  li: a(href='/admin/statuses/') Statuses
                   li: a(href='/admin/categories/') Categories
                   li.divider
                   li.nav-header User Admin
@@ -38,11 +37,11 @@ html
                   li: a(href='/admin/admin-groups/') Admin Groups
             form.navbar-search.pull-right
               #_search
-    
+
     div.page
       div.container
         block body
-    
+
     div.footer
       div.container
         div.inner
@@ -52,19 +51,19 @@ html
             li: a(href='/') Home
             li: a(href='/logout/') Logout
           div.clearfix
-    
+
     div.ajax-spinner
       img(src='/media/ajax-pulse.gif')
-    
+
     script(src='/vendor/jquery/jquery-1.9.1.min.js')
     script(src='/vendor/underscore/underscore-min.js')
     script(src='/vendor/backbone/backbone-min.js')
     script(src='/vendor/bootstrap/js/bootstrap.min.js')
     script(src='/vendor/moment/moment.min.js')
     script(src='/layouts/utility.js')
-    
+
     block feet
-    
+
     script(type='text/template', id='tmpl-_search')
       ul.nav
         li.dropdown.open

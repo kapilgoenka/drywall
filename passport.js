@@ -1,9 +1,10 @@
 exports = module.exports = function(app, passport) {
-  var LocalStrategy = require('passport-local').Strategy
-    , TwitterStrategy = require('passport-twitter').Strategy
-    , GitHubStrategy = require('passport-github').Strategy
-    , FacebookStrategy = require('passport-facebook').Strategy;
-  
+  var LocalStrategy = require('passport-local').Strategy,
+  TwitterStrategy = require('passport-twitter').Strategy,
+  GitHubStrategy = require('passport-github').Strategy,
+  FacebookStrategy = require('passport-facebook').Strategy,
+  SinglyStrategy = require('passport-singly').Strategy;
+
   //local
   passport.use(new LocalStrategy(
     function(username, password, done) {
@@ -15,24 +16,24 @@ exports = module.exports = function(app, passport) {
       else {
         conditions.email = username;
       }
-      
+
       app.db.models.User.findOne(conditions, function(err, user) {
         if (err) return done(err);
-        
+
         if (!user) return done(null, false, { message: 'Unknown user' });
-        
+
         //validate password
         var encryptedPassword = app.db.models.User.encryptPassword(password);
         if (user.password != encryptedPassword) {
           return done(null, false, { message: 'Invalid password' });
         }
-        
+
         //we're good
         return done(null, user);
       });
     }
   ));
-  
+
   //twitter
   if (app.get('twitter-oauth-key')) {
     passport.use(new TwitterStrategy({
@@ -49,7 +50,7 @@ exports = module.exports = function(app, passport) {
       }
     ));
   }
-  
+
   //github
   if (app.get('github-oauth-key')) {
     passport.use(new GitHubStrategy({
@@ -67,7 +68,7 @@ exports = module.exports = function(app, passport) {
       }
     ));
   }
-  
+
   //facebook
   if (app.get('facebook-oauth-key')) {
     passport.use(new FacebookStrategy({
@@ -84,12 +85,41 @@ exports = module.exports = function(app, passport) {
       }
     ));
   }
-  
+
+  // singly
+  if (app.get('singly-app-id'))
+  {
+    passport.use(new SinglyStrategy({
+      clientID: app.get('singly-app-id'),
+      clientSecret: app.get('singly-app-secret')
+    },
+
+    function(accessToken, refreshToken, profile, done)
+    {
+      // asynchronous verification, for effect...
+      process.nextTick(function()
+      {
+        // To keep the example simple, the user's Singly profile is returned to
+        // represent the logged-in user.  In a typical application, you would want
+        // to associate the Singly account with a user record in your database,
+        // and return that user instead.
+        console.log(accessToken, refreshToken, profile);
+        done(null, false, {
+          accessToken: accessToken,
+          refreshToken: refreshToken,
+          profile: profile
+        });
+
+//        return done(null, profile);
+      });
+    }));
+  }
+
   //serialize
   passport.serializeUser(function(user, done) {
     done(null, user._id);
   });
-  
+
   //deserialize
   passport.deserializeUser(function(id, done) {
     app.db.models.User.findOne({ _id: id }).populate('roles.admin').populate('roles.account').exec(function(err, user) {
