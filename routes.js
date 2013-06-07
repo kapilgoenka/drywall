@@ -99,7 +99,6 @@ exports = module.exports = function(app, passport) {
   app.put('/admin/accounts/:id/', require('./views/admin/accounts/index').update);
   app.put('/admin/accounts/:id/user/', require('./views/admin/accounts/index').linkUser);
   app.delete('/admin/accounts/:id/user/', require('./views/admin/accounts/index').unlinkUser);
-  app.post('/admin/accounts/:id/notes/', require('./views/admin/accounts/index').newNote);
   app.delete('/admin/accounts/:id/', require('./views/admin/accounts/index').delete);
 
   //admin > search

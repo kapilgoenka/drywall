@@ -15,9 +15,6 @@ block body
     div.span8
       #details.form-horizontal
       #login.form-horizontal
-    div.span4
-      #notes-new
-      #notes-collection
   #delete.form-horizontal
 
   script(type='text/template', id='tmpl-header')
@@ -93,31 +90,6 @@ block body
           button.btn.btn-success.btn-user-link(type='button') Link
           |<% } %>
         span.help-inline <%= errfor.newUsername %>
-
-  script(type='text/template', id='tmpl-notes-new')
-    legend Notes
-    div.alerts
-      |<% _.each(errors, function(err) { %>
-      div.alert.alert-error
-        button.close(type='button', data-dismiss='alert') &times;
-        |<%= err %>
-      |<% }); %>
-    textarea.input-block-level(rows='3', name='data', placeholder='enter notes')
-    button.btn.btn-block.btn-add Add New Note
-
-  script(type='text/template', id='tmpl-notes-collection')
-    #notes-items
-
-  script(type='text/template', id='tmpl-notes-item')
-    div <%= data %>
-    div.pull-right.muted.badge.author
-      |<%= userCreated.name %>
-      | -
-      span.timeago <%= userCreated.time %>
-    div.clearfix
-
-  script(type='text/template', id='tmpl-notes-none')
-    div.note.muted no notes found
 
   script(type='text/template', id='tmpl-delete')
     legend Danger Zone

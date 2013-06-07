@@ -19,8 +19,6 @@ exports = module.exports = function(app, mongoose)
     phone: { type: String, default: '' },
     zip: { type: String, default: '' },
 
-    notes: [mongoose.modelSchemas['Note']],
-
     userCreated:
     {
       id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
