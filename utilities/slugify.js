@@ -1,3 +1,4 @@
-exports = module.exports = function(text) {
+exports = module.exports = function(text)
+{
   return text.toLowerCase().replace(/[^\w ]+/g, '').replace(/ +/g, '-');
 }

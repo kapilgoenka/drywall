@@ -1,6 +1,7 @@
-exports = module.exports = function(req, res, options) {
+exports = module.exports = function(req, res, options)
+{
   /* options = {
-    from: String, 
+    from: String,
     to: String,
     cc: String,
     bcc: String,
@@ -12,59 +13,60 @@ exports = module.exports = function(req, res, options) {
     success: Function,
     error: Function
   } */
-  
-  var renderText = function(callback) {
-    res.render(options.textPath, options.locals, function(err, text) {
-      if (err) {
-        callback(err, null);
-      }
-      else {
-        options.text = text;
-        return callback(null, 'done');
-      }
+
+  var renderText = function(callback)
+  {
+    res.render(options.textPath, options.locals, function(err, text)
+    {
+      if (err)
+        return callback(err, null);
+
+      options.text = text;
+      return callback(null, 'done');
     });
   };
-  
-  var renderHtml = function(callback) {
-    res.render(options.htmlPath, options.locals, function(err, html) {
-      if (err) {
-        callback(err, null);
-      }
-      else {
-        options.html = html;
-        return callback(null, 'done');
-      }
+
+  var renderHtml = function(callback)
+  {
+    res.render(options.htmlPath, options.locals, function(err, html)
+    {
+      if (err)
+        return callback(err, null);
+
+      options.html = html;
+      return callback(null, 'done');
     });
   };
-  
+
   var renderers = [];
   if (options.textPath) renderers.push(renderText);
   if (options.htmlPath) renderers.push(renderHtml);
-  
+
   //render templates
   require('async').parallel(
     renderers,
-    function(err, results){
-      if (err) {
+    function(err, results)
+    {
+      if (err)
+      {
         options.error('Email template render failed. '+ err);
         return;
       }
-      
+
       //build attachements
       var attachements = [];
-      
+
       //html alternative
-      if (options.html) {
+      if (options.html)
         attachements.push({ data: options.html, alternative: true });
-      }
-      
+
       //other attachments
-      if (options.attachments) {
-        for (var i = 0 ; i < options.attachments.length ; i++) {
+      if (options.attachments)
+      {
+        for (var i = 0 ; i < options.attachments.length ; i++)
           attachements.push(options.attachments[i]);
-        }
       }
-      
+
       //send email
       var emailjs = require('emailjs/email');
       var emailer = emailjs.server.connect( req.app.get('email-credentials') );
@@ -76,15 +78,16 @@ exports = module.exports = function(req, res, options) {
         subject: options.subject,
         text: options.text,
         attachment: attachements
-      }, function(err, message) {
-        if (err) {
+      }, function(err, message)
+      {
+        if (err)
+        {
           options.error('Email failed to send. '+ err);
           return;
         }
-        else {
-          options.success(message);
-          return;
-        }
+
+        options.success(message);
+        return;
       });
     }
   );
