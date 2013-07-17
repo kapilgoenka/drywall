@@ -1,19 +1,30 @@
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) return next();
+function ensureAuthenticated(req, res, next)
+{
+  if (req.isAuthenticated())
+    return next();
+
   res.set('X-Auth-Required', 'true');
   res.redirect('/login/?returnUrl='+ encodeURIComponent(req.originalUrl));
 }
-function ensureAdmin(req, res, next) {
-  if (req.user.canPlayRoleOf('admin')) return next();
-  res.redirect('/');
-}
-function ensureAccount(req, res, next) {
-  if (req.user.canPlayRoleOf('account')) return next();
+
+function ensureAdmin(req, res, next)
+{
+  if (req.user.canPlayRoleOf('admin'))
+    return next();
+
   res.redirect('/');
 }
 
-exports = module.exports = function(app, passport) {
+function ensureAccount(req, res, next)
+{
+  if (req.user.canPlayRoleOf('account'))
+    return next();
 
+  res.redirect('/');
+}
+
+exports = module.exports = function(app, passport)
+{
   //front end
   app.get('/', require('./views/index').init);
 
@@ -23,10 +34,13 @@ exports = module.exports = function(app, passport) {
 
   //social sign up
   app.post('/signup/social/', require('./views/signup/index').signupSocial);
+
   app.get('/signup/twitter/', passport.authenticate('twitter', { callbackURL: '/signup/twitter/callback/' }));
   app.get('/signup/twitter/callback/', require('./views/signup/index').signupTwitter);
+
   app.get('/signup/github/', passport.authenticate('github', { callbackURL: '/signup/github/callback/' }));
   app.get('/signup/github/callback/', require('./views/signup/index').signupGitHub);
+
   app.get('/signup/facebook/', passport.authenticate('facebook', { callbackURL: '/signup/facebook/callback/' }));
   app.get('/signup/facebook/callback/', require('./views/signup/index').signupFacebook);
 

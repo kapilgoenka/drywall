@@ -22,13 +22,7 @@ exports = module.exports = function(app, mongoose)
 
   userSchema.methods.canPlayRoleOf = function(role)
   {
-    if (role == "admin" && this.roles.admin)
-      return true;
-
-    if (role == "account" && this.roles.account)
-      return true;
-
-    return false;
+    return !!this.roles[role];
   };
 
   userSchema.methods.defaultReturnUrl = function()
@@ -46,7 +40,7 @@ exports = module.exports = function(app, mongoose)
 
   userSchema.statics.encryptPassword = function(password)
   {
-    return require('crypto').createHash('sha512').update(password).digest('hex');
+    return require('crypto').createHmac('sha512', app.get('crypto-key')).update(password).digest('hex');
   };
 
   userSchema.plugin(require('./plugins/pagedFind'));

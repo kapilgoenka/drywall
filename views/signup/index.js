@@ -1,93 +1,136 @@
-exports.init = function(req, res){
-  //are we logged in?
-  if (req.isAuthenticated()) { 
-    res.redirect(req.user.defaultReturnUrl());
+/*******************************************************************************
+ * init()
+ *******************************************************************************
+ * Initialize user account creation.
+ *
+ * Inputs:
+ *   request:
+ *
+ *   response:
+ */
+exports.init = function(request, response)
+{
+  // Are we logged in?
+  if (request.isAuthenticated())
+  {
+    response.redirect(request.user.defaultReturnUrl());
   }
-  else {
-    res.render('signup/index', {
+  else
+  {
+    response.render('signup/index',
+    {
       oauthMessage: '',
-      oauthTwitter: !!req.app.get('twitter-oauth-key'),
-      oauthGitHub: !!req.app.get('github-oauth-key'),
-      oauthFacebook: !!req.app.get('facebook-oauth-key')
+      oauthTwitter: !!request.app.get('twitter-oauth-key'),
+      oauthGitHub: !!request.app.get('github-oauth-key'),
+      oauthFacebook: !!request.app.get('facebook-oauth-key')
     });
   }
 };
 
+/*******************************************************************************
+ * signup()
+ *******************************************************************************
+ * Create a new user account with username/password.
+ *
+ * Inputs:
+ *   request:
+ *
+ *   response:
+ */
+exports.signup = function(request, response)
+{
+  var workflow = new request.app.utility.Workflow(request, response);
 
-
-exports.signup = function(req, res){
-  var workflow = new req.app.utility.Workflow(req, res);
-  
-  workflow.on('validate', function() {
-    if (!req.body.username) {
+  workflow.on('validate', function()
+  {
+    if (!request.body.username)
       workflow.outcome.errfor.username = 'required';
-    }
-    else if (!/^[a-zA-Z0-9\-\_]+$/.test(req.body.username)) {
+    else if (!/^[a-zA-Z0-9\-\_]+$/.test(request.body.username))
       workflow.outcome.errfor.username = 'only use letters, numbers, \'-\', \'_\'';
-    }
-    if (!req.body.email) {
+    if (!request.body.email)
       workflow.outcome.errfor.email = 'required';
-    }
-    else if (!/^[a-zA-Z0-9\-\_\.\+]+@[a-zA-Z0-9\-\_\.]+\.[a-zA-Z0-9\-\_]+$/.test(req.body.email)) {
+    else if (!/^[a-zA-Z0-9\-\_\.\+]+@[a-zA-Z0-9\-\_\.]+\.[a-zA-Z0-9\-\_]+$/.test(request.body.email))
       workflow.outcome.errfor.email = 'invalid email format';
-    }
-    if (!req.body.password) workflow.outcome.errfor.password = 'required';
-    
+
+    if (!request.body.password)
+      workflow.outcome.errfor.password = 'required';
+
     //return if we have errors already
-    if (workflow.hasErrors()) return workflow.emit('response');
-    
+    if (workflow.hasErrors())
+      return workflow.emit('response');
+
     workflow.emit('duplicateUsernameCheck');
   });
-  
-  workflow.on('duplicateUsernameCheck', function() {
-    req.app.db.models.User.findOne({ username: req.body.username }, function(err, user) {
-      if (err) return workflow.emit('exception', err);
-      
-      if (user) {
+
+  // Check for user name already in use.
+  workflow.on('duplicateUsernameCheck', function()
+  {
+    request.app.db.models.User.findOne({ username: request.body.username }, function(err, user)
+    {
+      if (err)
+        return workflow.emit('exception', err);
+
+      if (user)
+      {
         workflow.outcome.errfor.username = 'username already taken';
         return workflow.emit('response');
       }
-      
+
       workflow.emit('duplicateEmailCheck');
     });
   });
-  
-  workflow.on('duplicateEmailCheck', function() {
-    req.app.db.models.User.findOne({ email: req.body.email }, function(err, user) {
-      if (err) return workflow.emit('exception', err);
-      
-      if (user) {
+
+  // Check for email already in use.
+  workflow.on('duplicateEmailCheck', function()
+  {
+    request.app.db.models.User.findOne({ email: request.body.email }, function(err, user)
+    {
+      if (err)
+        return workflow.emit('exception', err);
+
+      if (user)
+      {
         workflow.outcome.errfor.email = 'email already registered';
         return workflow.emit('response');
       }
-      
+
       workflow.emit('createUser');
     });
   });
-  
-  workflow.on('createUser', function() {
-    var fieldsToSet = {
+
+  // Create the user record.
+  workflow.on('createUser', function()
+  {
+    var fieldsToSet =
+    {
       isActive: 'yes',
-      username: req.body.username,
-      email: req.body.email,
-      password: req.app.db.models.User.encryptPassword(req.body.password),
+      username: request.body.username,
+      email: request.body.email,
+      password: request.app.db.models.User.encryptPassword(request.body.password),
       search: [
-        req.body.username,
-        req.body.email
+        request.body.username,
+        request.body.email
       ]
     };
-    req.app.db.models.User.create(fieldsToSet, function(err, user) {
-      if (err) return workflow.emit('exception', err);
-      
+
+    request.app.db.models.User.create(fieldsToSet, function(err, user)
+    {
+      if (err)
+        return workflow.emit('exception', err);
+
       workflow.user = user;
       workflow.emit('createAccount');
     });
   });
-  
-  workflow.on('createAccount', function() {
-    var fieldsToSet = {
+
+  // Create an account record linked to the user record.
+  workflow.on('createAccount', function()
+  {
+    var fieldsToSet =
+    {
       'name.full': workflow.user.username,
-      user: {
+      user:
+      {
         id: workflow.user._id,
         name: workflow.user.username
       },
@@ -95,269 +138,400 @@ exports.signup = function(req, res){
         workflow.user.username
       ]
     };
-    req.app.db.models.Account.create(fieldsToSet, function(err, account) {
-      if (err) return workflow.emit('exception', err);
-      
-      //update user with account
+
+    request.app.db.models.Account.create(fieldsToSet, function(err, account)
+    {
+      if (err)
+        return workflow.emit('exception', err);
+
+      // Update user with account
       workflow.user.roles.account = account._id;
-      workflow.user.save(function(err, user) {
-        if (err) return workflow.emit('exception', err);
+
+      workflow.user.save(function(err, user)
+      {
+        if (err)
+          return workflow.emit('exception', err);
+
         workflow.emit('sendWelcomeEmail');
       });
     });
   });
-  
-  workflow.on('sendWelcomeEmail', function() {
-    req.app.utility.email(req, res, {
-      from: req.app.get('email-from-name') +' <'+ req.app.get('email-from-address') +'>',
-      to: req.body.email,
-      subject: 'Your '+ req.app.get('project-name') +' Account',
+
+  // Send a welcome email.
+  workflow.on('sendWelcomeEmail', function()
+  {
+    request.app.utility.email(request, response,
+    {
+      from: request.app.get('email-from-name') +' <'+ request.app.get('email-from-address') +'>',
+      to: request.body.email,
+      subject: 'Your '+ request.app.get('project-name') +' Account',
       textPath: 'signup/email-text',
       htmlPath: 'signup/email-html',
-      locals: {
-        username: req.body.username,
-        email: req.body.email,
-        loginURL: 'http://'+ req.headers.host +'/login/',
-        projectName: req.app.get('project-name')
+
+      locals:
+      {
+        username: request.body.username,
+        email: request.body.email,
+        loginURL: 'http://'+ request.headers.host +'/login/',
+        projectName: request.app.get('project-name')
       },
-      success: function(message) {
+
+      success: function(message)
+      {
         workflow.emit('logUserIn');
       },
-      error: function(err) {
+
+      error: function(err)
+      {
         console.log('Error Sending Welcome Email: '+ err);
         workflow.emit('logUserIn');
       }
     });
   });
-  
-  workflow.on('logUserIn', function() {
-    req._passport.instance.authenticate('local', function(err, user, info) {
-      if (err) return workflow.emit('exception', err);
-      
-      if (!user) {
+
+  // Automatically log the new user in.
+  workflow.on('logUserIn', function()
+  {
+    request._passport.instance.authenticate('local', function(err, user, info)
+    {
+      if (err)
+        return workflow.emit('exception', err);
+
+      if (!user)
+      {
         workflow.outcome.errors.push('Login failed. That is strange.');
         return workflow.emit('response');
       }
-      else {
-        req.login(user, function(err) {
-          if (err) return workflow.emit('exception', err);
-          
+      else
+      {
+        request.login(user, function(err)
+        {
+          if (err)
+            return workflow.emit('exception', err);
+
           workflow.outcome.defaultReturnUrl = user.defaultReturnUrl();
           workflow.emit('response');
         });
       }
-    })(req, res);
+    })(request, response);
   });
-  
+
+  // Kick off the workflow processing.
   workflow.emit('validate');
 };
 
+/*******************************************************************************
+ * signupTwitter()
+ *******************************************************************************
+ * Create a new user account via Twitter auth.
+ *
+ * Inputs:
+ *   request:
+ *
+ *   response:
+ *
+ *   next:
+ */
+exports.signupTwitter = function(request, response, next)
+{
+  request._passport.instance.authenticate('twitter', function(err, user, info)
+  {
+    if (!info || !info.profile)
+      return response.redirect('/signup/');
 
+    request.app.db.models.User.findOne({ 'twitter.id': info.profile.id }, function(err, user)
+    {
+      if (err)
+        return next(err);
 
-exports.signupTwitter = function(req, res, next) {
-  req._passport.instance.authenticate('twitter', function(err, user, info) {
-    if (!info || !info.profile) return res.redirect('/signup/');
-    
-    req.app.db.models.User.findOne({ 'twitter.id': info.profile.id }, function(err, user) {
-      if (err) return next(err);
-      
-      if (!user) {
-        req.session.socialProfile = info.profile;
-        res.render('signup/social', { email: '' });
+      if (!user)
+      {
+        request.session.socialProfile = info.profile;
+        response.render('signup/social', { email: '' });
       }
-      else {
-        res.render('signup/index', {
+      else
+      {
+        response.render('signup/index',
+        {
           oauthMessage: 'We found a user linked to your Twitter account.',
-          oauthTwitter: !!req.app.get('twitter-oauth-key'),
-          oauthGitHub: !!req.app.get('github-oauth-key'),
-          oauthFacebook: !!req.app.get('facebook-oauth-key')
+          oauthTwitter: !!request.app.get('twitter-oauth-key'),
+          oauthGitHub: !!request.app.get('github-oauth-key'),
+          oauthFacebook: !!request.app.get('facebook-oauth-key')
         });
       }
     });
-  })(req, res, next);
+  })(request, response, next);
 };
 
+/*******************************************************************************
+ * signupGitHub()
+ *******************************************************************************
+ * Create a new user account via github auth.
+ *
+ * Inputs:
+ *   request:
+ *
+ *   response:
+ *
+ *   next:
+ */
+exports.signupGitHub = function(request, response, next)
+{
+  request._passport.instance.authenticate('github', function(err, user, info)
+  {
+    if (!info || !info.profile)
+      return response.redirect('/signup/');
 
+    request.app.db.models.User.findOne({ 'github.id': info.profile.id }, function(err, user)
+    {
+      if (err)
+        return next(err);
 
-exports.signupGitHub = function(req, res, next) {
-  req._passport.instance.authenticate('github', function(err, user, info) {
-    if (!info || !info.profile) return res.redirect('/signup/');
-    
-    req.app.db.models.User.findOne({ 'github.id': info.profile.id }, function(err, user) {
-      if (err) return next(err);
-      
-      if (!user) {
-        req.session.socialProfile = info.profile;
-        res.render('signup/social', { email: info.profile.emails[0].value || '' });
+      if (!user)
+      {
+        request.session.socialProfile = info.profile;
+        response.render('signup/social', { email: info.profile.emails[0].value || '' });
       }
-      else {
-        res.render('signup/index', {
+      else
+      {
+        response.render('signup/index',
+        {
           oauthMessage: 'We found a user linked to your GitHub account.',
-          oauthTwitter: !!req.app.get('twitter-oauth-key'),
-          oauthGitHub: !!req.app.get('github-oauth-key'),
-          oauthFacebook: !!req.app.get('facebook-oauth-key')
+          oauthTwitter: !!request.app.get('twitter-oauth-key'),
+          oauthGitHub: !!request.app.get('github-oauth-key'),
+          oauthFacebook: !!request.app.get('facebook-oauth-key')
         });
       }
     });
-  })(req, res, next);
+  })(request, response, next);
 };
 
+/*******************************************************************************
+ * signupFacebook()
+ *******************************************************************************
+ * Create a new user account via Facebook auth.
+ *
+ * Inputs:
+ *   request:
+ *
+ *   response:
+ *
+ *   next:
+ */
+exports.signupFacebook = function(request, response, next)
+{
+  request._passport.instance.authenticate('facebook', { callbackURL: '/signup/facebook/callback/' }, function(err, user, info)
+  {
+    if (!info || !info.profile)
+      return response.redirect('/signup/');
 
+    request.app.db.models.User.findOne({ 'facebook.id': info.profile.id }, function(err, user)
+    {
+      if (err)
+        return next(err);
 
-exports.signupFacebook = function(req, res, next) {
-  req._passport.instance.authenticate('facebook', { callbackURL: '/signup/facebook/callback/' }, function(err, user, info) {
-    if (!info || !info.profile) return res.redirect('/signup/');
-    
-    req.app.db.models.User.findOne({ 'facebook.id': info.profile.id }, function(err, user) {
-      if (err) return next(err);
-      
-      if (!user) {
-        req.session.socialProfile = info.profile;
-        res.render('signup/social', { email: info.profile.emails[0].value || '' });
+      if (!user)
+      {
+        request.session.socialProfile = info.profile;
+        response.render('signup/social', { email: info.profile.emails[0].value || '' });
       }
-      else {
-        res.render('signup/index', {
+      else
+      {
+        response.render('signup/index',
+        {
           oauthMessage: 'We found a user linked to your Facebook account.',
-          oauthTwitter: !!req.app.get('twitter-oauth-key'),
-          oauthGitHub: !!req.app.get('github-oauth-key'),
-          oauthFacebook: !!req.app.get('facebook-oauth-key')
+          oauthTwitter: !!request.app.get('twitter-oauth-key'),
+          oauthGitHub: !!request.app.get('github-oauth-key'),
+          oauthFacebook: !!request.app.get('facebook-oauth-key')
         });
       }
     });
-  })(req, res, next);
+  })(request, response, next);
 };
 
+/*******************************************************************************
+ * signupSocial()
+ *******************************************************************************
+ * Create a new user based on a social login.
+ *
+ * Inputs:
+ *   request:
+ *
+ *   response:
+ */
+exports.signupSocial = function(request, response)
+{
+  var workflow = new request.app.utility.Workflow(request, response);
 
-
-exports.signupSocial = function(req, res){
-  var workflow = new req.app.utility.Workflow(req, res);
-  
-  workflow.on('validate', function() {
-    if (!req.body.email) {
+  workflow.on('validate', function()
+  {
+    if (!request.body.email)
       workflow.outcome.errfor.email = 'required';
-    }
-    else if (!/^[a-zA-Z0-9\-\_\.\+]+@[a-zA-Z0-9\-\_\.]+\.[a-zA-Z0-9\-\_]+$/.test(req.body.email)) {
+    else if (!/^[a-zA-Z0-9\-\_\.\+]+@[a-zA-Z0-9\-\_\.]+\.[a-zA-Z0-9\-\_]+$/.test(request.body.email))
       workflow.outcome.errfor.email = 'invalid email format';
-    }
-    
+
     //return if we have errors already
-    if (workflow.hasErrors()) return workflow.emit('response');
-    
+    if (workflow.hasErrors())
+      return workflow.emit('response');
+
     workflow.emit('duplicateUsernameCheck');
   });
-  
-  workflow.on('duplicateUsernameCheck', function() {
-    workflow.username = req.session.socialProfile.username;
-    if (!/^[a-zA-Z0-9\-\_]+$/.test(workflow.username)) {
+
+  // Check for user name already in use.
+  workflow.on('duplicateUsernameCheck', function()
+  {
+    workflow.username = request.session.socialProfile.username;
+    if (!/^[a-zA-Z0-9\-\_]+$/.test(workflow.username))
       workflow.username = workflow.username.replace(/[^a-zA-Z0-9\-\_]/g, '');
-    }
-    
-    req.app.db.models.User.findOne({ username: workflow.username }, function(err, user) {
-      if (err) return workflow.emit('exception', err);
-      
-      if (user) {
-        workflow.username = workflow.username + req.session.socialProfile.id;
-      }
-      else {
+
+    request.app.db.models.User.findOne({ username: workflow.username }, function(err, user)
+    {
+      if (err)
+        return workflow.emit('exception', err);
+
+      if (user)
+        workflow.username = workflow.username + request.session.socialProfile.id;
+      else
         workflow.username = workflow.username;
-      }
-      
+
       workflow.emit('duplicateEmailCheck');
     });
   });
-  
-  workflow.on('duplicateEmailCheck', function() {
-    req.app.db.models.User.findOne({ email: req.body.email }, function(err, user) {
-      if (err) return workflow.emit('exception', err);
-      
-      if (user) {
+
+  // Check for email already in use.
+  workflow.on('duplicateEmailCheck', function()
+  {
+    request.app.db.models.User.findOne({ email: request.body.email }, function(err, user)
+    {
+      if (err)
+        return workflow.emit('exception', err);
+
+      if (user)
+      {
         workflow.outcome.errfor.email = 'email already registered';
         return workflow.emit('response');
       }
-      
+
       workflow.emit('createUser');
     });
   });
-  
-  workflow.on('createUser', function() {
-    var fieldsToSet = {
+
+  // Create the user record.
+  workflow.on('createUser', function()
+  {
+    var fieldsToSet =
+    {
       isActive: 'yes',
       username: workflow.username,
-      email: req.body.email,
+      email: request.body.email,
+      password: request.app.db.models.User.encryptPassword(request.body.password),
       search: [
         workflow.username,
-        req.body.email
+        request.body.email
       ]
     };
-    fieldsToSet[req.session.socialProfile.provider] = req.session.socialProfile._json;
-    
-    req.app.db.models.User.create(fieldsToSet, function(err, user) {
-      if (err) return workflow.emit('exception', err);
-      
+
+    fieldsToSet[request.session.socialProfile.provider] = request.session.socialProfile._json;
+
+    request.app.db.models.User.create(fieldsToSet, function(err, user)
+    {
+      if (err)
+        return workflow.emit('exception', err);
+
       workflow.user = user;
       workflow.emit('createAccount');
     });
   });
-  
-  workflow.on('createAccount', function() {
-    var nameParts = req.session.socialProfile.displayName.split(' ');
-    var fieldsToSet = {
-      'name.first': nameParts[0],
-      'name.last': nameParts[1] || '',
-      'name.full': req.session.socialProfile.displayName,
-      user: {
+
+  // Create an account record linked to the user record.
+  workflow.on('createAccount', function()
+  {
+    var nameParts = request.session.socialProfile.displayName.split(' ');
+
+    var firstName = nameParts[0];
+    var lastName = nameParts[1] || '';
+
+    var fieldsToSet =
+    {
+      'name.first': firstName,
+      'name.last': lastName,
+      'name.full': request.session.socialProfile.displayName,
+
+      user:
+      {
         id: workflow.user._id,
         name: workflow.user.username
       },
+
       search: [
-        nameParts[0],
-        nameParts[1] || ''
+        firstName,
+        lastName
       ]
     };
-    req.app.db.models.Account.create(fieldsToSet, function(err, account) {
-      if (err) return workflow.emit('exception', err);
-      
+
+    request.app.db.models.Account.create(fieldsToSet, function(err, account)
+    {
+      if (err)
+        return workflow.emit('exception', err);
+
       //update user with account
       workflow.user.roles.account = account._id;
-      workflow.user.save(function(err, user) {
-        if (err) return workflow.emit('exception', err);
+      workflow.user.save(function(err, user)
+      {
+        if (err)
+          return workflow.emit('exception', err);
+
         workflow.emit('sendWelcomeEmail');
       });
     });
   });
-  
-  workflow.on('sendWelcomeEmail', function() {
-    req.app.utility.email(req, res, {
-      from: req.app.get('email-from-name') +' <'+ req.app.get('email-from-address') +'>',
-      to: req.body.email,
-      subject: 'Your '+ req.app.get('project-name') +' Account',
+
+  // Send a welcome email.
+  workflow.on('sendWelcomeEmail', function()
+  {
+    request.app.utility.email(request, response,
+    {
+      from: request.app.get('email-from-name') +' <'+ request.app.get('email-from-address') +'>',
+      to: request.body.email,
+      subject: 'Your '+ request.app.get('project-name') +' Account',
       textPath: 'signup/email-text',
       htmlPath: 'signup/email-html',
-      locals: {
+
+      locals:
+      {
         username: workflow.user.username,
-        email: req.body.email,
-        loginURL: 'http://'+ req.headers.host +'/login/',
-        projectName: req.app.get('project-name')
+        email: request.body.email,
+        loginURL: 'http://'+ request.headers.host +'/login/',
+        projectName: request.app.get('project-name')
       },
-      success: function(message) {
+
+      success: function(message)
+      {
         workflow.emit('logUserIn');
       },
-      error: function(err) {
+
+      error: function(err)
+      {
         console.log('Error Sending Welcome Email: '+ err);
         workflow.emit('logUserIn');
       }
     });
   });
-  
-  workflow.on('logUserIn', function() {
-    req.login(workflow.user, function(err) {
-      if (err) return workflow.emit('exception', err);
-      
-      delete req.session.socialProfile;
+
+  // Automatically log the new user in.
+  workflow.on('logUserIn', function()
+  {
+    request.login(workflow.user, function(err)
+    {
+      if (err)
+        return workflow.emit('exception', err);
+
+      delete request.session.socialProfile;
       workflow.outcome.defaultReturnUrl = workflow.user.defaultReturnUrl();
       workflow.emit('response');
     });
   });
-  
+
+  // Kick off the workflow processing.
   workflow.emit('validate');
 };

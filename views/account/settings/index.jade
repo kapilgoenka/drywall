@@ -38,7 +38,7 @@ block body
               |  Disconnect GitHub
           else
             a.btn.btn-block.btn-info(href='/account/settings/github/')
-              i.icon-twitter.icon-large
+              i.icon-github.icon-large
               |  Connect GitHub
         if oauthFacebook
           if oauthFacebookActive
@@ -49,7 +49,7 @@ block body
             a.btn.btn-block.btn-info(href='/account/settings/facebook/')
               i.icon-facebook-sign.icon-large
               |  Connect Facebook
-  
+
   script(type='text/template', id='tmpl-details')
     legend Contact Info
     div.alerts
@@ -94,7 +94,7 @@ block body
         span.help-inline <%= errfor.zip %>
     div.form-actions
       button.btn.btn-primary.btn-update(type='button') Update
-  
+
   script(type='text/template', id='tmpl-identity')
     legend Identity
     div.alerts
@@ -120,7 +120,7 @@ block body
         span.help-inline <%= errfor.email %>
     div.form-actions
       button.btn.btn-primary.btn-update(type='button') Update
-  
+
   script(type='text/template', id='tmpl-password')
     legend Set Password
     div.alerts
@@ -146,6 +146,6 @@ block body
         span.help-inline <%= errfor.confirm %>
     div.form-actions
       button.btn.btn-primary.btn-password(type='button') Set Password
-  
+
   script(type='text/template', id='data-account') !{data.account}
   script(type='text/template', id='data-user') !{data.user}

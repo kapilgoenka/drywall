@@ -91,7 +91,8 @@ exports = module.exports = function(app, passport) {
   {
     passport.use(new SinglyStrategy({
       clientID: app.get('singly-app-id'),
-      clientSecret: app.get('singly-app-secret')
+      clientSecret: app.get('singly-app-secret'),
+      authorizationURL: 'https://api.singly.com/oauth/authenticate'
     },
 
     function(accessToken, refreshToken, profile, done)

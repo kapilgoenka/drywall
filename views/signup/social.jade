@@ -10,7 +10,7 @@ block body
   div.page-header
     h1 Complete Sign Up
   #signup
-  
+
   script(type='text/template', id='tmpl-signup')
     form.form-horizontal
       div.alerts
@@ -24,7 +24,12 @@ block body
         div.controls
           input(type='text', name='email', value!='<%= email %>')
           span.help-inline <%= errfor.email %>
+      div.control-group(class!='<%= errfor.password ? "error" : "" %>')
+        label.control-label Enter Your Password:
+        div.controls
+          input(type='password', name='password', value!='<%= password %>')
+          span.help-inline <%= errfor.password %>
       div.form-actions
         button.btn.btn-primary.btn-signup(type='button') Create My Account
-  
+
   script(type='text/template', id='data-email') !{email}

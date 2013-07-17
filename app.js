@@ -37,6 +37,7 @@ app.configure(function(){
   app.set('project-name', 'SportStream Webapp');
   app.set('company-name', 'SportStream');
   app.set('admin-email', 'extropy@gmail.com');
+  app.set('crypto-key', 'k3yb0ardc4t');
 
   //email (smtp) settings
   app.set('email-from-name', app.get('project-name')+ ' Website');
@@ -57,8 +58,8 @@ app.configure(function(){
   app.set('github-oauth-secret', '');
 
   //facebook settings
-  app.set('facebook-oauth-key', '247109212019120');
-  app.set('facebook-oauth-secret', '6ef812a00c5a4f4d0ed0ec48cee2aa6e');
+  app.set('facebook-oauth-key', '163806877127308');//'247109212019120');
+  app.set('facebook-oauth-secret', 'f8238d22de9e81e5c71bd410006d313d');// '6ef812a00c5a4f4d0ed0ec48cee2aa6e');
 
   //Singly settings
   app.set('singly-app-id', '401fcb43bfc43038e4c6bc381c4e1530');

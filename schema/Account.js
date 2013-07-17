@@ -9,10 +9,10 @@ exports = module.exports = function(app, mongoose)
 
     name:
     {
+      full: { type: String, default: '' },
       first: { type: String, default: '' },
       middle: { type: String, default: '' },
-      last: { type: String, default: '' },
-      full: { type: String, default: '' }
+      last: { type: String, default: '' }
     },
 
     company: { type: String, default: '' },

@@ -13,7 +13,8 @@
     defaults: {
       errors: [],
       errfor: {},
-      email: ''
+      email: '',
+      password: ''
     }
   });
 
@@ -33,6 +34,7 @@
     initialize: function() {
       this.model = new app.Signup();
       this.model.set('email', $('#data-email').text());
+      this.model.set('password', $('#data-password').text());
       this.model.bind('change', this.render, this);
       this.render();
     },
@@ -50,9 +52,10 @@
     },
     signup: function() {
       this.$el.find('.btn-signup').attr('disabled', true);
-      
+
       this.model.save({
-        email: this.$el.find('[name="email"]').val()
+        email: this.$el.find('[name="email"]').val(),
+        password: this.$el.find('[name="password"]').val()
       },{
         success: function(model, response, options) {
           if (response.success) {
@@ -74,5 +77,3 @@
   $(document).ready(function() {
     app.signupView = new app.SignupView();
   });
-
-
