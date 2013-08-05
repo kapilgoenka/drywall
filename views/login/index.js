@@ -1,178 +1,53 @@
-exports.init = function(req, res){
-  //are we logged in?
-  if (req.isAuthenticated()) {
-    res.redirect(req.user.defaultReturnUrl());
-  }
-  else {
-    res.render('login/index', {
-      returnUrl: req.query.returnUrl || '/',
-      oauthMessage: '',
-      oauthTwitter: !!req.app.get('twitter-oauth-key'),
-      oauthGitHub: !!req.app.get('github-oauth-key'),
-      oauthFacebook: !!req.app.get('facebook-oauth-key')
-    });
-  }
-};
+var LoginProcessor = require('lib/app-server/login/LoginProcessor');
 
+/*******************************************************************************
+ * init()
+ *******************************************************************************
+ * Display the login screen if user is not already logged in.
+ *
+ * Inputs:
+ *   request, response:
+ */
+exports.init = LoginProcessor.init;
 
+/*******************************************************************************
+ * loginUsernamePassword
+ *******************************************************************************
+ * Login using username and password.
+ *
+ * Inputs:
+ *   request, response
+ */
+exports.login = LoginProcessor.loginUsernamePassword;
 
-exports.login = function(req, res){
-  var workflow = new req.app.utility.Workflow(req, res);
+/*******************************************************************************
+ * loginTwitter
+ *******************************************************************************
+ * Login using Twitter auth.
+ *
+ * Inputs:
+ *   request, response, next:
+ */
+exports.loginTwitter = LoginProcessor.loginTwitter;
 
-  workflow.on('validate', function() {
-    if (!req.body.username) workflow.outcome.errfor.username = 'required';
-    if (!req.body.password) workflow.outcome.errfor.password = 'required';
+/*******************************************************************************
+ * loginFacebook
+ *******************************************************************************
+ * Login using Facebook auth.
+ *
+ * Inputs:
+ *   request, response, next:
+ */
+exports.loginFacebook = LoginProcessor.loginFacebook;
 
-    //return if we have errors already
-    if (workflow.hasErrors()) return workflow.emit('response');
+/*******************************************************************************
+ * loginGitHub
+ *******************************************************************************
+ * Login using Github auth.
+ *
+ * Inputs:
+ *   request, response, next:
+ */
+exports.loginGitHub = LoginProcessor.loginGitHub;
 
-    workflow.emit('attemptLogin');
-  });
-
-  workflow.on('attemptLogin', function() {
-    req._passport.instance.authenticate('local', function(err, user, info) {
-      if (err) return workflow.emit('exception', err);
-
-      if (!user) {
-        workflow.outcome.errors.push('Username and password combination not found or your account is inactive.');
-        return workflow.emit('response');
-      }
-      else {
-        req.login(user, function(err) {
-          if (err) return workflow.emit('exception', err);
-
-          workflow.outcome.defaultReturnUrl = user.defaultReturnUrl();
-          workflow.emit('response');
-        });
-      }
-    })(req, res);
-  });
-
-  workflow.emit('validate');
-};
-
-exports.loginTwitter = function(req, res, next){
-  req._passport.instance.authenticate('twitter', function(err, user, info) {
-    if (!info || !info.profile) return res.redirect('/login/');
-
-    req.app.db.models.User.findOne({ 'twitter.id': info.profile.id }, function(err, user) {
-      if (err) return next(err);
-
-      if (!user) {
-        res.render('login/index', {
-          returnUrl: req.query.returnUrl || '/',
-          oauthMessage: 'No users found linked to your Twitter account. You may need to create an account first.',
-          oauthTwitter: !!req.app.get('twitter-oauth-key'),
-          oauthGitHub: !!req.app.get('github-oauth-key'),
-          oauthFacebook: !!req.app.get('facebook-oauth-key')
-        });
-      }
-      else {
-        req.login(user, function(err) {
-          if (err) return next(err);
-
-          res.redirect(user.defaultReturnUrl());
-        });
-      }
-    });
-  })(req, res, next);
-};
-
-exports.loginSingly = function(req, res, next)
-{
-  req._passport.instance.authenticate('singly', function(err, user, info)
-  {
-    if (!info || !info.profile)
-      return res.redirect('/login/');
-
-    var profile = info.profile._json;
-    var twitterProfile = profile.services && profile.services.twitter;
-
-    if (!twitterProfile)
-      return res.redirect('/login/');
-
-    req.app.db.models.User.findOne({ 'twitter.id_str': twitterProfile.id }, function(err, user)
-    {
-      if (err)
-        return next(err);
-
-      if (!user)
-      {
-        res.render('login/index', {
-          returnUrl: req.query.returnUrl || '/',
-          oauthMessage: 'No users found linked to your Twitter account. You may need to create an account first.',
-          oauthTwitter: !! req.app.get('twitter-oauth-key'),
-          oauthGitHub: !! req.app.get('github-oauth-key'),
-          oauthFacebook: !! req.app.get('facebook-oauth-key')
-        });
-      }
-      else
-      {
-        req.login(user, function(err)
-        {
-          if (err)
-            return next(err);
-
-          res.redirect(user.defaultReturnUrl());
-        });
-      }
-    });
-  })(req, res, next);
-};
-
-
-exports.loginGitHub = function(req, res, next){
-  req._passport.instance.authenticate('github', function(err, user, info) {
-    if (!info || !info.profile) return res.redirect('/login/');
-
-    req.app.db.models.User.findOne({ 'github.id': info.profile.id }, function(err, user) {
-      if (err) return next(err);
-
-      if (!user) {
-        res.render('login/index', {
-          returnUrl: req.query.returnUrl || '/',
-          oauthMessage: 'No users found linked to your GitHub account. You may need to create an account first.',
-          oauthTwitter: !!req.app.get('twitter-oauth-key'),
-          oauthGitHub: !!req.app.get('github-oauth-key'),
-          oauthFacebook: !!req.app.get('facebook-oauth-key')
-        });
-      }
-      else {
-        req.login(user, function(err) {
-          if (err) return next(err);
-
-          res.redirect(user.defaultReturnUrl());
-        });
-      }
-    });
-  })(req, res, next);
-};
-
-
-
-exports.loginFacebook = function(req, res, next){
-  req._passport.instance.authenticate('facebook', { callbackURL: '/login/facebook/callback/' }, function(err, user, info) {
-    if (!info || !info.profile) return res.redirect('/login/');
-
-    req.app.db.models.User.findOne({ 'facebook.id': info.profile.id }, function(err, user) {
-      if (err) return next(err);
-
-      if (!user) {
-        res.render('login/index', {
-          returnUrl: req.query.returnUrl || '/',
-          oauthMessage: 'No users found linked to your Facebook account. You may need to create an account first.',
-          oauthTwitter: !!req.app.get('twitter-oauth-key'),
-          oauthGitHub: !!req.app.get('github-oauth-key'),
-          oauthFacebook: !!req.app.get('facebook-oauth-key')
-        });
-      }
-      else {
-        req.login(user, function(err) {
-          if (err) return next(err);
-
-          res.redirect(user.defaultReturnUrl());
-        });
-      }
-    });
-  })(req, res, next);
-};
+exports.loginSingly = LoginProcessor.loginSingly;

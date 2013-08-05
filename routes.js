@@ -82,7 +82,7 @@ exports = module.exports = function(app, passport)
   app.delete('/admin/users/:id/role-admin/', require('./views/admin/users/index').unlinkAdmin);
   app.put('/admin/users/:id/role-account/', require('./views/admin/users/index').linkAccount);
   app.delete('/admin/users/:id/role-account/', require('./views/admin/users/index').unlinkAccount);
-  app.delete('/admin/users/:id/', require('./views/admin/users/index').delete);
+  app.delete('/admin/users/:id/', require('./views/admin/users/index').deleteUser);
 
   //admin > administrators
   app.get('/admin/administrators/', require('./views/admin/administrators/index').find);
@@ -93,7 +93,7 @@ exports = module.exports = function(app, passport)
   app.put('/admin/administrators/:id/groups/', require('./views/admin/administrators/index').groups);
   app.put('/admin/administrators/:id/user/', require('./views/admin/administrators/index').linkUser);
   app.delete('/admin/administrators/:id/user/', require('./views/admin/administrators/index').unlinkUser);
-  app.delete('/admin/administrators/:id/', require('./views/admin/administrators/index').delete);
+  app.delete('/admin/administrators/:id/', require('./views/admin/administrators/index').deleteAdmin);
 
   //admin > admin groups
   app.get('/admin/admin-groups/', require('./views/admin/admin-groups/index').find);
@@ -101,7 +101,7 @@ exports = module.exports = function(app, passport)
   app.get('/admin/admin-groups/:id/', require('./views/admin/admin-groups/index').read);
   app.put('/admin/admin-groups/:id/', require('./views/admin/admin-groups/index').update);
   app.put('/admin/admin-groups/:id/permissions/', require('./views/admin/admin-groups/index').permissions);
-  app.delete('/admin/admin-groups/:id/', require('./views/admin/admin-groups/index').delete);
+  app.delete('/admin/admin-groups/:id/', require('./views/admin/admin-groups/index').deleteGroup);
 
   //admin > accounts
   app.get('/admin/accounts/', require('./views/admin/accounts/index').find);
@@ -110,7 +110,7 @@ exports = module.exports = function(app, passport)
   app.put('/admin/accounts/:id/', require('./views/admin/accounts/index').update);
   app.put('/admin/accounts/:id/user/', require('./views/admin/accounts/index').linkUser);
   app.delete('/admin/accounts/:id/user/', require('./views/admin/accounts/index').unlinkUser);
-  app.delete('/admin/accounts/:id/', require('./views/admin/accounts/index').delete);
+  app.delete('/admin/accounts/:id/', require('./views/admin/accounts/index').deleteAccount);
 
   //admin > search
   app.get('/admin/search/', require('./views/admin/search/index').find);

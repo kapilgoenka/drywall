@@ -1,33 +1,67 @@
-exports = module.exports = function(req, res)
+//
+//  Workflow.js
+//  SportStream Account Server
+//
+//  Created by Satish Bhatti
+//  Copyright 2013 SportStream. All rights reserved.
+//
+var wf = module.exports;
+
+var util = require('util'),
+    EventEmitter = require('events').EventEmitter,
+    _ = require('underscore');
+
+wf.Workflow = (function()
 {
-  var workflow = new (require('events').EventEmitter)();
-
-  workflow.outcome =
+  /*******************************************************************************
+   * Workflow()
+   *******************************************************************************
+   * Create a new instance of Workflow.
+   *
+   * Inputs:
+   *   request:
+   *
+   *   response:
+   */
+  function Workflow(request, response)
   {
-    success: false,
-    errors: [],
-    errfor: {}
-  };
+    var self = this;
 
-  workflow.hasErrors = function()
+    this.outcome =
+    {
+      success: false,
+      errors: [],
+      errfor: {}
+    };
+
+    this.on('exception', function(error)
+    {
+      self.outcome.errors.push('Exception: ' + error);
+      return self.emit('response');
+    });
+
+    this.on('response', function()
+    {
+      self.outcome.success = !self.hasErrors();
+      response.send(self.outcome);
+    });
+  }
+
+  // util.inherits(subclass, superclass)
+  util.inherits(Workflow, EventEmitter);
+
+  /*******************************************************************************
+   * hasErrors()
+   *******************************************************************************
+   * Check if this workflow has any errors.
+   */
+  Workflow.prototype.hasErrors = function()
   {
-    if (Object.keys(workflow.outcome.errfor).length != 0 || workflow.outcome.errors.length != 0)
+    if (_.size(this.outcome.errfor) !== 0 || this.outcome.errors.length !== 0)
       return true;
 
     return false;
   };
 
-  workflow.on('exception', function(err)
-  {
-    workflow.outcome.errors.push('Exception: '+ err);
-    return workflow.emit('response');
-  });
-
-  workflow.on('response', function()
-  {
-    workflow.outcome.success = !workflow.hasErrors();
-    res.send(workflow.outcome);
-  });
-
-  return workflow;
-}
+  return Workflow;
+})();
