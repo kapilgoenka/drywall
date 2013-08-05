@@ -1,4 +1,4 @@
-var UserAdmin = require('lib/app-server/admin/UserAdmin');
+var UserAdmin = require('app-server/admin/UserAdmin');
 
 /*******************************************************************************
  * find

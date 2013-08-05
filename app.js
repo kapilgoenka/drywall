@@ -29,7 +29,7 @@ app.db.once('open', function () {
 });
 
 //config data models
-require('./models')(app, mongoose);
+require('app-server/models')(app, mongoose);
 
 var redisClient = redis.createClient();//Config.redis.port, Config.redis.host);
 
@@ -148,13 +148,13 @@ app.configure('development', function(){
 });
 
 //config passport
-require('./passport')(app, passport);
+require('app-server/passport')(app, passport);
 
 //route requests
-require('./routes')(app, passport);
+require('app-server/routes')(app, passport);
 
 //utilities
-require('./utilities')(app);
+require('app-server/utilities')(app);
 
 console.log("app.get('env') = " + app.get('env'));
 

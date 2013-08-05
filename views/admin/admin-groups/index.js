@@ -1,4 +1,4 @@
-var GroupAdmin = require('lib/app-server/admin/GroupAdmin');
+var GroupAdmin = require('app-server/admin/GroupAdmin');
 
 /*******************************************************************************
  * find

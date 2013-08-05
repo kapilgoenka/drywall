@@ -1,4 +1,4 @@
-var LoginProcessor = require('lib/app-server/login/LoginProcessor');
+var LoginProcessor = require('app-server/login/LoginProcessor');
 
 /*******************************************************************************
  * init()
