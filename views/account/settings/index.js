@@ -1,5 +1,5 @@
-var SocialAccountConnector = require('lib/app-server/SocialAccountConnector'),
-    AccountUpdater = require('lib/app-server/AccountUpdater');
+var SocialAccountConnector = require('app-server/settings/SocialAccountConnector'),
+    AccountUpdater = require('app-server/settings/AccountUpdater');
 
 /*******************************************************************************
  * init

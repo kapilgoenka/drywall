@@ -1,4 +1,4 @@
-var SignupProcessor = require('lib/app-server/signup/SignupProcessor');
+var SignupProcessor = require('app-server/signup/SignupProcessor');
 
 /*******************************************************************************
  * init()

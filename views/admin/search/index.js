@@ -1,3 +1,3 @@
-var Search = require('lib/app-server/admin/Search');
+var Search = require('app-server/admin/Search');
 
 exports.find = Search.find;
