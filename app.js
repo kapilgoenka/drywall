@@ -8,8 +8,15 @@ var express = require('express'),
     passport = require('passport'),
     mongoose = require('mongoose');
 
+//  When there's no NODE_ENV environment variable, default to development
+if (!process.env.NODE_ENV)
+  process.env.NODE_ENV = 'development';
+
 //create express app
 var app = express();
+
+var App = module.exports;
+App.app = app;
 
 //mongo uri
 app.set('mongodb-uri', process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'localhost/drywall');
@@ -149,7 +156,10 @@ require('./routes')(app, passport);
 //utilities
 require('./utilities')(app);
 
+console.log("app.get('env') = " + app.get('env'));
+
 //listen up
-http.createServer(app).listen(app.get('port'), function(){
+http.createServer(app).listen(app.get('port'), function()
+{
   console.log('express server listening on port ' + app.get('port'));
 });
