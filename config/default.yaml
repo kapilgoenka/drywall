@@ -1,0 +1,27 @@
+port: 3000
+
+redis:
+  host: '10.197.21.53'
+  port: 9494
+
+sessionManager:
+  redisSessionCacheEnabled: 0
+  dbSessionCacheEnabled: 1
+  maxSessionInactivityPeriod: '2 hour'
+  expiredSessionsCleanupInterval: '4 hour'
+
+cacheControl:
+  maxAge: 3600
+
+crossDomain:
+  allowedDomainSuffix: 'sportstream.com'
+
+account:
+  maxInactivityDays: 30
+  unusedAccountsCleanupInterval: '24 hour'
+
+webappAuth:
+  username: 'webapptest'
+  password: '502edd244fbee2c865000077'
+
+mongoDBConnectURL: 'mongodb://db1:27017/sportstream, mongodb://db2:27017/sportstream, mongodb://db3:27017/sportstream'
