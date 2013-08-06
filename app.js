@@ -68,9 +68,6 @@ function initialize()
   //route requests
   require('app-server/routes')(app, passport);
 
-  //utilities
-  require('app-server/utilities')(app);
-
   log.info("app.get('env') = " + app.get('env'));
 
   dba.getDBAccessors().init(Config.mongoDBConnectURL, function(error, db)
@@ -89,18 +86,6 @@ function initialize()
 }
 
 initialize();
-
-/*
-//mongo uri
-app.set('mongodb-uri', process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'localhost/drywall');
-
-//setup mongoose
-app.db = mongoose.createConnection(app.get('mongodb-uri'));
-app.db.on('error', console.error.bind(console, 'mongoose connection error: '));
-app.db.once('open', function () {
-  console.log('mongoose open for business');
-});
-*/
 
 function configureApp()
 {
