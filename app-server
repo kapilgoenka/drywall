@@ -1,0 +1,110 @@
+#!/bin/bash
+
+export NODE_PATH=/Users/satish/sportstream/drywall/node_modules:/Users/satish/sportstream/drywall/lib:/Users/satish/sportstream/drywall
+
+ulimit -n 2048
+HERE=`dirname $0`
+cd $HERE
+
+APP_NAME=`basename $0`
+NODE=`which node`
+HAVE_NODE_VERSION=`$NODE --version`
+WHOAMI=`whoami`
+
+export BRANCH=`git symbolic-ref HEAD`
+export COMMIT=`git rev-parse HEAD`
+
+if [ "$HOSTNAME" != "" ]; then
+  export HOSTNAME=`uname -n`
+fi
+
+function start
+{
+  if [ "$1" != "" ]; then
+    export NODE_ENV=$1
+    echo NODE_ENV 2 = $NODE_ENV
+  else
+    echo "${APP_NAME}: No environment specified, will default to development"
+    export NODE_ENV=development
+  fi
+  mkdir -p logs
+}
+
+function stop
+{
+  echo "${APP_NAME}: shutting down"
+  kill `cat .APP-SERVER-PID`
+  echo
+}
+
+case "$1" in
+  start )
+    start $2
+    nohup $NODE app.js $* &
+    echo $! > .APP-SERVER-PID
+    echo $NODE_ENV > .APP-SERVER-ENV
+    ;;
+
+  stop )
+    stop
+    ;;
+
+  clusterstart )
+    start $2
+    nohup $NODE --debug lib/app-server/cluster.js 1>&2 >> logs/app-server.log &
+    echo $! > .APP-SERVER-PID
+    echo $NODE_ENV > .APP-SERVER-ENV
+    node node_modules/node-inspector/bin/inspector.js&
+    echo $! > .NODE-INSPECTOR-PID
+    ;;
+
+  debugstart )
+    start $2
+    nohup $NODE --debug app.js $* &
+    echo $! > .APP-SERVER-PID
+    echo $NODE_ENV > .APP-SERVER-ENV
+    node node_modules/node-inspector/bin/inspector.js&
+    echo $! > .NODE-INSPECTOR-PID
+    ;;
+
+  debugstop )
+    stop
+    kill `cat .NODE-INSPECTOR-PID`
+    ;;
+
+  restart )
+    stop
+    ENV=`cat .APP-SERVER-ENV`
+    start $ENV
+    ;;
+
+  debug )
+    export NODE_ENV=scbmac
+    echo NODE_ENV=$NODE_ENV
+    node node_modules/node-inspector/bin/inspector.js&
+    INSPECTOR_PID=$!
+    mkdir -p logs
+    # open http://0.0.0.0:8080/debug?port=5858
+    $NODE --debug --trace-gc  lib/app-server/index.js
+    kill $INSPECTOR_PID
+    ;;
+
+  repl )
+    node-inspector&
+    INSPECTOR_PID=$!
+    $NODE --debug lib/app-server/repl.js
+    ;;
+
+  test )
+    node node_modules/node-inspector/bin/inspector.js&
+    INSPECTOR_PID=$!
+    export NODE_ENV=test
+    shift
+    node --debug `which jasmine` $@
+    kill $INSPECTOR_PID
+    ;;
+
+  * )
+    echo "usage: ${APP_NAME} [start|stop|debug]"
+    ;;
+esac

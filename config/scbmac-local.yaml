@@ -1,0 +1,36 @@
+redis:
+  host: '127.0.0.1'
+  port: 6379
+
+sessionManager:
+  redisSessionCacheEnabled: 0
+  dbSessionCacheEnabled: 1
+  maxSessionInactivityPeriod: '1 hour'
+  expiredSessionsCleanupInterval: '3 min'
+
+# Set the default log level. Log messages below this level will not be displayed.
+logLevel: debug
+
+crossDomain:
+  allowLocalHost: 1
+  allowedHosts:
+    - 'scbmac.local:3000'
+  allowedOrigins:
+    - 'http://scbmac.local:3000'
+  accessControl:
+    Access_Control_Allow_Methods: 'GET,PUT,POST,DELETE,OPTIONS'
+    Access_Control_Allow_Headers: 'x-evri-authtoken, x-ss-app-version, x-ss-twitter-authtoken, x-ss-twitter-authtoken-secret, X-Requested-With'
+    Access_Control_Expose_Headers: 'x-evri-authtoken'
+    Access_Control_Max_Age: 2592000
+
+twitterAuth:
+  consumerKey: 'uHL6SowhaQh6WrOVSbhtVA'
+  consumerSecret: 'LsTKjFPCSEQKGQVmdTPnU1gIGGkEA4PfMMzuGqi4'
+  authCallbackUrl: 'http://app.sportstream.com/api/twitter/auth/callback'
+  authRedirectUrl: 'http://scbmac.local:3001/webapp/index.html'
+
+facebookAuth:
+  consumerKey: '163806877127308'
+  consumerSecret: 'f8238d22de9e81e5c71bd410006d313d'
+
+mongoDBConnectURL: 'mongodb://localhost:27017/drywall'

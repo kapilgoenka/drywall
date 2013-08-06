@@ -1,0 +1,37 @@
+graylog2:
+  host: '10.168.225.44'
+  port: 12201
+
+# Set the default log level. Log messages below this level will not be displayed.
+logLevel: info
+
+crossDomain:
+  allowLocalHost: 0
+  allowedHosts:
+    - 'app.sportstream.com'
+    - 'app.sportstream.com:80'
+    - 'stage.epl.sportstream.com:8080'
+    - 'epl.sportstream.com'
+    - 'sirri.sportstream.com:3001'
+    - 'premierleague.sportstream.com:3001'
+  allowedOrigins:
+    - 'http://app.sportstream.com'
+    - 'http://stage.epl.sportstream.com:8080'
+    - 'http://epl.sportstream.com'
+    - 'http://sirri.sportstream.com:3001'
+    - 'http://premierleague.sportstream.com:3001'
+  accessControl:
+    Access_Control_Allow_Methods: 'GET,PUT,POST,DELETE,OPTIONS'
+    Access_Control_Allow_Headers: 'x-evri-authtoken, x-ss-app-version, x-ss-twitter-authtoken, x-ss-twitter-authtoken-secret, X-Requested-With'
+    Access_Control_Expose_Headers: 'x-evri-authtoken'
+    Access_Control_Max_Age: 2592000
+
+twitterAuth:
+  consumerKey: 'uHL6SowhaQh6WrOVSbhtVA'
+  consumerSecret: 'LsTKjFPCSEQKGQVmdTPnU1gIGGkEA4PfMMzuGqi4'
+  authCallbackUrl: 'http://app.sportstream.com/api/twitter/auth/callback'
+  authRedirectUrl: 'http://app.sportstream.com/webapp/twitter-oauth-popup/complete.html'
+
+facebookAuth:
+  consumerKey: '247109212019120'
+  consumerSecret: '6ef812a00c5a4f4d0ed0ec48cee2aa6e'
