@@ -24,7 +24,7 @@ block body
         div.controls
           input(type='text', name='email', value!='<%= email %>')
           span.help-inline <%= errfor.email %>
-      div.control-group(class!='<%= errfor.password ? "error" : "" %>')
+      //- div.control-group(class!='<%= errfor.password ? "error" : "" %>')
         label.control-label Enter Your Password:
         div.controls
           input(type='password', name='password', value!='<%= password %>')
