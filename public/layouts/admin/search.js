@@ -16,28 +16,33 @@
       type: 'result'
     }
   });
-  
+
   app._SearchCollection = Backbone.Collection.extend({
     model: app._SearchResult,
     url: '/admin/search/',
     parse: function(response) {
       var outcome = [];
-      
+
       if (response.users.length) outcome.push({name: 'Users', type: 'header'});
       _.each(response.users, function(user) {
         outcome.push({name: user.username, url: '/admin/users/'+ user._id +'/'});
       });
-      
+
       if (response.accounts.length) outcome.push({name: 'Accounts', type: 'header'});
       _.each(response.accounts, function(account) {
         outcome.push({name: account.name.full, url: '/admin/accounts/'+ account._id +'/'});
       });
-      
+
+      if (response.twitter.length) outcome.push({name: 'Twitter', type: 'header'});
+      _.each(response.twitter, function(twitter) {
+        outcome.push({name: twitter.profile.screen_name, url: '/admin/twitter/'+ twitter._id +'/'});
+      });
+
       if (response.administrators.length) outcome.push({name: 'Administrators', type: 'header'});
       _.each(response.administrators, function(administrator) {
         outcome.push({name: administrator.name.full, url: '/admin/administrators/'+ administrator._id +'/'});
       });
-      
+
       return outcome;
     }
   });
@@ -58,13 +63,13 @@
     selectedResult: undefined,
     startKeyBuffer: function(event) {
       app._searchView.timeLastKeyPressed = (new Date());
-      
+
       //handle esc
       if (event.keyCode == 27) {
         this.clearResults();
         return;
       }
-      
+
       //handle enter
       if (event.keyCode == 13) {
         if (this.selectedResult != undefined) {
@@ -73,18 +78,18 @@
         }
         return false;
       }
-      
+
       //handle up and down
       if (event.keyCode == 38 || event.keyCode == 40) {
         this.navigateResults(event);
         return false;
       }
-      
+
       //ignore non-alphanumeric, except backspace
       if (!/[a-zA-Z0-9-_ ]/.test(String.fromCharCode(event.keyCode)) && event.keyCode != 8) {
         return;
       }
-      
+
       this.keyBuffer();
     },
     keyBuffer: function() {
@@ -97,7 +102,7 @@
         if (app._searchView.lastTimeoutID) {
           clearTimeout(app._searchView.lastTimeoutID);
         }
-        
+
         //call back in 100 milliseconds
         app._searchView.lastTimeoutID = setTimeout(app._searchView.keyBuffer, 50);
       }
@@ -108,21 +113,21 @@
         this.clearResults();
         return;
       }
-      
+
       this.collection.fetch({ data: {q: query}, reset: true });
     },
     navigateResults: function(event) {
       //navigable results
       var arrLinkResults = this.$el.find('li a').get();
-      
+
       //up or down
       var movingUp = (event.keyCode == 38);
       var movingDown = (event.keyCode == 40);
-      
+
       if (this.selectedResult == undefined && this.$el.find('li a').get(0)) {
         this.selectedResult = -1;
       }
-      
+
       //moving up
       if (movingUp && this.selectedResult == 0) {
         this.selectedResult = arrLinkResults.length - 1;
@@ -130,7 +135,7 @@
       else if (movingUp) {
         this.selectedResult -= 1;
       }
-      
+
       //moving down
       if (movingDown && this.selectedResult == (arrLinkResults.length - 1)) {
         this.selectedResult = 0;
@@ -138,10 +143,10 @@
       else if (movingDown) {
         this.selectedResult += 1;
       }
-      
+
       if (this.selectedResult > arrLinkResults.length) this.selectedResult = 0;
       if (arrLinkResults.length == 0) this.selectedResult = undefined;
-      
+
       //select the result
       this.selectResult();
     },
@@ -170,20 +175,20 @@
       else {
         this.$el.find('.dropdown').addClass('open');
       }
-      
+
       $('#_search-results-rows').empty();
-      
+
       this.collection.each(function(record) {
         var view = new app._SearchResultView({ model: record });
         $('#_search-results-rows').append( view.render().$el );
       }, this);
-      
+
       if (this.collection.length == 0) {
         $('#_search-results-rows').append( $('#tmpl-_search-results-empty-row').html() );
       }
     }
   });
-  
+
   app._SearchResultView = Backbone.View.extend({
     tagName: 'li',
     template: _.template( $('#tmpl-_search-results-row').html() ),
@@ -210,5 +215,3 @@
   $(document).ready(function() {
     app._searchView = new app._SearchView();
   });
-
-
