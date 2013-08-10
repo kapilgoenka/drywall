@@ -41,16 +41,21 @@ block body
     table.table.table-striped
       thead
         tr
-          th
-          th name
           th id
+          th name
+          th screen_name
+          th friends
+          th followers
+          th verified
       tbody#results-rows
 
   script(type='text/template', id='tmpl-results-row')
-    td
-      input.btn.btn-details(type='button', value='Edit')
-    td <%= name %>
-    td <%= _id %>
+    td <%= profile.id_str %>
+    td <%= profile.name %>
+    td <%= profile.screen_name %>
+    td <%= profile.friends_count %>
+    td <%= profile.followers_count %>
+    td <%= profile.verified %>
 
   script(type='text/template', id='tmpl-results-empty-row')
     tr

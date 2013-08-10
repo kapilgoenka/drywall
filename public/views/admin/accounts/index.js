@@ -16,7 +16,7 @@
       company: '',
       phone: '',
       zip: '',
-      userCreatedBy: {}
+      createdBy: {}
     },
     url: function() {
       return '/admin/accounts/'+ (this.isNew() ? '' : this.id +'/');
