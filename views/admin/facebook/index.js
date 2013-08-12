@@ -1,4 +1,4 @@
-var TwitterAdmin = require('app-server/admin/TwitterAdmin');
+var FacebookAdmin = require('app-server/admin/FacebookAdmin');
 
 /*******************************************************************************
  * find
@@ -8,4 +8,4 @@ var TwitterAdmin = require('app-server/admin/TwitterAdmin');
  * Inputs:
  *   request, response, next:
  */
-exports.find = TwitterAdmin.find;
+exports.find = FacebookAdmin.find;

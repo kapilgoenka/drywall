@@ -1,0 +1,72 @@
+extends ../../../layouts/admin
+
+block head
+  title Show Facebook Users
+
+block feet
+  script(src='/views/admin/users/index.js')
+
+block body
+  #header
+  #filters
+  #results-table
+  #results-paging
+
+  script(type='text/template', id='tmpl-header')
+    div.page-header
+      h1 Facebook Users
+
+  script(type='text/template', id='tmpl-filters')
+    form.filters
+      div.row
+        div.span3
+          label Name Search
+          input.stretch(name='name', type='text')
+        div.span3
+          label Sort By
+          select.stretch(name='sort')
+            option(value='_id') id &#9650;
+            option(value='-_id') id &#9660;
+            option(value='name') name &#9650;
+            option(value='-name') name &#9660;
+        div.span2
+          label Limit
+          select.stretch(name='limit')
+            option(value='10') 10 items
+            option(value='20', selected='selected') 20 items
+            option(value='50') 50 items
+            option(value='100') 100 items
+
+  script(type='text/template', id='tmpl-results-table')
+    table.table.table-striped
+      thead
+        tr
+          th id
+          th name
+          th screen_name
+          th friends
+          th followers
+          th verified
+      tbody#results-rows
+
+  script(type='text/template', id='tmpl-results-row')
+    td <%= profile.id_str %>
+    td <%= profile.name %>
+    td <%= profile.screen_name %>
+    td <%= profile.friends_count %>
+    td <%= profile.followers_count %>
+    td <%= profile.verified %>
+
+  script(type='text/template', id='tmpl-results-empty-row')
+    tr
+      td(colspan='5') no documents matched
+
+  script(type='text/template', id='tmpl-results-paging')
+    div.well
+      span Page <%= pages.current %> of <%= pages.total %> | Results <%= items.begin %> - <%= items.end %> of <%= items.total %>
+      span.btn-group.pull-right
+        button.btn.btn-page.btn-prev(data-page!='<%= pages.prev %>') Prev
+        button.btn.btn-page.btn-next(data-page!='<%= pages.next %>')  Next
+      div.clear
+
+  script(type='text/template', id='data-results') !{data.results}
