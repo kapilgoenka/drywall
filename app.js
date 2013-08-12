@@ -87,6 +87,13 @@ function initialize()
 
 initialize();
 
+/*
+setTimeout(function()
+{
+  initialize();
+}, 15000 );
+*/
+
 function configureApp()
 {
   var redisClient = redis.createClient(Config.redis.port, Config.redis.host);
