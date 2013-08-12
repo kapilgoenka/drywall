@@ -38,6 +38,11 @@
         outcome.push({name: twitter.profile.screen_name, url: '/admin/twitter/'+ twitter._id +'/'});
       });
 
+      if (response.facebook.length) outcome.push({name: 'Facebook', type: 'header'});
+      _.each(response.facebook, function(facebook) {
+        outcome.push({name: facebook.profile.name, url: '/admin/facebook/'+ facebook._id +'/'});
+      });
+
       if (response.administrators.length) outcome.push({name: 'Administrators', type: 'header'});
       _.each(response.administrators, function(administrator) {
         outcome.push({name: administrator.name.full, url: '/admin/administrators/'+ administrator._id +'/'});
