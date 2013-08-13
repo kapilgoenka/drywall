@@ -14,7 +14,7 @@
       return '/admin/users/'+ this.id +'/';
     }
   });
-  
+
   app.Delete = Backbone.Model.extend({
     idAttribute: '_id',
     defaults: {
@@ -26,7 +26,7 @@
       return '/admin/users/'+ app.mainView.model.id +'/';
     }
   });
-  
+
   app.Identity = Backbone.Model.extend({
     idAttribute: '_id',
     defaults: {
@@ -48,7 +48,7 @@
       return response;
     }
   });
-  
+
   app.Roles = Backbone.Model.extend({
     idAttribute: '_id',
     defaults: {
@@ -70,7 +70,7 @@
       return response;
     }
   });
-  
+
   app.Password = Backbone.Model.extend({
     idAttribute: '_id',
     defaults: {
@@ -109,7 +109,7 @@
       this.$el.html(this.template( this.model.attributes ));
     }
   });
-  
+
   app.IdentityView = Backbone.View.extend({
     el: '#identity',
     template: _.template( $('#tmpl-identity').html() ),
@@ -120,7 +120,7 @@
       this.model = new app.Identity();
       this.syncUp();
       app.mainView.model.bind('change', this.syncUp, this);
-      
+
       this.model.on('change', this.render, this);
       this.render();
     },
@@ -135,7 +135,7 @@
     render: function() {
       //render
       this.$el.html(this.template( this.model.attributes ));
-      
+
       //set input values
       for(var key in this.model.attributes) {
         this.$el.find('[name="'+ key +'"]').val(this.model.attributes[key]);
@@ -149,7 +149,7 @@
       });
     }
   });
-  
+
   app.RolesView = Backbone.View.extend({
     el: '#roles',
     template: _.template( $('#tmpl-roles').html() ),
@@ -165,7 +165,7 @@
       this.model = new app.Roles();
       this.syncUp();
       app.mainView.model.bind('change', this.syncUp, this);
-      
+
       this.model.on('change', this.render, this);
       this.render();
     },
@@ -178,7 +178,7 @@
     render: function() {
       //render
       this.$el.html(this.template( this.model.attributes ));
-      
+
       //set input values
       for(var key in this.model.attributes) {
         this.$el.find('[name="'+ key +'"]').val(this.model.attributes[key]);
@@ -233,7 +233,7 @@
       }
     }
   });
-  
+
   app.PasswordView = Backbone.View.extend({
     el: '#password',
     template: _.template( $('#tmpl-password').html() ),
@@ -248,7 +248,7 @@
     render: function() {
       //render
       this.$el.html(this.template( this.model.attributes ));
-      
+
       //set input values
       for(var key in this.model.attributes) {
         this.$el.find('[name="'+ key +'"]').val(this.model.attributes[key]);
@@ -261,7 +261,7 @@
       });
     }
   });
-  
+
   app.DeleteView = Backbone.View.extend({
     el: '#delete',
     template: _.template( $('#tmpl-delete').html() ),
@@ -291,15 +291,15 @@
       }
     }
   });
-  
+
   app.MainView = Backbone.View.extend({
     el: '.page .container',
     initialize: function() {
       app.mainView = this;
-      
+
       //setup model
       this.model = new app.User( JSON.parse($('#data-record').html()) );
-      
+
       //sub views
       app.headerView = new app.HeaderView();
       app.identityView = new app.IdentityView();
@@ -317,5 +317,3 @@
   $(document).ready(function() {
     app.mainView = new app.MainView();
   });
-
-

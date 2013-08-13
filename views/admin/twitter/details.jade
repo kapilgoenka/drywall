@@ -1,0 +1,58 @@
+extends ../../../layouts/admin
+
+block head
+  title Users / Details
+
+block feet
+  script(src='/views/admin/twitter/details.js')
+
+block body
+  #header
+  #identity.form-horizontal
+
+  script(type='text/template', id='tmpl-header')
+    div.page-header
+      h1
+        a(href='/admin/twitter/') Twitter Accounts
+        |  / <%= profile.name %>
+
+  script(type='text/template', id='tmpl-identity')
+    legend Identity
+    div.control-group
+      label.control-label id:
+      div.controls
+        input(type='text', readonly="readonly", name='id', value!='<%= id %>')
+    div.control-group
+      label.control-label Name:
+      div.controls
+        input(type='text', readonly="readonly", name='name', value!='<%= name %>')
+    div.control-group
+      label.control-label Screen Name:
+      div.controls
+        input(type='text', readonly="readonly", name='screen_name', value!='<%= screen_name %>')
+    div.control-group
+      label.control-label Friends Count:
+      div.controls
+        input(type='text', readonly="readonly", name='friends_count', value!='<%= friends_count %>')
+    div.control-group
+      label.control-label Followers Count:
+      div.controls
+        input(type='text', readonly="readonly", name='followers_count', value!='<%= followers_count %>')
+    div.control-group
+      label.control-label Created:
+      div.controls
+        input(type='text', readonly="readonly", name='created_at', value!='<%= created_at %>')
+    div.control-group
+      label.control-label Verified:
+      div.controls
+        input(type='text', readonly="readonly", name='verified', value!='<%= verified %>')
+    div.control-group
+      label.control-label Language:
+      div.controls
+        input(type='text', readonly="readonly", name='lang', value!='<%= lang %>')
+    div.control-group
+      label.control-label Email:
+      div.controls
+        input(type='text', readonly="readonly", name='email', value!='<%= email %>')
+
+  script(type='text/template', id='data-record') !{data.record}

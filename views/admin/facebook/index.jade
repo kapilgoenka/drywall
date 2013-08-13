@@ -4,7 +4,7 @@ block head
   title Show Facebook Users
 
 block feet
-  script(src='/views/admin/users/index.js')
+  script(src='/views/admin/facebook/index.js')
 
 block body
   #header
@@ -41,21 +41,22 @@ block body
     table.table.table-striped
       thead
         tr
+          th
           th id
           th name
-          th screen_name
-          th friends
-          th followers
-          th verified
+          th email
+          th gender
+          th location
       tbody#results-rows
 
   script(type='text/template', id='tmpl-results-row')
-    td <%= profile.id_str %>
+    td
+      input.btn.btn-details(type='button', value='Details')
+    td <%= profile.id %>
     td <%= profile.name %>
-    td <%= profile.screen_name %>
-    td <%= profile.friends_count %>
-    td <%= profile.followers_count %>
-    td <%= profile.verified %>
+    td <%= profile.email %>
+    td <%= profile.gender %>
+    td <%= profile.location && profile.location.name %>
 
   script(type='text/template', id='tmpl-results-empty-row')
     tr
