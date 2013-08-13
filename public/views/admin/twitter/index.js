@@ -11,19 +11,24 @@
   app.Record = Backbone.Model.extend({
     idAttribute: '_id',
     defaults: {
-      _id: undefined,
-      username: '',
-      email: '',
-      isActive: ''
+      id: '',
+      name: '',
+      screen_name: ' ',
+      friends_count: ' ',
+      followers_count: ' ',
+      created_at: ' ',
+      verified: ' ',
+      lang: ' ',
+      email: ''
     },
     url: function() {
-      return '/admin/users/'+ (this.isNew() ? '' : this.id +'/');
+      return '/admin/twitter/'+ (this.isNew() ? '' : this.id +'/');
     }
   });
 
   app.RecordCollection = Backbone.Collection.extend({
     model: app.Record,
-    url: '/admin/users/',
+    url: '/admin/twitter/',
     parse: function(results) {
       app.pagingView.model.set({
         pages: results.pages,
@@ -36,9 +41,7 @@
 
   app.Filter = Backbone.Model.extend({
     defaults: {
-      username: '',
-      roles: '',
-      isActive: '',
+      search: '',
       sort: '',
       limit: ''
     }
@@ -74,31 +77,6 @@
     },
     preventSubmit: function(event) {
       event.preventDefault();
-    },
-    addNewOnEnter: function(event) {
-      if (event.keyCode != 13) return;
-      event.preventDefault();
-      this.addNew();
-    },
-    addNew: function() {
-      if (this.$el.find('[name="username"]').val() == '') {
-        alert('Please enter a username.');
-      }
-      else {
-        this.model.save({
-          username: this.$el.find('[name="username"]').val()
-        },{
-          success: function(model, response, options) {
-            if (response.success) {
-              model.id = response.record._id;
-              location.href = model.url();
-            }
-            else {
-              alert(response.errors.join('\n'));
-            }
-          }
-        });
-      }
     }
   });
 
@@ -152,13 +130,26 @@
       this.model.bind('change', this.render, this);
       this.render();
     },
-    render: function() {
+    render: function()
+    {
+      //render
+/*
+      this.$el.html(this.template( this.model.attributes ));
+
+      // Set input values
+      var profile = this.model.get('profile')
+
+      for(var key in profile)
+        this.$el.find('[name="'+ key +'"]').val(profile[key]);
+*/
+///*
       this.$el.html(this.template( this.model.attributes ));
 
       //set field values
       for(var key in this.model.attributes) {
         this.$el.find('[name="'+ key +'"]').val(this.model.attributes[key]);
       }
+//*/
     },
     preventSubmit: function(event) {
       event.preventDefault();

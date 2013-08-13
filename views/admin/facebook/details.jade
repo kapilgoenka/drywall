@@ -1,0 +1,76 @@
+extends ../../../layouts/admin
+
+block head
+  title Users / Details
+
+block feet
+  script(src='/views/admin/facebook/details.js')
+
+block body
+  #header
+  #identity.form-horizontal
+
+  script(type='text/template', id='tmpl-header')
+    div.page-header
+      h1
+        a(href='/admin/facebook/') Facebook Accounts
+        |  / <%= profile.name %>
+
+  script(type='text/template', id='tmpl-identity')
+    legend Identity
+    div.control-group
+      label.control-label id:
+      div.controls
+        input(type='text', readonly="readonly", name='id', value!='<%= id %>')
+
+    div.control-group
+      label.control-label Name:
+      div.controls
+        input(type='text', readonly="readonly", name='name', value!='<%= name %>')
+
+    div.control-group
+      label.control-label First Name:
+      div.controls
+        input(type='text', readonly="readonly", name='first_name', value!='<%= first_name %>')
+
+    div.control-group
+      label.control-label Last Name:
+      div.controls
+        input(type='text', readonly="readonly", name='last_name', value!='<%= last_name %>')
+
+    div.control-group
+      label.control-label Username:
+      div.controls
+        input(type='text', readonly="readonly", name='username', value!='<%= username %>')
+
+    div.control-group
+      label.control-label Link:
+      div.controls
+        input(type='text', readonly="readonly", name='link', value!='<%= link %>')
+
+    div.control-group
+      label.control-label Gender:
+      div.controls
+        input(type='text', readonly="readonly", name='gender', value!='<%= gender %>')
+
+    div.control-group
+      label.control-label Time Zone:
+      div.controls
+        input(type='text', readonly="readonly", name='timezone', value!='<%= timezone %>')
+
+    div.control-group
+      label.control-label Locale:
+      div.controls
+        input(type='text', readonly="readonly", name='locale', value!='<%= locale %>')
+
+    div.control-group
+      label.control-label Verified:
+      div.controls
+        input(type='text', readonly="readonly", name='verified', value!='<%= verified %>')
+
+    div.control-group
+      label.control-label Email:
+      div.controls
+        input(type='text', readonly="readonly", name='email', value!='<%= email %>')
+
+  script(type='text/template', id='data-record') !{data.record}

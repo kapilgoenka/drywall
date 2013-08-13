@@ -9,3 +9,13 @@ var TwitterAdmin = require('app-server/admin/TwitterAdmin');
  *   request, response, next:
  */
 exports.find = TwitterAdmin.find;
+
+/*******************************************************************************
+ * read
+ *******************************************************************************
+ * Display a user record.
+ *
+ * Inputs:
+ *   request, response, next:
+ */
+exports.read = TwitterAdmin.read;

@@ -4,7 +4,7 @@ block head
   title Show Twitter Users
 
 block feet
-  script(src='/views/admin/users/index.js')
+  script(src='/views/admin/twitter/index.js')
 
 block body
   #header
@@ -41,6 +41,7 @@ block body
     table.table.table-striped
       thead
         tr
+          th
           th id
           th name
           th screen_name
@@ -50,6 +51,8 @@ block body
       tbody#results-rows
 
   script(type='text/template', id='tmpl-results-row')
+    td
+      input.btn.btn-details(type='button', value='Details')
     td <%= profile.id_str %>
     td <%= profile.name %>
     td <%= profile.screen_name %>
