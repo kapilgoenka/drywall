@@ -16,7 +16,7 @@ app.DeleteView = Backbone.View.extend(
 
   events:
   {
-    'click .btn-delete': 'delete',
+    'click .btn-delete': 'delete'
   },
 
   initialize: function()

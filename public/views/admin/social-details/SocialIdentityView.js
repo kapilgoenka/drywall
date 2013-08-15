@@ -37,7 +37,7 @@ app.IdentityView = Backbone.View.extend(
     this.$el.html(this.template(this.model.attributes));
 
     // Set input values
-    var profile = this.model.get('profile')
+    var profile = this.model.get('profile');
 
     for (var key in profile)
       this.$el.find('[name="' + key + '"]').val(profile[key]);

@@ -17,6 +17,6 @@ app.Forgot = Backbone.Model.extend(
     success: false,
     errors: [],
     errfor: {},
-    email: '',
+    email: ''
   }
 });

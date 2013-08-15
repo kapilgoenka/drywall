@@ -54,7 +54,7 @@ app.HeaderView = Backbone.View.extend(
 
   addNew: function()
   {
-    if (this.findUsername() == '')
+    if (this.findUsername() === '')
       alert('Please enter a name.');
     else
     {

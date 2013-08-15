@@ -17,7 +17,7 @@ app.HeaderView = app.HeaderView.extend(
   addNew: function()
   {
     console.log("foo!");
-    if (this.findUsername() == '')
+    if (this.findUsername() === '')
       alert('Please enter a name.');
     else
     {
