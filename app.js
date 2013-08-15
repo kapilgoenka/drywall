@@ -107,7 +107,7 @@ function configureApp()
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.set('strict routing', true);
-  app.set('project-name', 'SportStream Webapp');
+  app.set('project-name', 'SportStream Account System');
   app.set('company-name', 'SportStream');
   app.set('admin-email', 'extropy@gmail.com');
   app.set('crypto-key', 'k3yb0ardc4t');
