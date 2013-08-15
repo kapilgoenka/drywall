@@ -7,34 +7,88 @@
 //
 var app = app || {};
 
-app.loadScripts = loadScripts;
+app.loadScripts = loadScriptsInSeries;
 
-function loadScripts(scripts, callback)
-{
-  var taskRunner = new app.TaskRunner();
-
-  for ( var i = 0, numArgs = arguments.length; i < numArgs; i++ )
-  {
-    var arg = arguments[i];
-
-    if (_.isArray(arg))
-      taskRunner.add(loadScriptsInParallel.bind(null, arg));
-    else
-      taskRunner.add($.getScript.bind($, arg));
-  }
-
-  taskRunner.run(callback);
-}
-
-function loadScriptsInParallel(scripts, callback)
+/*******************************************************************************
+ * loadScriptsInSeries()
+ *******************************************************************************
+ * Dynamically load a set of JS files.
+ *
+ * Inputs:
+ *   scripts[], callback
+ */
+function loadScriptsInSeries(scripts, callback)
 {
   var taskRunner = new app.TaskRunner();
 
   scripts.forEach(function(script)
   {
-    taskRunner.add($.getScript.bind($, script));
+    taskRunner.add(loadScriptTask.bind(null, script));
+  } );
+
+  taskRunner.run(callback);
+}
+
+/*******************************************************************************
+ * loadScripts()
+ *******************************************************************************
+ * Dynamically load a set of JS files.
+ *
+ * Inputs:
+ *   scripts, callback
+ */
+function loadScripts()
+{
+  var taskRunner = new app.TaskRunner();
+  var i = 0;
+
+  for ( var numArgs = arguments.length - 1; i < numArgs; i++ )
+  {
+    var arg = arguments[i];
+
+    if (_.isArray(arg))
+      taskRunner.add(loadScriptsInParallelTask.bind(null, arg));
+    else
+      taskRunner.add(loadScriptTask.bind(null, arg));
+  }
+
+  var callback = arguments[i];
+  taskRunner.run(callback);
+}
+
+/*******************************************************************************
+ * loadScriptsInParallelTask()
+ *******************************************************************************
+ * TaskRunner task for dynamically loading a set of JS files in parallel.
+ *
+ * Inputs:
+ *   scripts, next
+ */
+function loadScriptsInParallelTask(scripts, next)
+{
+  var taskRunner = new app.TaskRunner();
+
+  scripts.forEach(function(script)
+  {
+    taskRunner.add(loadScriptTask.bind(null, script));
   } );
 
   taskRunner.setMaximalConcurrency();
-  taskRunner.run(callback);
+  taskRunner.run(next);
+}
+
+/*******************************************************************************
+ * loadScriptTask()
+ *******************************************************************************
+ * TaskRunner task for dynamically loading a JS file.
+ *
+ * Inputs:
+ *   script, next
+ */
+function loadScriptTask(script, next)
+{
+  $.getScript(script, function()
+  {
+    next();
+  } );
 }
