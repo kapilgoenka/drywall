@@ -14,13 +14,23 @@ function TaskRunner()
   this.tasks = [];
   this.concurrency = 0;
   this.done = null;
-  this.maxConcurrency = 10;
+  this.maxConcurrency = 1;
   this.numTasksInProgress = 0;
-};
+}
 
 TaskRunner.prototype.add = function(callback)
 {
   this.tasks.push(callback);
+};
+
+TaskRunner.prototype.setMaxConcurrency = function(maxConcurrency)
+{
+  this.maxConcurrency = maxConcurrency;
+};
+
+TaskRunner.prototype.setMaximalConcurrency = function()
+{
+  this.setMaxConcurrency(this.numTasks());
 };
 
 TaskRunner.prototype.numTasks = function()
@@ -39,7 +49,11 @@ TaskRunner.prototype.run = function(done, maxConcurrency)
   }
 
   this.done = done || this.done;
-  this.maxConcurrency = maxConcurrency || this.maxConcurrency;
+
+  // Override if supplied.
+  if (maxConcurrency)
+    this.maxConcurrency = maxConcurrency;
+
   var target = this.tasks.length;
   var that = this;
 

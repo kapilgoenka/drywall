@@ -21,7 +21,7 @@ app.HeaderView = app.HeaderView.extend(
 
   addNew: function()
   {
-    if (this.findUsername() == '')
+    if (this.findUsername() === '')
       alert('Please enter a username.');
     else
     {
@@ -35,9 +35,7 @@ app.HeaderView = app.HeaderView.extend(
             location.href = model.url();
           }
           else
-          {
             alert(response.errors.join('\n'));
-          }
         }
       });
     }

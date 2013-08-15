@@ -31,7 +31,7 @@ app.ResultsView = Backbone.View.extend(
       $('#results-rows').append(view.render().$el);
     }, this );
 
-    if (this.collection.length == 0)
+    if (this.collection.length === 0)
       $('#results-rows').append($('#tmpl-results-empty-row').html());
   }
 });
