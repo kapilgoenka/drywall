@@ -14,17 +14,7 @@ app.Identity = Backbone.Model.extend(
 
   defaults:
   {
-    id: '',
-    name: '',
-    first_name: ' ',
-    last_name: ' ',
-    username: ' ',
-    link: ' ',
-    gender: ' ',
-    timezone: ' ',
-    locale: ' ',
-    verified: ' ',
-    email: ''
+    profile: {}
   },
 
   url: function()
