@@ -19,9 +19,15 @@ block body
   script(type='text/template', id='tmpl-identity')
     legend Identity
     div.control-group
-      label.control-label id:
+      label.control-label Id:
       div.controls
         input(type='text', readonly="readonly", name='id', value!='<%= id %>')
+
+    div.control-group
+      label.control-label User Id:
+      div.controls
+        input(type='text', readonly="readonly", name='userId', value!='<%= userId %>')
+        button.btn.btn-user-open(type='button') Open
 
     div.control-group
       label.control-label Name:

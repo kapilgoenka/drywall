@@ -14,15 +14,7 @@ app.Identity = Backbone.Model.extend(
 
   defaults:
   {
-    id: '',
-    name: '',
-    screen_name: ' ',
-    friends_count: ' ',
-    followers_count: ' ',
-    created_at: ' ',
-    verified: ' ',
-    lang: ' ',
-    email: ''
+    profile: {}
   },
 
   url: function()

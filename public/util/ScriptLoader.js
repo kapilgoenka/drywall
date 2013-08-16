@@ -87,8 +87,32 @@ function loadScriptsInParallelTask(scripts, next)
  */
 function loadScriptTask(script, next)
 {
+//  $.cachedScript(script).done(function()
   $.getScript(script, function()
   {
     next();
   } );
 }
+
+/*******************************************************************************
+ * $.cachedScript()
+ *******************************************************************************
+ * Allow for caching fetched JS files.
+ *
+ * Inputs:
+ *   url, options
+ */
+$.cachedScript = function(url, options)
+{
+  // Allow user to set any option except for dataType, cache, and url
+  options = $.extend(options || {},
+  {
+    dataType: "script",
+    cache: true,
+    url: url
+  });
+
+  // Use $.ajax() since it is more flexible than $.getScript
+  // Return the jqXHR object so we can chain callbacks
+  return $.ajax(options);
+};

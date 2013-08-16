@@ -19,7 +19,10 @@ app.Identity = Backbone.Model.extend(
     errfor: {},
     isActive: '',
     username: '',
-    email: ''
+    email: '',
+    twitter: {},
+    facebook: {},
+    socialAccounts: {}
   },
 
   url: function()
