@@ -51,7 +51,7 @@ app.IdentityView = Backbone.View.extend(
 
   facebookOpen: function()
   {
-    location.href = '/admin/facebook/' + this.model.get('roles').account._id + '/';
+    location.href = '/admin/facebook/' + this.model.get('socialAccounts').facebook._id + '/';
   },
 
   render: function()
