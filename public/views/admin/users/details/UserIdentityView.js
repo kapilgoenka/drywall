@@ -40,6 +40,7 @@ app.IdentityView = Backbone.View.extend(
       username: app.mainView.model.get('username'),
       email: app.mainView.model.get('email'),
       twitter: app.mainView.model.get('twitter'),
+      facebook: app.mainView.model.get('facebook'),
       socialAccounts: app.mainView.model.get('socialAccounts')
     });
   },
