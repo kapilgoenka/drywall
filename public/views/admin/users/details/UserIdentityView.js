@@ -16,7 +16,9 @@ app.IdentityView = Backbone.View.extend(
 
   events:
   {
-    'click .btn-update': 'update'
+    'click .btn-update': 'update',
+    'click .btn-twitter-open': 'twitterOpen',
+    'click .btn-facebook-open': 'facebookOpen'
   },
 
   initialize: function()
@@ -36,18 +38,31 @@ app.IdentityView = Backbone.View.extend(
       _id: app.mainView.model.id,
       isActive: app.mainView.model.get('isActive'),
       username: app.mainView.model.get('username'),
-      email: app.mainView.model.get('email')
+      email: app.mainView.model.get('email'),
+      twitter: app.mainView.model.get('twitter'),
+      socialAccounts: app.mainView.model.get('socialAccounts')
     });
+  },
+
+  twitterOpen: function()
+  {
+    location.href = '/admin/twitter/' + this.model.get('socialAccounts').twitter._id + '/';
+  },
+
+  facebookOpen: function()
+  {
+    location.href = '/admin/facebook/' + this.model.get('roles').account._id + '/';
   },
 
   render: function()
   {
-    //render
+    // Render
     this.$el.html(this.template(this.model.attributes));
-
-    //set input values
+/*
+    // Set input values
     for (var key in this.model.attributes)
       this.$el.find('[name="' + key + '"]').val(this.model.attributes[key]);
+*/
   },
 
   update: function()

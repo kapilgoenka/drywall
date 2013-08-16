@@ -14,7 +14,10 @@ app.IdentityView = Backbone.View.extend(
 
   template: _.template($('#tmpl-identity').html()),
 
-  events: {},
+  events:
+  {
+    'click .btn-user-open': 'userOpen',
+  },
 
   initialize: function()
   {
@@ -31,15 +34,14 @@ app.IdentityView = Backbone.View.extend(
     this.model.set(app.mainView.model.toJSON());
   },
 
+  userOpen: function()
+  {
+    location.href = '/admin/users/' + this.model.get('userId') + '/';
+  },
+
   render: function()
   {
     //render
     this.$el.html(this.template(this.model.attributes));
-
-    // Set input values
-    var profile = this.model.get('profile');
-
-    for (var key in profile)
-      this.$el.find('[name="' + key + '"]').val(profile[key]);
   }
 });
