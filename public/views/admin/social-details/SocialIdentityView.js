@@ -16,7 +16,7 @@ app.IdentityView = Backbone.View.extend(
 
   events:
   {
-    'click .btn-user-open': 'userOpen',
+    'click .btn-user-open': 'userOpen'
   },
 
   initialize: function()

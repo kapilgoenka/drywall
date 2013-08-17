@@ -1,14 +1,14 @@
 //
-//  UserIdentity.js
+//  UserSocial.js
 //  SportStream Account Server
 //
 //  Created by Satish Bhatti
 //  Copyright 2013 SportStream. All rights reserved.
 //
-//@ sourceURL=UserIdentity.js
+//@ sourceURL=UserSocial.js
 var app = app || {};
 
-app.Identity = Backbone.Model.extend(
+app.Social = Backbone.Model.extend(
 {
   idAttribute: '_id',
 
@@ -17,9 +17,9 @@ app.Identity = Backbone.Model.extend(
     success: false,
     errors: [],
     errfor: {},
-    isActive: '',
-    username: '',
-    email: ''
+    twitter: {},
+    facebook: {},
+    socialAccounts: {}
   },
 
   url: function()

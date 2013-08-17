@@ -21,6 +21,7 @@ app.MainView = Backbone.View.extend(
     //sub views
     app.headerView = new app.HeaderView();
     app.identityView = new app.IdentityView();
+    app.socialAccountsView = new app.SocialAccountsView();
     app.passwordView = new app.PasswordView();
     app.rolesView = new app.RolesView();
     app.deleteView = new app.DeleteView();
