@@ -9,6 +9,7 @@ block feet
 block body
   #header
   #identity.form-horizontal
+  #social.form-horizontal
   #roles.form-horizontal
   #password.form-horizontal
   #delete.form-horizontal
@@ -35,6 +36,11 @@ block body
         | Changes have been saved.
       |<% } %>
 
+    div.control-group
+      label.control-label Id:
+      div.controls
+        input(type='text', readonly="readonly", name='userId', value!='<%= _id %>')
+
     div.control-group(class!='<%= errfor.isActive ? "error" : "" %>')
       label.control-label Is Active:
       div.controls
@@ -55,22 +61,45 @@ block body
         input(type='text', name='email', value!='<%= email %>')
         span.help-inline <%= errfor.email %>
 
-    if userData.twitter
-      div.control-group
-        label.control-label Twitter Id:
-        div.controls
-          input(type='text', readonly="readonly", name='twitterId', value!='<%= twitter.id %>')
-          button.btn.btn-twitter-open(type='button') Open
-
-    if userData.facebook
-      div.control-group
-      label.control-label Facebook Id:
-      div.controls
-        input(type='text', readonly="readonly", name='facebookId', value!='<%= facebook.id %>')
-        button.btn.btn-facebook-open(type='button') Open
-
     div.form-actions
       button.btn.btn-primary.btn-update(type='button') Update
+
+  script(type='text/template', id='tmpl-social')
+    legend Social Accounts
+    div.alerts
+      |<% _.each(errors, function(err) { %>
+      div.alert.alert-error
+        button.close(type='button', data-dismiss='alert') &times;
+        |<%= err %>
+      |<% }); %>
+    div.control-group(class!='<%= errfor.facebook ? "error" : "" %>')
+      label.control-label Facebook:
+      div.controls
+        div.input-append
+          |<% if (facebook && facebook.id) { %>
+          span.uneditable-input
+            |<%= facebook.id %>
+          button.btn.btn-warning.btn-facebook-unlink(type='button') Unlink
+          button.btn.btn-facebook-open(type='button') Open
+          |<% } else { %>
+          span.uneditable-input
+            |<%= "N/A" %>
+          |<% } %>
+        span.help-inline <%= errfor.facebook %>
+    div.control-group(class!='<%= errfor.twitter ? "error" : "" %>')
+      label.control-label Twitter:
+      div.controls
+        div.input-append
+          |<% if (twitter && twitter.id) { %>
+          span.uneditable-input
+            |<%= twitter.id %>
+          button.btn.btn-warning.btn-twitter-unlink(type='button') Unlink
+          button.btn.btn-twitter-open(type='button') Open
+          |<% } else { %>
+          span.uneditable-input
+            |<%= "N/A" %>
+          |<% } %>
+        span.help-inline <%= errfor.twitter %>
 
   script(type='text/template', id='tmpl-roles')
     legend Roles

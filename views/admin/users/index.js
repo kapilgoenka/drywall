@@ -91,6 +91,16 @@ exports.linkAccount = UserAdmin.linkAccount;
 exports.unlinkAccount = UserAdmin.unlinkAccount;
 
 /*******************************************************************************
+ * disconnectSocial
+ *******************************************************************************
+ * Disconnect a social account from a user account.
+ *
+ * Inputs:
+ *   request, response, next:
+ */
+exports.disconnectSocial = UserAdmin.disconnectSocial;
+
+/*******************************************************************************
  * deleteUser
  *******************************************************************************
  * Delete a user.

@@ -11,7 +11,18 @@ var app = app || {};
 app.User = Backbone.Model.extend(
 {
   idAttribute: '_id',
+/*
+  initialize: function()
+  {
+    console.log('User.initialize');
+  },
 
+  set: function()
+  {
+    var setArguments = Array.prototype.slice.call(arguments);
+    Backbone.Model.prototype.set.apply(this, setArguments);
+  },
+*/
   url: function()
   {
     return '/admin/users/' + this.id + '/';
