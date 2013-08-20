@@ -1,35 +1,31 @@
 //
-//  UserSocial.js
+//  GoogleIdentity.js
 //  SportStream Account Server
 //
 //  Created by Satish Bhatti
 //  Copyright 2013 SportStream. All rights reserved.
 //
-//@ sourceURL=UserSocial.js
+//@ sourceURL=GoogleIdentity.js
 var app = app || {};
 
-app.Social = Backbone.Model.extend(
+app.Identity = Backbone.Model.extend(
 {
   idAttribute: '_id',
 
   defaults:
   {
-    success: false,
-    errors: [],
-    errfor: {},
-    twitter: {},
-    facebook: {},
-    google: {},
-    socialAccounts: {}
+    profile: {}
   },
 
   url: function()
   {
-    return '/admin/users/' + app.mainView.model.id + '/';
+    return '/admin/google/' + app.mainView.model.id + '/';
   },
 
   parse: function(response)
   {
+    console.log('response = ' + JSON.stringify(response));
+
     if (response.user)
     {
       app.mainView.model.set(response.user);

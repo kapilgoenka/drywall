@@ -14,69 +14,38 @@ app._SearchCollection = Backbone.Collection.extend(
 
   url: '/admin/search/',
 
+  responseFields:
+  {
+    users: { title: "Users", name: function(data) { return data.username; } },
+    accounts: { title: "Accounts", name: function(data) { return data.name.full; } },
+    twitter: { title: "Twitter", name: function(data) { return data.profile.screen_name; } },
+    facebook: { title: "Facebook", name: function(data) { return data.profile.name; } },
+    google: { title: "Google", name: function(data) { return data.profile.name; } },
+    administrators: { title: "Administrators", name: function(data) { return data.name.full; } }
+  },
+
   parse: function(response)
   {
     var outcome = [];
 
-    if (response.users.length)
-      outcome.push({ name: 'Users', type: 'header' });
-
-    _.each(response.users, function(user)
+    _.each(this.responseFields, function(fieldDesc, field)
     {
-      outcome.push(
+      var responseForField = response[field];
+
+      if (responseForField.length > 0)
       {
-        name: user.username,
-        url: '/admin/users/' + user._id + '/'
-      });
-    });
+        outcome.push({ name: fieldDesc.title, type: 'header' });
 
-    if (response.accounts.length)
-      outcome.push({ name: 'Accounts', type: 'header' });
-
-    _.each(response.accounts, function(account)
-    {
-      outcome.push(
-      {
-        name: account.name.full,
-        url: '/admin/accounts/' + account._id + '/'
-      });
-    });
-
-    if (response.twitter.length)
-      outcome.push({ name: 'Twitter', type: 'header' });
-
-    _.each(response.twitter, function(twitter)
-    {
-      outcome.push(
-      {
-        name: twitter.profile.screen_name,
-        url: '/admin/twitter/' + twitter._id + '/'
-      });
-    });
-
-    if (response.facebook.length)
-      outcome.push({ name: 'Facebook', type: 'header' });
-
-    _.each(response.facebook, function(facebook)
-    {
-      outcome.push(
-      {
-        name: facebook.profile.name,
-        url: '/admin/facebook/' + facebook._id + '/'
-      });
-    });
-
-    if (response.administrators.length)
-      outcome.push({ name: 'Administrators', type: 'header' });
-
-    _.each(response.administrators, function(administrator)
-    {
-      outcome.push(
-      {
-        name: administrator.name.full,
-        url: '/admin/administrators/' + administrator._id + '/'
-      });
-    });
+        _.each(responseForField, function(data)
+        {
+          outcome.push(
+          {
+            name: fieldDesc.name(data),
+            url: '/admin/' + field +'/' + data._id + '/'
+          });
+        });
+      }
+    } );
 
     return outcome;
   }

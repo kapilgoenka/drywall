@@ -41,6 +41,16 @@ exports.loginTwitter = LoginProcessor.loginTwitter;
 exports.loginFacebook = LoginProcessor.loginFacebook;
 
 /*******************************************************************************
+ * loginGoogle
+ *******************************************************************************
+ * Login using Google auth.
+ *
+ * Inputs:
+ *   request, response, next:
+ */
+exports.loginGoogle = LoginProcessor.loginGoogle;
+
+/*******************************************************************************
  * loginGitHub
  *******************************************************************************
  * Login using Github auth.

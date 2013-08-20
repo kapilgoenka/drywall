@@ -122,17 +122,22 @@ function configureApp()
     ssl: true
   });
 
+  // Facebook settings
+  app.set('facebook-oauth-key', Config.facebookAuth.consumerKey);
+  app.set('facebook-oauth-secret', Config.facebookAuth.consumerSecret);
+
   // Twitter settings
   app.set('twitter-oauth-key', Config.twitterAuth.consumerKey);
   app.set('twitter-oauth-secret', Config.twitterAuth.consumerSecret);
 
+  // Google settings
+  app.set('google-oauth-key', "AIzaSyDM1ztmVgewZk9x3W8bWPDtGTZYd0N2fDw");
+  app.set('google-client-id', "143492133138.apps.googleusercontent.com");
+  app.set('google-client-secret', "57y6IVjMtvFf_N3fNvglEM8O");
+
   // Github settings
   app.set('github-oauth-key', '');
   app.set('github-oauth-secret', '');
-
-  // Facebook settings
-  app.set('facebook-oauth-key', Config.facebookAuth.consumerKey);
-  app.set('facebook-oauth-secret', Config.facebookAuth.consumerSecret);
 
   // Singly settings
   app.set('singly-app-id', '401fcb43bfc43038e4c6bc381c4e1530');

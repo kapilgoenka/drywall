@@ -21,6 +21,7 @@
     "passport-twitter": "~0.1.5",
     "passport-facebook": "~0.1.5",
     "passport-github": "~0.1.4",
+    "passport-google-oauth": "0.1.5",
     "passport-singly": ">= 0.0.0",
     "redis": "0.8.4",
     "underscore": "1.3.1",

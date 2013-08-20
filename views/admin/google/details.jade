@@ -1,0 +1,72 @@
+extends ../../../layouts/admin
+
+block head
+  title Users / Details
+
+block feet
+  script(src='/views/admin/google/details.js')
+
+block body
+  #header
+  #identity.form-horizontal
+
+  script(type='text/template', id='tmpl-header')
+    div.page-header
+      h1
+        a(href='/admin/google/') Google Accounts
+        |  / <%= profile.name %>
+
+  script(type='text/template', id='tmpl-identity')
+    legend Identity
+    div.control-group
+      label.control-label Id:
+      div.controls
+        input(type='text', readonly="readonly", name='id', value!='<%= profile.id %>')
+
+    div.control-group
+      label.control-label User Id:
+      div.controls
+        input(type='text', readonly="readonly", name='userId', value!='<%= userId %>')
+        button.btn.btn-user-open(type='button') Open
+
+    div.control-group
+      label.control-label Name:
+      div.controls
+        input(type='text', readonly="readonly", name='name', value!='<%= profile.name %>')
+
+    div.control-group
+      label.control-label First Name:
+      div.controls
+        input(type='text', readonly="readonly", name='given_name', value!='<%= profile.given_name %>')
+
+    div.control-group
+      label.control-label Last Name:
+      div.controls
+        input(type='text', readonly="readonly", name='family_name', value!='<%= profile.family_name %>')
+
+    div.control-group
+      label.control-label Link:
+      div.controls
+        input(type='text', readonly="readonly", name='link', value!='<%= profile.link %>')
+
+    div.control-group
+      label.control-label Gender:
+      div.controls
+        input(type='text', readonly="readonly", name='gender', value!='<%= profile.gender %>')
+
+    div.control-group
+      label.control-label Locale:
+      div.controls
+        input(type='text', readonly="readonly", name='locale', value!='<%= profile.locale %>')
+
+    div.control-group
+      label.control-label Verified:
+      div.controls
+        input(type='text', readonly="readonly", name='verified_email', value!='<%= profile.verified_email %>')
+
+    div.control-group
+      label.control-label Email:
+      div.controls
+        input(type='text', readonly="readonly", name='email', value!='<%= profile.email %>')
+
+  script(type='text/template', id='data-record') !{data.record}
