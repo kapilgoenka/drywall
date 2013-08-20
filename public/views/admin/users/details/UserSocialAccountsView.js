@@ -17,9 +17,13 @@ app.SocialAccountsView = Backbone.View.extend(
   events:
   {
     'click .btn-twitter-open': 'twitterOpen',
-    'click .btn-facebook-open': 'facebookOpen',
     'click .btn-twitter-unlink': 'twitterUnlink',
-    'click .btn-facebook-unlink': 'facebookUnlink'
+
+    'click .btn-facebook-open': 'facebookOpen',
+    'click .btn-facebook-unlink': 'facebookUnlink',
+
+    'click .btn-google-open': 'googleOpen',
+    'click .btn-google-unlink': 'googleUnlink'
   },
 
   initialize: function()
@@ -39,6 +43,7 @@ app.SocialAccountsView = Backbone.View.extend(
       _id: app.mainView.model.id,
       twitter: app.mainView.model.get('twitter'),
       facebook: app.mainView.model.get('facebook'),
+      google: app.mainView.model.get('google'),
       socialAccounts: app.mainView.model.get('socialAccounts')
     });
   },
@@ -59,19 +64,29 @@ app.SocialAccountsView = Backbone.View.extend(
     location.href = '/admin/twitter/' + this.model.get('socialAccounts').twitter._id + '/';
   },
 
-  facebookOpen: function()
-  {
-    location.href = '/admin/facebook/' + this.model.get('socialAccounts').facebook._id + '/';
-  },
-
   twitterUnlink: function()
   {
     this.socialUnlink("twitter");
   },
 
+  facebookOpen: function()
+  {
+    location.href = '/admin/facebook/' + this.model.get('socialAccounts').facebook._id + '/';
+  },
+
   facebookUnlink: function()
   {
     this.socialUnlink("facebook");
+  },
+
+  googleOpen: function()
+  {
+    location.href = '/admin/google/' + this.model.get('socialAccounts').google._id + '/';
+  },
+
+  googleUnlink: function()
+  {
+    this.socialUnlink("google");
   },
 
   socialUnlink: function(socialType)

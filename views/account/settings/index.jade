@@ -49,6 +49,15 @@ block body
             a.btn.btn-block.btn-info(href='/account/settings/facebook/')
               i.icon-facebook-sign.icon-large
               |  Connect Facebook
+        if oauthGoogle
+          if oauthGoogleActive
+            a.btn.btn-block.btn-danger(href='/account/settings/google/disconnect/')
+              i.icon-facebook-sign.icon-large
+              |  Disconnect Google
+          else
+            a.btn.btn-block.btn-info(href='/account/settings/google/')
+              i.icon-facebook-sign.icon-large
+              |  Connect Google
 
   script(type='text/template', id='tmpl-details')
     legend Contact Info

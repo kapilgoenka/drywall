@@ -1,4 +1,5 @@
-var FacebookAdmin = require('app-server/admin/FacebookAdmin');
+var sa = require('app-server/admin/SocialAdmin'),
+    FacebookAdmin = new sa.SocialAdmin( { socialType: "facebook" });
 
 /*******************************************************************************
  * find
@@ -8,7 +9,7 @@ var FacebookAdmin = require('app-server/admin/FacebookAdmin');
  * Inputs:
  *   request, response, next:
  */
-exports.find = FacebookAdmin.find;
+exports.find = FacebookAdmin.find.bind(FacebookAdmin);
 
 /*******************************************************************************
  * read
@@ -18,4 +19,4 @@ exports.find = FacebookAdmin.find;
  * Inputs:
  *   request, response, next:
  */
-exports.read = FacebookAdmin.read;
+exports.read = FacebookAdmin.read.bind(FacebookAdmin);

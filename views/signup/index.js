@@ -51,6 +51,16 @@ exports.signupTwitter = SignupProcessor.signupTwitter;
 exports.signupFacebook = SignupProcessor.signupFacebook;
 
 /*******************************************************************************
+ * signupGoogle()
+ *******************************************************************************
+ * Create a new user account via Google auth.
+ *
+ * Inputs:
+ *   request, response, next:
+ */
+exports.signupGoogle = SignupProcessor.signupGoogle;
+
+/*******************************************************************************
  * signupGitHub()
  *******************************************************************************
  * Create a new user account via github auth.

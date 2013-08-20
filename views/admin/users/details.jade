@@ -72,34 +72,46 @@ block body
         button.close(type='button', data-dismiss='alert') &times;
         |<%= err %>
       |<% }); %>
-    div.control-group(class!='<%= errfor.facebook ? "error" : "" %>')
-      label.control-label Facebook:
-      div.controls
-        div.input-append
-          |<% if (facebook && facebook.id) { %>
-          span.uneditable-input
-            |<%= facebook.id %>
-          button.btn.btn-warning.btn-facebook-unlink(type='button') Unlink
-          button.btn.btn-facebook-open(type='button') Open
-          |<% } else { %>
-          span.uneditable-input
-            |<%= "N/A" %>
-          |<% } %>
-        span.help-inline <%= errfor.facebook %>
-    div.control-group(class!='<%= errfor.twitter ? "error" : "" %>')
-      label.control-label Twitter:
-      div.controls
-        div.input-append
-          |<% if (twitter && twitter.id) { %>
-          span.uneditable-input
-            |<%= twitter.id %>
-          button.btn.btn-warning.btn-twitter-unlink(type='button') Unlink
-          button.btn.btn-twitter-open(type='button') Open
-          |<% } else { %>
-          span.uneditable-input
-            |<%= "N/A" %>
-          |<% } %>
-        span.help-inline <%= errfor.twitter %>
+
+    if userData.facebook && userData.facebook.id
+      div.control-group(class!='<%= errfor.facebook ? "error" : "" %>')
+        label.control-label Facebook:
+        div.controls
+          div.input-append
+            |<% if (facebook && facebook.id) { %>
+            span.uneditable-input
+              |<%= facebook.id %>
+            button.btn.btn-warning.btn-facebook-unlink(type='button') Unlink
+            button.btn.btn-facebook-open(type='button') Open
+            |<% } %>
+          span.help-inline <%= errfor.facebook %>
+
+    if userData.google && userData.google.id
+      div.control-group(class!='<%= errfor.google ? "error" : "" %>')
+        label.control-label Google:
+        div.controls
+          div.input-append
+            |<% if (google && google.id) { %>
+            span.uneditable-input
+              |<%= google.id %>
+            button.btn.btn-warning.btn-google-unlink(type='button') Unlink
+            button.btn.btn-google-open(type='button') Open
+            |<% } %>
+          span.help-inline <%= errfor.google %>
+
+    if userData.twitter && userData.twitter.id
+      jade.renderFile(path, { debug: <%= twitter.id %>, other: 'locals', here: 'whoop' }..
+      div.control-group(class!='<%= errfor.twitter ? "error" : "" %>')
+        label.control-label Twitter:
+        div.controls
+          div.input-append
+            |<% if (twitter && twitter.id) { %>
+            span.uneditable-input
+              |<%= twitter.id %>
+            button.btn.btn-warning.btn-twitter-unlink(type='button') Unlink
+            button.btn.btn-twitter-open(type='button') Open
+            |<% } %>
+          span.help-inline <%= errfor.twitter %>
 
   script(type='text/template', id='tmpl-roles')
     legend Roles

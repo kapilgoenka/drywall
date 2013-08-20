@@ -10,7 +10,7 @@ block body
   div.page-header
     h1 Please Login
   #login
-  
+
   if oauthTwitter || oauthGitHub || oauthFacebook
     div.form-horizontal
       h2 Or Login With...
@@ -18,7 +18,7 @@ block body
         div.alerts
           div.alert.alert-info
             button.close(type='button', data-dismiss='alert') &times;
-            |#{oauthMessage} 
+            |#{oauthMessage}
             b
               a(href='/signup/') Sign Up Here
       div.form-actions
@@ -35,7 +35,11 @@ block body
             a.btn.btn-info(href='/login/facebook/')
               i.icon-facebook-sign.icon-large
               |  Facebook
-  
+          if oauthGoogle
+            a.btn.btn-info(href='/login/google/')
+              i.icon-facebook-sign.icon-large
+              |  Google
+
   script(type='text/template', id='tmpl-login')
     form.form-horizontal
       div.alerts
@@ -56,6 +60,6 @@ block body
           span.help-inline <%= errfor.password %>
       div.form-actions
         button.btn.btn-primary.btn-login(type='button') Login
-        | 
+        |
         a.btn(href='/login/forgot/') Forgot Password?
         input(type='hidden', name='returnUrl', value=returnUrl)

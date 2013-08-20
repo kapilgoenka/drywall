@@ -1,5 +1,5 @@
 var sa = require('app-server/admin/SocialAdmin'),
-    TwitterAdmin = new sa.SocialAdmin( { socialType: "twitter" });
+    GoogleAdmin = new sa.SocialAdmin( { socialType: "google" });
 
 /*******************************************************************************
  * find
@@ -9,7 +9,7 @@ var sa = require('app-server/admin/SocialAdmin'),
  * Inputs:
  *   request, response, next:
  */
-exports.find = TwitterAdmin.find.bind(TwitterAdmin);
+exports.find = GoogleAdmin.find.bind(GoogleAdmin);
 
 /*******************************************************************************
  * read
@@ -19,4 +19,4 @@ exports.find = TwitterAdmin.find.bind(TwitterAdmin);
  * Inputs:
  *   request, response, next:
  */
-exports.read = TwitterAdmin.read.bind(TwitterAdmin);
+exports.read = GoogleAdmin.read.bind(GoogleAdmin);
