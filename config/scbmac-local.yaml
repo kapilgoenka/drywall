@@ -15,10 +15,10 @@ crossDomain:
   allowLocalHost: 1
   allowedHosts:
     - 'scbmac.local:3000'
-    - 'satish.sportstream.com:3000'
+    - 'devaccounts.sportstream.com:3000'
   allowedOrigins:
     - 'http://scbmac.local:3000'
-    - 'http://satish.sportstream.com:3000'
+    - 'http://devaccounts.sportstream.com:3000'
   accessControl:
     Access_Control_Allow_Methods: 'GET,PUT,POST,DELETE,OPTIONS'
     Access_Control_Allow_Headers: 'x-evri-authtoken, x-ss-app-version, x-ss-twitter-authtoken, x-ss-twitter-authtoken-secret, X-Requested-With'

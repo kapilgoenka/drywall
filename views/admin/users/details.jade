@@ -100,7 +100,6 @@ block body
           span.help-inline <%= errfor.google %>
 
     if userData.twitter && userData.twitter.id
-      jade.renderFile(path, { debug: <%= twitter.id %>, other: 'locals', here: 'whoop' }..
       div.control-group(class!='<%= errfor.twitter ? "error" : "" %>')
         label.control-label Twitter:
         div.controls
