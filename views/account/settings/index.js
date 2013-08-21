@@ -32,6 +32,16 @@ exports.connectTwitter = SocialAccountConnector.connectTwitter;
 exports.connectFacebook = SocialAccountConnector.connectFacebook;
 
 /*******************************************************************************
+ * connectGoogle
+ *******************************************************************************
+ * Connect a Google account to an existing user account.
+ *
+ * Inputs:
+ *   request, response, next:
+ */
+exports.connectGoogle = SocialAccountConnector.connectGoogle;
+
+/*******************************************************************************
  * connectGitHub
  *******************************************************************************
  * Connect a Github account to an existing user account.
@@ -60,6 +70,16 @@ exports.disconnectTwitter = SocialAccountConnector.disconnectTwitter;
  *   request, response, next:
  */
 exports.disconnectFacebook = SocialAccountConnector.disconnectFacebook;
+
+/*******************************************************************************
+ * disconnectGoogle
+ *******************************************************************************
+ * Disconnect a Google account from a user account.
+ *
+ * Inputs:
+ *   request, response, next:
+ */
+exports.disconnectGoogle = SocialAccountConnector.disconnectGoogle;
 
 /*******************************************************************************
  * disconnectGitHub
