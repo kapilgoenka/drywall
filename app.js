@@ -109,15 +109,15 @@ function configureApp()
   app.set('strict routing', true);
   app.set('project-name', 'SportStream Account System');
   app.set('company-name', 'SportStream');
-  app.set('admin-email', 'extropy@gmail.com');
+  app.set('admin-email', 'xxx@gmail.com');
   app.set('crypto-key', 'k3yb0ardc4t');
 
   //email (smtp) settings
   app.set('email-from-name', app.get('project-name')+ ' Website');
-  app.set('email-from-address', 'extropy@gmail.com');
+  app.set('email-from-address', 'xxx@gmail.com');
   app.set('email-credentials', {
-    user: 'extropy@gmail.com',
-    password: 'SangYuan1977!',
+    user: 'xxx@gmail.com',
+    password: '',
     host: 'smtp.gmail.com',
     ssl: true
   });
