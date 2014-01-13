@@ -55,7 +55,7 @@ Run these commands on mongo. __Obviously you should use your email address.__
 db.admingroups.insert({ _id: 'root', name: 'Root' });
 db.admins.insert({ name: {first: 'Root', last: 'Admin', full: 'Root Admin'}, groups: ['root'] });
 var rootAdmin = db.admins.findOne();
-db.users.save({ username: 'root', isActive: 'yes', email: 'your@email.addy', roles: {admin: rootAdmin._id} });
+db.users.save({ username: 'root', isActive: 'yes', email: 'your@email.addy', accounts: {admin: rootAdmin._id} });
 var rootUser = db.users.findOne();
 rootAdmin.user = { id: rootUser._id, name: rootUser.username };
 db.admins.save(rootAdmin);
@@ -88,7 +88,7 @@ Features
  - Contact page has form to email.
  - Login system with forgot password and reset password.
  - Signup and Login with Facebook, Twitter and GitHub
- - User system with seperate account and admin roles.
+ - User system with seperate account and admin accounts.
  - Admin groups with shared permission settings.
  - Administrator level permissions which override group permissions.
  - Global admin quick search component.

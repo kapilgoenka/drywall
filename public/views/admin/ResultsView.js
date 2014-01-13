@@ -16,7 +16,8 @@ app.ResultsView = Backbone.View.extend(
 
   initialize: function()
   {
-    this.collection = new app.RecordCollection(app.mainView.results.data);
+    // this.collection = new app.RecordCollection(app.mainView.results.data);
+    this.collection = new app.RecordCollection(app.mainView.results);
     this.collection.on('reset', this.render, this);
     this.render();
   },

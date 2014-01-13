@@ -1,4 +1,8 @@
 exports.init = function(req, res){
   req.logout();
-  res.redirect('/');
+
+  if (req.isAjaxRequest)
+    res.send(200);
+  else
+    res.redirect('/');
 };

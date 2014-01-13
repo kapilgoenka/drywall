@@ -17,7 +17,7 @@ app.Roles = Backbone.Model.extend(
     success: false,
     errors: [],
     errfor: {},
-    roles: {},
+    accounts: {},
     newAccountId: '',
     newAdminId: ''
   },

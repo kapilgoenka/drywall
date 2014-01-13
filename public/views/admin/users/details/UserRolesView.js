@@ -12,7 +12,7 @@ app.RolesView = Backbone.View.extend(
 {
   el: '#roles',
 
-  template: _.template($('#tmpl-roles').html()),
+  template: _.template($('#tmpl-accounts').html()),
 
   events:
   {
@@ -39,7 +39,7 @@ app.RolesView = Backbone.View.extend(
     this.model.set(
     {
       _id: app.mainView.model.id,
-      roles: app.mainView.model.get('roles')
+      accounts: app.mainView.model.get('accounts')
     });
   },
 
@@ -55,7 +55,7 @@ app.RolesView = Backbone.View.extend(
 
   adminOpen: function()
   {
-    location.href = '/admin/administrators/' + this.model.get('roles').admin._id + '/';
+    location.href = '/admin/administrators/' + this.model.get('accounts').admin._id + '/';
   },
 
   adminLink: function()
@@ -87,7 +87,7 @@ app.RolesView = Backbone.View.extend(
 
   accountOpen: function()
   {
-    location.href = '/admin/accounts/' + this.model.get('roles').account._id + '/';
+    location.href = '/admin/accounts/' + this.model.get('accounts').account._id + '/';
   },
 
   accountLink: function()

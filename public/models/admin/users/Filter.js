@@ -12,7 +12,7 @@ app.Filter = Backbone.Model.extend(
   defaults:
   {
     username: '',
-    roles: '',
+    accounts: '',
     isActive: '',
     sort: '',
     limit: ''

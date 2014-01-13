@@ -10,7 +10,7 @@ block body
   #header
   #identity.form-horizontal
   #social.form-horizontal
-  #roles.form-horizontal
+  #accounts.form-horizontal
   #password.form-horizontal
   #delete.form-horizontal
 
@@ -73,46 +73,46 @@ block body
         |<%= err %>
       |<% }); %>
 
-    if userData.facebook && userData.facebook.id
+    if userData.socialAccounts && userData.socialAccounts.facebook
       div.control-group(class!='<%= errfor.facebook ? "error" : "" %>')
         label.control-label Facebook:
         div.controls
           div.input-append
-            |<% if (facebook && facebook.id) { %>
+            |<% if (socialAccounts.facebook.profile) { %>
             span.uneditable-input
-              |<%= facebook.id %>
+              |<%= socialAccounts.facebook.profile.id %>
             button.btn.btn-warning.btn-facebook-unlink(type='button') Unlink
             button.btn.btn-facebook-open(type='button') Open
             |<% } %>
           span.help-inline <%= errfor.facebook %>
 
-    if userData.google && userData.google.id
+    if userData.socialAccounts.google && userData.socialAccounts.google
       div.control-group(class!='<%= errfor.google ? "error" : "" %>')
         label.control-label Google:
         div.controls
           div.input-append
-            |<% if (google && google.id) { %>
+            |<% if (socialAccounts.google.profile) { %>
             span.uneditable-input
-              |<%= google.id %>
+              |<%= socialAccounts.google.profile.id %>
             button.btn.btn-warning.btn-google-unlink(type='button') Unlink
             button.btn.btn-google-open(type='button') Open
             |<% } %>
           span.help-inline <%= errfor.google %>
 
-    if userData.twitter && userData.twitter.id
+    if userData.socialAccounts && userData.socialAccounts.twitter
       div.control-group(class!='<%= errfor.twitter ? "error" : "" %>')
         label.control-label Twitter:
         div.controls
           div.input-append
-            |<% if (twitter && twitter.id) { %>
+            |<% if (socialAccounts.twitter.profile) { %>
             span.uneditable-input
-              |<%= twitter.id %>
+              |<%= socialAccounts.twitter.profile.id %>
             button.btn.btn-warning.btn-twitter-unlink(type='button') Unlink
             button.btn.btn-twitter-open(type='button') Open
             |<% } %>
           span.help-inline <%= errfor.twitter %>
 
-  script(type='text/template', id='tmpl-roles')
+  script(type='text/template', id='tmpl-accounts')
     legend Roles
     div.alerts
       |<% _.each(errors, function(err) { %>
@@ -124,9 +124,9 @@ block body
       label.control-label Admin:
       div.controls
         div.input-append
-          |<% if (roles && roles.admin) { %>
+          |<% if (accounts && accounts.admin) { %>
           span.uneditable-input
-            |<%= roles.admin.name.full %>
+            |<%= accounts.admin.name.full %>
           button.btn.btn-warning.btn-admin-unlink(type='button') Unlink
           button.btn.btn-admin-open(type='button') Open
           |<% } else { %>
@@ -138,9 +138,9 @@ block body
       label.control-label Account:
       div.controls
         div.input-append
-          |<% if (roles && roles.account) { %>
+          |<% if (accounts && accounts.account) { %>
           span.uneditable-input
-            |<%= roles.account.name.full %>
+            |<%= accounts.account.name.full %>
           button.btn.btn-warning.btn-account-unlink(type='button') Unlink
           button.btn.btn-account-open(type='button') Open
           |<% } else { %>

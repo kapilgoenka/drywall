@@ -16,15 +16,19 @@ $(document).ready(function()
     "/views/admin/users/details/UserSocial.js",
     "/views/admin/users/details/UserRoles.js",
     "/views/admin/users/details/UserPassword.js",
-    "/views/admin/users/details/UserHeaderView.js",
-    "/views/admin/users/details/UserIdentityView.js",
-    "/views/admin/users/details/UserSocialAccountsView.js",
-    "/views/admin/users/details/UserRolesView.js",
-    "/views/admin/users/details/UserPasswordView.js",
-    "/views/admin/users/details/UserDeleteView.js",
     "/views/admin/users/details/UserMainView.js"],
   function()
   {
-    app.mainView = new app.MainView();
+    app.loadScripts([
+      "/views/admin/users/details/UserHeaderView.js",
+      "/views/admin/users/details/UserRolesView.js",
+      "/views/admin/users/details/UserIdentityView.js",
+      "/views/admin/users/details/UserSocialAccountsView.js",
+      "/views/admin/users/details/UserPasswordView.js",
+      "/views/admin/users/details/UserDeleteView.js"
+    ], function()
+    {
+      app.mainView = new app.MainView();
+    });
   });
 });

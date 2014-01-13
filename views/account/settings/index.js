@@ -1,5 +1,5 @@
 var SocialAccountConnector = require('app-server/settings/SocialAccountConnector'),
-    AccountUpdater = require('app-server/settings/AccountUpdater');
+    UserUpdater = require('app-server/settings/UserUpdater');
 
 /*******************************************************************************
  * init
@@ -99,7 +99,7 @@ exports.disconnectGitHub = SocialAccountConnector.disconnectGitHub;
  * Inputs:
  *   request, response, next:
  */
-exports.update = AccountUpdater.updateContactInfo;
+exports.update = UserUpdater.updateContactInfo;
 
 /*******************************************************************************
  * updateIdentity
@@ -109,7 +109,7 @@ exports.update = AccountUpdater.updateContactInfo;
  * Inputs:
  *   request, response, next:
  */
-exports.identity = AccountUpdater.updateIdentity;
+exports.identity = UserUpdater.updateIdentity;
 
 /*******************************************************************************
  * updatePassword
@@ -119,4 +119,4 @@ exports.identity = AccountUpdater.updateIdentity;
  * Inputs:
  *   request, response, next:
  */
-exports.password = AccountUpdater.updatePassword;
+exports.password = UserUpdater.updatePassword;

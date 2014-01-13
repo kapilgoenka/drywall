@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export NODE_PATH=/Users/satish/sportstream/drywall/node_modules:/Users/satish/sportstream/drywall/lib:/Users/satish/sportstream/drywall
+export NODE_PATH=$(pwd)/node_modules:$(pwd)/lib:$(pwd):$(pwd)/..
 
 ulimit -n 2048
 HERE=`dirname $0`
@@ -79,13 +79,13 @@ case "$1" in
     ;;
 
   debug )
-    export NODE_ENV=scbmac
+    export NODE_ENV=development
     echo NODE_ENV=$NODE_ENV
     node node_modules/node-inspector/bin/inspector.js&
     INSPECTOR_PID=$!
     mkdir -p logs
     # open http://0.0.0.0:8080/debug?port=5858
-    $NODE --debug --trace-gc  lib/app-server/index.js
+    $NODE --debug --trace-gc app.js
     kill $INSPECTOR_PID
     ;;
 

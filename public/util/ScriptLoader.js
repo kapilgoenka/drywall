@@ -87,8 +87,10 @@ function loadScriptsInParallelTask(scripts, next)
  */
 function loadScriptTask(script, next)
 {
-//  $.cachedScript(script).done(function()
-  $.getScript(script, function()
+  console.log('loading script ' + script);
+
+ // $.cachedScript(script).done(function()
+  $.getScript(script, function(script, textStatus, jqXHR)
   {
     next();
   } );

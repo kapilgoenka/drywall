@@ -2,19 +2,21 @@ redis:
   host: '127.0.0.1'
   port: 6379
 
-graylog2:
-  host: '10.168.225.44'
-  port: 12201
-
 riak:
-  host: '54.215.2.216'
+  host: '127.0.0.1'
   port: '8098'
 
+sessionManager:
+  redisSessionCacheEnabled: 0
+  dbSessionCacheEnabled: 1
+  maxSessionInactivityPeriod: '1 hour'
+  expiredSessionsCleanupInterval: '3 min'
+
 # Set the default log level. Log messages below this level will not be displayed.
-logLevel: info
+logLevel: debug
 
 crossDomain:
-  allowLocalHost: 0
+  allowLocalHost: 1
   allowedHosts:
     - 'ota.sportstream.com:3001'
     - 'sirri.sportstream.com:3001'
@@ -27,6 +29,9 @@ crossDomain:
     - 'premierleague.sportstream.com:3001'
     - '204.236.167.183:3000'
     - '54.201.194.58:3000'
+    - 'scbmac.local:3000'
+    - 'devaccounts.sportstream.com:3000'
+    - 'dev.sportstream.com:3000'
   allowedOrigins:
     - 'http://ota.sportstream.com:3001'
     - 'http://sirri.sportstream.com:3001'
@@ -39,6 +44,11 @@ crossDomain:
     - 'http://premierleague.sportstream.com:3001'
     - 'http://204.236.167.183:3000'
     - 'http://54.201.194.58:3000'
+    - 'http://scbmac.local:3000'
+    - 'http://devaccounts.sportstream.com:3000'
+    - 'http://localhost:3000'
+    - 'http://localhost:3001'
+    - 'http://dev.sportstream.com:3000'
   accessControl:
     Access_Control_Allow_Methods: 'GET,PUT,POST,DELETE,OPTIONS'
     Access_Control_Allow_Headers: 'Content-Type, Accept-Encoding, x-app-id, x-authtoken, x-ss-app-version, x-ss-twitter-authtoken, x-ss-twitter-authtoken-secret, X-Requested-With'
@@ -49,8 +59,10 @@ twitterAuth:
   consumerKey: 'uHL6SowhaQh6WrOVSbhtVA'
   consumerSecret: 'LsTKjFPCSEQKGQVmdTPnU1gIGGkEA4PfMMzuGqi4'
   authCallbackUrl: 'http://app.sportstream.com/api/twitter/auth/callback'
-  authRedirectUrl: 'http://app.sportstream.com/webapp/twitter-oauth-popup/complete.html'
+  authRedirectUrl: 'http://scbmac.local:3001/webapp/index.html'
 
 facebookAuth:
   consumerKey: '247109212019120'
   consumerSecret: '6ef812a00c5a4f4d0ed0ec48cee2aa6e'
+
+mongoDBConnectURL: 'mongodb://localhost:27017/drywall'
