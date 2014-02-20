@@ -71,12 +71,14 @@ html
         li.dropdown.open
           input.search-query(name='_search', type='text', placeholder='search', tab-index='1')
           ul#_search-results-rows.dropdown-menu
+
     script(type='text/template', id='tmpl-_search-results-row')
       |<% if (type && type == 'header') { %>
       |<%= name %>
       |<% } else { %>
       a(href!='<%= url %>') <%= name %>
       |<% } %>
+
     script(type='text/template', id='tmpl-_search-results-empty-row')
       li.nav-header no documents matched
     script(src='/layouts/admin/search.js')

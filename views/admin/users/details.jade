@@ -10,7 +10,7 @@ block body
   #header
   #identity.form-horizontal
   #social.form-horizontal
-  #accounts.form-horizontal
+  #roles.form-horizontal
   #password.form-horizontal
   #delete.form-horizontal
 
@@ -120,27 +120,27 @@ block body
         button.close(type='button', data-dismiss='alert') &times;
         |<%= err %>
       |<% }); %>
-    div.control-group(class!='<%= errfor.newAdminId ? "error" : "" %>')
-      label.control-label Admin:
-      div.controls
-        div.input-append
-          |<% if (accounts && accounts.admin) { %>
-          span.uneditable-input
-            |<%= accounts.admin.name.full %>
-          button.btn.btn-warning.btn-admin-unlink(type='button') Unlink
-          button.btn.btn-admin-open(type='button') Open
-          |<% } else { %>
-          input(name='newAdminId', type='text', placeholder='enter admin id')
-          button.btn.btn-success.btn-admin-link(type='button') Link
-          |<% } %>
-        span.help-inline <%= errfor.newAdminId %>
+    //- div.control-group(class!='<%= errfor.newAdminId ? "error" : "" %>')
+    //-   label.control-label Admin:
+    //-   div.controls
+    //-     div.input-append
+    //-       |<% if (accounts && accounts.admin) { %>
+    //-       span.uneditable-input
+    //-         |<%= accounts.admin.name.full %>
+    //-       button.btn.btn-warning.btn-admin-unlink(type='button') Unlink
+    //-       button.btn.btn-admin-open(type='button') Open
+    //-       |<% } else { %>
+    //-       input(name='newAdminId', type='text', placeholder='enter admin id')
+    //-       button.btn.btn-success.btn-admin-link(type='button') Link
+    //-       |<% } %>
+    //-     span.help-inline <%= errfor.newAdminId %>
     div.control-group(class!='<%= errfor.newAccountId ? "error" : "" %>')
-      label.control-label Account:
+      label.control-label Media Curation:
       div.controls
         div.input-append
-          |<% if (accounts && accounts.account) { %>
-          span.uneditable-input
-            |<%= accounts.account.name.full %>
+          |<% if (accounts && accounts.media_curation) { %>
+          span.uneditable-input.input-xxlarge
+            |<%= accounts.media_curation %>
           button.btn.btn-warning.btn-account-unlink(type='button') Unlink
           button.btn.btn-account-open(type='button') Open
           |<% } else { %>

@@ -24,7 +24,7 @@ block body
         |  / <%= name.full %>
 
   script(type='text/template', id='tmpl-details')
-    legend Contact Info
+    //- legend Contact Info
     div.alerts
       |<% _.each(errors, function(err) { %>
       div.alert.alert-error
@@ -35,76 +35,83 @@ block body
         button.close(type='button', data-dismiss='alert') &times;
         | Changes have been saved.
       |<% } %>
-    div.control-group(class!='<%= errfor.first ? "error" : "" %>')
-      label.control-label First Name:
+    div.control-group(class!='<%= errfor.savedQueries ? "error" : "" %>')
+      label.control-label Saved Queries:
       div.controls
-        input(type='text', name='first', value!='<%= first %>')
-        span.help-inline <%= errfor.first %>
-    div.control-group(class!='<%= errfor.middle ? "error" : "" %>')
-      label.control-label Middle Name:
+        textarea(rows="4", style="width:100%", name='savedQueries', value!='<%= savedQueries %>')
+        span.help-inline <%= errfor.savedQueries %>
+
+    div.control-group(class!='<%= errfor.instagramAccounts ? "error" : "" %>')
+      label.control-label Instagram Accounts:
       div.controls
-        input(type='text', name='middle', value!='<%= middle %>')
-        span.help-inline <%= errfor.middle %>
-    div.control-group(class!='<%= errfor.last ? "error" : "" %>')
-      label.control-label Last Name:
-      div.controls
-        input(type='text', name='last', value!='<%= last %>')
-        span.help-inline <%= errfor['last'] %>
-    div.control-group(class!='<%= errfor.company ? "error" : "" %>')
-      label.control-label Company Name:
-      div.controls
-        input(type='text', name='company', value!='<%= company %>')
-        span.help-inline <%= errfor.company %>
-    div.control-group(class!='<%= errfor.phone ? "error" : "" %>')
-      label.control-label Phone:
-      div.controls
-        input(type='text', name='phone', value!='<%= phone %>')
-        span.help-inline <%= errfor.phone %>
-    div.control-group(class!='<%= errfor.zip ? "error" : "" %>')
-      label.control-label Zip:
-      div.controls
-        input(type='text', name='zip', value!='<%= zip %>')
-        span.help-inline <%= errfor.zip %>
+        textarea(rows="4", style="width:100%", name='instagramAccounts', value!='<%= instagramAccounts %>')
+        span.help-inline <%= errfor.instagramAccounts %>
+
+    //- div.control-group(class!='<%= errfor.middle ? "error" : "" %>')
+    //-   label.control-label Middle Name:
+    //-   div.controls
+    //-     input(type='text', name='middle', value!='<%= middle %>')
+    //-     span.help-inline <%= errfor.middle %>
+    //- div.control-group(class!='<%= errfor.last ? "error" : "" %>')
+    //-   label.control-label Last Name:
+    //-   div.controls
+    //-     input(type='text', name='last', value!='<%= last %>')
+    //-     span.help-inline <%= errfor['last'] %>
+    //- div.control-group(class!='<%= errfor.company ? "error" : "" %>')
+    //-   label.control-label Company Name:
+    //-   div.controls
+    //-     input(type='text', name='company', value!='<%= company %>')
+    //-     span.help-inline <%= errfor.company %>
+    //- div.control-group(class!='<%= errfor.phone ? "error" : "" %>')
+    //-   label.control-label Phone:
+    //-   div.controls
+    //-     input(type='text', name='phone', value!='<%= phone %>')
+    //-     span.help-inline <%= errfor.phone %>
+    //- div.control-group(class!='<%= errfor.zip ? "error" : "" %>')
+    //-   label.control-label Zip:
+    //-   div.controls
+    //-     input(type='text', name='zip', value!='<%= zip %>')
+    //-     span.help-inline <%= errfor.zip %>
     div.form-actions
       button.btn.btn-primary.btn-update(type='button') Update
 
   script(type='text/template', id='tmpl-login')
-    legend Login
-    div.alerts
-      |<% _.each(errors, function(err) { %>
-      div.alert.alert-error
-        button.close(type='button', data-dismiss='alert') &times;
-        |<%= err %>
-      |<% }); %>
-    div.control-group(class!='<%= errfor.newUsername ? "error" : "" %>')
-      label.control-label Username:
-      div.controls
-        div.input-append
-          |<% if (name) { %>
-          span.uneditable-input
-            |<%= name %>
-          button.btn.btn-warning.btn-user-unlink(type='button') Unlink
-          button.btn.btn-user-open(type='button') Open
-          |<% } else { %>
-          input(name='newUsername', type='text', placeholder='enter a username')
-          button.btn.btn-success.btn-user-link(type='button') Link
-          |<% } %>
-        span.help-inline <%= errfor.newUsername %>
+    //- legend Login
+    //- div.alerts
+    //-   |<% _.each(errors, function(err) { %>
+    //-   div.alert.alert-error
+    //-     button.close(type='button', data-dismiss='alert') &times;
+    //-     |<%= err %>
+    //-   |<% }); %>
+    //- div.control-group(class!='<%= errfor.newUsername ? "error" : "" %>')
+    //-   label.control-label Username:
+    //-   div.controls
+    //-     div.input-append
+    //-       |<% if (name) { %>
+    //-       span.uneditable-input
+    //-         |<%= name %>
+    //-       button.btn.btn-warning.btn-user-unlink(type='button') Unlink
+    //-       button.btn.btn-user-open(type='button') Open
+    //-       |<% } else { %>
+    //-       input(name='newUsername', type='text', placeholder='enter a username')
+    //-       button.btn.btn-success.btn-user-link(type='button') Link
+    //-       |<% } %>
+    //-     span.help-inline <%= errfor.newUsername %>
 
   script(type='text/template', id='tmpl-delete')
-    legend Danger Zone
-    div.alerts
-      |<% _.each(errors, function(err) { %>
-      div.alert.alert-error
-        button.close(type='button', data-dismiss='alert') &times;
-        |<%= err %>
-      |<% }); %>
-    span.badge.badge-important
-      | If you do this, it cannot be undone.
-    |
-    span.muted
-      | You may also create orphaned document relationships too.
-    div.form-actions
-      button.btn.btn-danger.btn-delete(type='button') Delete
+    //- legend Danger Zone
+    //- div.alerts
+    //-   |<% _.each(errors, function(err) { %>
+    //-   div.alert.alert-error
+    //-     button.close(type='button', data-dismiss='alert') &times;
+    //-     |<%= err %>
+    //-   |<% }); %>
+    //- span.badge.badge-important
+    //-   | If you do this, it cannot be undone.
+    //- |
+    //- span.muted
+    //-   | You may also create orphaned document relationships too.
+    //- div.form-actions
+    //-   button.btn.btn-danger.btn-delete(type='button') Delete
 
   script(type='text/template', id='data-record') !{data.record}

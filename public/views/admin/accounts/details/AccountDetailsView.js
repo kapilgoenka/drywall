@@ -33,13 +33,8 @@ app.DetailsView = Backbone.View.extend(
   {
     this.model.set(
     {
-      _id: app.mainView.model.id,
-      first: app.mainView.model.get('name').first,
-      middle: app.mainView.model.get('name').middle,
-      last: app.mainView.model.get('name').last,
-      company: app.mainView.model.get('company'),
-      phone: app.mainView.model.get('phone'),
-      zip: app.mainView.model.get('zip')
+      savedQueries: JSON.stringify(app.mainView.model.get('savedQueries')),
+      instagramAccounts: JSON.stringify(app.mainView.model.get('instagramAccounts'))
     });
   },
 

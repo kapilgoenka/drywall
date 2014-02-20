@@ -17,12 +17,6 @@ app.Details = Backbone.Model.extend(
     success: false,
     errors: [],
     errfor: {},
-    first: '',
-    middle: '',
-    last: '',
-    company: '',
-    phone: '',
-    zip: ''
   },
 
   url: function()

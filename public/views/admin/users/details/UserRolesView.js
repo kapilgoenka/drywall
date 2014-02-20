@@ -87,7 +87,8 @@ app.RolesView = Backbone.View.extend(
 
   accountOpen: function()
   {
-    location.href = '/admin/accounts/' + this.model.get('accounts').account._id + '/';
+    // location.href = '/admin/accounts/' + this.model.get('accounts').account._id + '/';
+    location.href = '/admin/accounts/' + this.model.get('accounts').media_curation + '/';
   },
 
   accountLink: function()
