@@ -12,7 +12,7 @@ app.HeaderView = Backbone.View.extend(
 {
   el: '#header',
 
-  template: Handlebars.compile($('#tmpl-header').html()),
+  template: _.template($('#tmpl-header').html()),
 
   initialize: function()
   {

@@ -12,7 +12,7 @@ app.ResetView = Backbone.View.extend(
 {
   el: '#reset',
 
-  template: Handlebars.compile($('#tmpl-reset').html()),
+  template: _.template($('#tmpl-reset').html()),
 
   events:
   {

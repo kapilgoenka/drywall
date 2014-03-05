@@ -12,7 +12,7 @@ app.DeleteView = Backbone.View.extend(
 {
   el: '#delete',
 
-  template: _.template($('#tmpl-delete').html()),
+  template: Handlebars.compile($('#tmpl-delete').html()),
 
   events:
   {

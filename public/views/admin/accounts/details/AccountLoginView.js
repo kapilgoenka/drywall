@@ -12,7 +12,7 @@ app.LoginView = Backbone.View.extend(
 {
   el: '#login',
 
-  template: _.template($('#tmpl-login').html()),
+  template: Handlebars.compile($('#tmpl-login').html()),
 
   events:
   {

@@ -1,0 +1,50 @@
+<div id='header'></div>
+<div class='row'>
+  <div class='span8'>
+    <div id='details' class='form-horizontal'></div>
+    <div id='login' class='form-horizontal'></div>
+  </div>
+</div>
+
+<div id='delete' class='form-horizontal'></div>
+
+<script type='text/template' id='tmpl-header'>
+  <div class='page-header'>
+    <h1><a href='/admin/accounts/'>Accounts</a> / \{{first_name}}</h1>
+  </div>
+</script>
+
+<script type='text/template' id='tmpl-details'>
+  <div class='alerts'>
+    \{{#each errors}}
+      <div class='alert alert-error'>\{{this}}</div>
+    \{{/each}}
+    \{{#if success}}
+      <div class='alert alert-info'>
+        <button type='button' data-dismiss='alert' class='close'>&times;</button>Changes have been saved.
+      </div>
+    \{{/if}}
+  </div>
+
+  \{{#each events}}
+    {{!-- <div class='control-group\{{#if errfor.@key}} error\{{/if}}'> --}}
+    <div class='control-group'>
+      <label class='control-label'>\{{@key}}:</label>
+      <div class='controls'>
+        <pre rows='4' style='width:100%' name='\{{@key}}'></pre>
+        {{!-- <textarea rows='4' style='width:100%' name='\{{@key}}'></textarea> --}}
+        {{!-- <span class='help-inline'>\{{errfor.@key}}</span> --}}
+      </div>
+    </div>
+  \{{/each}}
+
+  <div class='form-actions'>
+    <button type='button' class='btn btn-primary btn-update'>Update</button>
+  </div>
+</script>
+
+<script type='text/template' id='tmpl-login'></script>
+<script type='text/template' id='tmpl-delete'></script>
+<script type='text/template' id='data-record'>
+  {{{data.record}}}
+</script>

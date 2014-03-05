@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel='stylesheet' href='/vendor/bootstrap/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='/vendor/bootstrap/css/bootstrap-responsive.min.css'>
+    <link rel='stylesheet' href='/vendor/font-awesome/css/font-awesome.min.css'>
+    <link rel='stylesheet' href='/layouts/utility.css'>
+    <link rel='stylesheet' href='/layouts/default.css'>
+    {{{neck}}}
+  </head>
+  <body>
+    <div class='navbar navbar-inverse navbar-fixed-top'>
+      <div class='navbar-inner'>
+        <div class='container'><a data-toggle='collapse' data-target='.nav-collapse' class='btn btn-navbar'><span class='icon-bar'></span><span class='icon-bar'></span><span class='icon-bar'></span></a><a href='/admin/' class='brand'><img src='/media/logo-white.png' width='150'></a>
+          <div class='nav-collapse'>
+            <ul class='nav'>
+              <li class='dropdown'><a href='#' data-toggle='dropdown' class='dropdown-toggle'>System<span class='caret'></span></a>
+                <ul class='dropdown-menu'>
+                  <li class='nav-header'>User Admin</li>
+                  <li><a href='/admin/users/'>Users</a></li>
+                  <li><a href='/admin/facebook/'>Facebook</a></li>
+                  <li><a href='/admin/twitter/'>Twitter</a></li>
+                  <li><a href='/admin/google/'>Google</a></li>
+                  <li><a href='/admin/accounts/'>Accounts</a></li>
+                  <li><a href='/admin/administrators/'>Administrators</a></li>
+                  <li><a href='/admin/admin-groups/'>Admin Groups</a></li>
+                </ul>
+              </li>
+            </ul>
+            <form class='navbar-search pull-right'>
+              <div id='_search'></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='page'>
+      <div class='container'>
+        {{{body}}}
+      </div>
+    </div>
+    <div class='footer'>
+      <div class='container'>
+        <div class='inner'><span class='copyright pull-right'>&#169; {{copyrightYear}} {{copyrightName}}</span>
+          <ul class='links'>
+            <li><a href='/'>Home</a></li>
+            <li><a href='/logout/'>Logout</a></li>
+          </ul>
+          <div class='clearfix'></div>
+        </div>
+      </div>
+    </div>
+    <script src='/vendor/jquery/jquery-1.9.1.min.js'></script>
+    <script src='/vendor/underscore/underscore-min.js'></script>
+    <script src='/vendor/backbone/backbone-min.js'></script>
+    <script src='/vendor/bootstrap/js/bootstrap.min.js'></script>
+    <script src='/vendor/moment/moment.min.js'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js'></script>
+    <script src='/layouts/utility.js'></script>
+    <script src='/util/TaskRunner.js'></script>
+    <script src='/util/ScriptLoader.js'></script>
+    {{{feet}}}
+
+    <script type='text/template' id='tmpl-_search'>
+      <ul class='nav'>
+        <li class='dropdown open'>
+          <input name='_search' type='text' placeholder='search' tab-index='1' class='search-query'>
+          <ul id='_search-results-rows' class='dropdown-menu'></ul>
+        </li>
+      </ul>
+    </script>
+
+    <script type='text/template' id='tmpl-_search-results-row'>
+
+    </script>
+
+    <script type='text/template' id='tmpl-_search-results-empty-row'>
+      <li class='nav-header'>no documents matched</li>
+    </script>
+
+    <script src='/layouts/admin/search.js'></script>
+  </body>
+</html>
