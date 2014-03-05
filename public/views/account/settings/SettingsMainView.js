@@ -17,7 +17,7 @@ app.MainView = Backbone.View.extend(
     app.mainView = this;
 
     //setup model
-    this.account = new app.Account(JSON.parse($('#data-account').html()));
+    this.account = new app.Account();
     this.user = new app.User(JSON.parse($('#data-user').html()));
 
     //sub views

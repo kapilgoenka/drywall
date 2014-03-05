@@ -76,31 +76,11 @@ block body
       div.controls
         input(type='text', name='first', value!='<%= first %>')
         span.help-inline <%= errfor.first %>
-    //- div.control-group(class!='<%= errfor.middle ? "error" : "" %>')
-    //-   label.control-label Middle Name:
-    //-   div.controls
-    //-     input(type='text', name='middle', value!='<%= middle %>')
-    //-     span.help-inline <%= errfor.middle %>
     div.control-group(class!='<%= errfor.last ? "error" : "" %>')
       label.control-label Last Name:
       div.controls
         input(type='text', name='last', value!='<%= last %>')
         span.help-inline <%= errfor['last'] %>
-    //- div.control-group(class!='<%= errfor.company ? "error" : "" %>')
-    //-   label.control-label Company Name:
-    //-   div.controls
-    //-     input(type='text', name='company', value!='<%= company %>')
-    //-     span.help-inline <%= errfor.company %>
-    //- div.control-group(class!='<%= errfor.phone ? "error" : "" %>')
-    //-   label.control-label Phone:
-    //-   div.controls
-    //-     input(type='text', name='phone', value!='<%= phone %>')
-    //-     span.help-inline <%= errfor.phone %>
-    //- div.control-group(class!='<%= errfor.zip ? "error" : "" %>')
-    //-   label.control-label Zip:
-    //-   div.controls
-    //-     input(type='text', name='zip', value!='<%= zip %>')
-    //-     span.help-inline <%= errfor.zip %>
     div.form-actions
       button.btn.btn-primary.btn-update(type='button') Update
 

@@ -2,6 +2,8 @@
 var Config = require('app-server/config'),
     log = require('app-server/log-controller').LogController.initLoggers(Config.logLevel),
     express = require('express'),
+    exphbs  = require('express3-handlebars'),
+    cons = require('consolidate'),
     http = require('http'),
     path = require('path'),
     redis = require("redis"),
@@ -66,7 +68,7 @@ app.canPlayRoleOf = function(user, role)
 
 app.defaultReturnUrl = function(user)
 {
-  var returnUrl = '/';
+  var returnUrl = '/account/';
 
   // if (this.canPlayRoleOf(user, 'media_curation'))
   //   returnUrl = '/account/';
@@ -132,13 +134,16 @@ function configureApp()
   app.disable('x-powered-by');
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
-  app.set('view engine', 'jade');
   app.set('strict routing', true);
   app.set('project-name', 'SportStream Account System');
   app.set('company-name', 'SportStream');
   app.set('admin-email', 'xxx@gmail.com');
   app.set('crypto-key', 'k3yb0ardc4t');
   app.set('JWT_TOKEN_SECRET', 'Sup3rS3cr3tK3y_for_token_auth');
+
+  app.engine('jade', cons.jade);
+  app.engine('handlebars', exphbs({defaultLayout: 'default', extname: '.handlebars', layoutsDir: 'layouts'}));
+  app.set('view engine', 'jade');
 
   app.set('APP_WHITELIST', [
     'keyword_insights',
@@ -203,7 +208,7 @@ function configureApp()
 
   app.use(function(req, res, next)
   {
-    req.isAjaxRequest = (req.headers['x-requested-with'] === 'XMLHttpRequest');
+    req.isAjaxRequest = req.headers['cookie'] === undefined;
     next();
   });
 

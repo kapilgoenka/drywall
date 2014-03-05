@@ -30,6 +30,9 @@
     "yaml": "0.2.3",
     "node-uuid": "~1.4.1",
     "riak-js": "~0.10.2",
-    "jwt-simple": "~0.1.0"
+    "jwt-simple": "~0.1.0",
+    "express3-handlebars": "~0.5.0",
+    "consolidate": "~0.10.0",
+    "handlebars": "~2.0.0-alpha.1"
   }
 }

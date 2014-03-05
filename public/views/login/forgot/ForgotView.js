@@ -12,7 +12,7 @@ app.ForgotView = Backbone.View.extend(
 {
   el: '#forgot',
 
-  template: _.template($('#tmpl-forgot').html()),
+  template:_.template($('#tmpl-forgot').html()),
 
   events:
   {

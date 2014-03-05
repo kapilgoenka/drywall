@@ -31,11 +31,11 @@ app.DetailsView = Backbone.View.extend(
 
   syncUp: function()
   {
-    this.model.set(
-    {
-      savedQueries: JSON.stringify(app.mainView.model.get('savedQueries')),
-      instagramAccounts: JSON.stringify(app.mainView.model.get('instagramAccounts'))
-    });
+    this.model.set(app.mainView.model.toJSON());
+    // this.model.set(
+    // {
+    //   savedQueries: JSON.stringify(app.mainView.model.get('savedQueries'))
+    // });
   },
 
   render: function()
@@ -44,8 +44,8 @@ app.DetailsView = Backbone.View.extend(
     this.$el.html(this.template(this.model.attributes));
 
     //set input values
-    for (var key in this.model.attributes)
-      this.$el.find('[name="' + key + '"]').val(this.model.attributes[key]);
+    for (var key in this.model.attributes.events)
+      this.$el.find('[name="' + key + '"]').val(JSON.stringify(this.model.attributes.events[key]));
   },
 
   update: function()

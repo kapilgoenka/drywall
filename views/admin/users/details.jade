@@ -61,6 +61,12 @@ block body
         input(type='text', name='email', value!='<%= email %>')
         span.help-inline <%= errfor.email %>
 
+    div.control-group(class!='<%= errfor.organization ? "error" : "" %>')
+      label.control-label Organization:
+      div.controls
+        input(type='text', name='organization', value!='<%= organization %>')
+        span.help-inline <%= errfor.organization %>
+
     div.form-actions
       button.btn.btn-primary.btn-update(type='button') Update
 

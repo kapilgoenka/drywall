@@ -36,7 +36,8 @@ app.IdentityView = Backbone.View.extend(
       _id: app.mainView.model.id,
       isActive: app.mainView.model.get('isActive'),
       username: app.mainView.model.get('username'),
-      email: app.mainView.model.get('email')
+      email: app.mainView.model.get('email'),
+      organization: app.mainView.model.get('organization').toUpperCase().replace('_', ' ')
     });
   },
 
@@ -57,7 +58,8 @@ app.IdentityView = Backbone.View.extend(
     {
       isActive: this.$el.find('[name="isActive"]').val(),
       username: this.$el.find('[name="username"]').val(),
-      email: this.$el.find('[name="email"]').val()
+      email: this.$el.find('[name="email"]').val(),
+      organization: this.$el.find('[name="organization"]').val().toLowerCase().replace(' ', '_')
     });
   }
 });

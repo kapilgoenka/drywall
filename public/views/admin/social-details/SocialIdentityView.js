@@ -12,7 +12,7 @@ app.IdentityView = Backbone.View.extend(
 {
   el: '#identity',
 
-  template: _.template($('#tmpl-identity').html()),
+  template: Handlebars.compile($('#tmpl-identity').html()),
 
   events:
   {
