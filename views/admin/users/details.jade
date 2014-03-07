@@ -41,13 +41,13 @@ block body
       div.controls
         input(type='text', readonly="readonly", name='userId', value!='<%= _id %>')
 
-    div.control-group(class!='<%= errfor.isActive ? "error" : "" %>')
-      label.control-label Is Active:
-      div.controls
-        select(name='isActive')
-          option(value='yes') yes
-          option(value='no') no
-        span.help-inline <%= errfor.isActive %>
+    //- div.control-group(class!='<%= errfor.isActive ? "error" : "" %>')
+    //-   label.control-label Is Active:
+    //-   div.controls
+    //-     select(name='isActive')
+    //-       option(value='yes') yes
+    //-       option(value='no') no
+    //-     span.help-inline <%= errfor.isActive %>
 
     div.control-group(class!='<%= errfor.username ? "error" : "" %>')
       label.control-label Username:

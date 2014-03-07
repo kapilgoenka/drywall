@@ -37,7 +37,7 @@ app.IdentityView = Backbone.View.extend(
       isActive: app.mainView.model.get('isActive'),
       username: app.mainView.model.get('username'),
       email: app.mainView.model.get('email'),
-      organization: app.mainView.model.get('organization').toUpperCase().replace('_', ' ')
+      organization: (app.mainView.model.get('organization') || '').toUpperCase().replace('_', ' ')
     });
   },
 

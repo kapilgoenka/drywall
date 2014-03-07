@@ -10,7 +10,6 @@ var Config = require('app-server/config'),
     RedisStore = require("connect-redis")(express),
     passport = require('passport'),
     crypto = require('crypto'),
-    dba = require('app-server/db-accessors'),
     cors = require('app-server/cors'),
     RiakDBAccessor = require('lib/app-server/db/RiakDBAccessor');
 
