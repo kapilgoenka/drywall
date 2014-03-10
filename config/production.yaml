@@ -19,6 +19,7 @@ crossDomain:
     - 'ota.sportstream.com:3001'
     - 'sirri.sportstream.com:3001'
     - 'sirri.sportstream.com:3002'
+    - 'dev.sportstream.com:3001'
     - 'staging.sportstream.com'
     - 'app.sportstream.com'
     - 'app.sportstream.com:80'
@@ -27,10 +28,12 @@ crossDomain:
     - 'premierleague.sportstream.com:3001'
     - '204.236.167.183:3000'
     - '54.201.194.58:3000'
+    - 'our.intern.facebook.com'
   allowedOrigins:
     - 'http://ota.sportstream.com:3001'
     - 'http://sirri.sportstream.com:3001'
     - 'http://sirri.sportstream.com:3002'
+    - 'http://dev.sportstream.com:3001'
     - 'http://staging.sportstream.com'
     - 'http://app.sportstream.com'
     - 'http://app.sportstream.com:80'
@@ -39,6 +42,7 @@ crossDomain:
     - 'http://premierleague.sportstream.com:3001'
     - 'http://204.236.167.183:3000'
     - 'http://54.201.194.58:3000'
+    - 'https://our.intern.facebook.com'
   accessControl:
     Access_Control_Allow_Methods: 'GET,PUT,POST,DELETE,OPTIONS'
     Access_Control_Allow_Headers: 'Content-Type, Accept-Encoding, x-app-id, x-authtoken, x-ss-app-version, x-ss-twitter-authtoken, x-ss-twitter-authtoken-secret, X-Requested-With'

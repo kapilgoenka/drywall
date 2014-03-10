@@ -10,7 +10,9 @@
 
 <script type='text/template' id='tmpl-header'>
   <div class='page-header'>
-    <h1><a href='/admin/accounts/'>Accounts</a> / \{{first_name}}</h1>
+    <h2>
+      <a href='/admin/accounts/'>Accounts</a> / \{{user.displayName}}
+    </h2>
   </div>
 </script>
 
@@ -27,13 +29,10 @@
   </div>
 
   \{{#each events}}
-    {{!-- <div class='control-group\{{#if errfor.@key}} error\{{/if}}'> --}}
     <div class='control-group'>
       <label class='control-label'>\{{@key}}:</label>
       <div class='controls'>
         <pre rows='4' style='width:100%' name='\{{@key}}'></pre>
-        {{!-- <textarea rows='4' style='width:100%' name='\{{@key}}'></textarea> --}}
-        {{!-- <span class='help-inline'>\{{errfor.@key}}</span> --}}
       </div>
     </div>
   \{{/each}}

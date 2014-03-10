@@ -9,15 +9,15 @@ block feet
 block body
   #header
   #identity.form-horizontal
-  #social.form-horizontal
   #roles.form-horizontal
+  #social.form-horizontal
   #password.form-horizontal
   #delete.form-horizontal
 
   -var userData = JSON.parse(data.record)
 
   script(type='text/template', id='tmpl-header')
-    div.page-header
+    div
       h1
         a(href='/admin/users/') Users
         |  / <%= username %>
@@ -119,33 +119,20 @@ block body
           span.help-inline <%= errfor.twitter %>
 
   script(type='text/template', id='tmpl-accounts')
-    legend Roles
+    legend Accounts
     div.alerts
       |<% _.each(errors, function(err) { %>
       div.alert.alert-error
         button.close(type='button', data-dismiss='alert') &times;
         |<%= err %>
       |<% }); %>
-    //- div.control-group(class!='<%= errfor.newAdminId ? "error" : "" %>')
-    //-   label.control-label Admin:
-    //-   div.controls
-    //-     div.input-append
-    //-       |<% if (accounts && accounts.admin) { %>
-    //-       span.uneditable-input
-    //-         |<%= accounts.admin.name.full %>
-    //-       button.btn.btn-warning.btn-admin-unlink(type='button') Unlink
-    //-       button.btn.btn-admin-open(type='button') Open
-    //-       |<% } else { %>
-    //-       input(name='newAdminId', type='text', placeholder='enter admin id')
-    //-       button.btn.btn-success.btn-admin-link(type='button') Link
-    //-       |<% } %>
-    //-     span.help-inline <%= errfor.newAdminId %>
+
     div.control-group(class!='<%= errfor.newAccountId ? "error" : "" %>')
       label.control-label Media Curation:
       div.controls
         div.input-append
           |<% if (accounts && accounts.media_curation) { %>
-          span.uneditable-input.input-xxlarge
+          span.uneditable-input
             |<%= accounts.media_curation %>
           button.btn.btn-warning.btn-account-unlink(type='button') Unlink
           button.btn.btn-account-open(type='button') Open

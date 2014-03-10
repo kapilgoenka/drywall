@@ -84,8 +84,34 @@ function initialize()
   app.configure(configureApp);
 
   // Config dev
-  app.configure('development', function(){
+  app.configure('development', function()
+  {
     app.use(express.errorHandler());
+
+    require('lib/app-server/db/RiakDBAccessor').findOne('users', { username: 'root' }, function(error, user)
+    {
+      if (error || !user)
+      {
+        require('lib/app-server/db/RiakDBAccessor').insertRootUser(function(error, user)
+        {
+          user.password = app.encryptPassword('evriONE88');
+
+          require('lib/app-server/db/RiakDBAccessor').update('users', user._id, user, function(error, user)
+          {
+            if (error)
+              console.log('error updating root user');
+
+            require('lib/app-server/db/RiakDBAccessor').insertRootAdmin(user, function(error, admin)
+            {
+              require('lib/app-server/db/RiakDBAccessor').insertRootGroup(function(error, group)
+              {
+                console.log('done');
+              });
+            });
+          });
+        });
+      }
+    });
   });
 
   //config passport
@@ -100,24 +126,7 @@ function initialize()
   http.createServer(app).listen(Config.port, function()
   {
     log.info('listening on port ' + Config.port);
-
-    // require('lib/app-server/db/RiakDBAccessor').findOne('users', { username: 'root' }, function(error, user)
-    // {
-    //   if (error || !user)
-    //   {
-    //     require('lib/app-server/db/RiakDBAccessor').insertRootUser(function(error, user)
-    //     {
-    //       require('lib/app-server/db/RiakDBAccessor').insertRootAdmin(user, function(error, admin)
-    //       {
-    //         require('lib/app-server/db/RiakDBAccessor').insertRootGroup(function(error, group)
-    //         {
-    //           console.log('done');
-    //         });
-    //       });
-    //     });
-    //   }
-    // });
-  } );
+  });
 }
 
 initialize();
