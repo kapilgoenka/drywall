@@ -1,0 +1,115 @@
+.no-padding
+{
+  padding:0!important;
+}
+
+.form-horizontal {
+  margin-bottom:30px;
+}
+
+.form-control, .btn {
+  border-radius:0;
+}
+
+#login .btn:hover, .btn:focus
+{
+  color:#45619d;
+}
+
+.alert {
+  padding:0;
+}
+
+legend {
+  padding-bottom:10px;
+}
+
+.top-buffer {
+  margin-top:20px;
+}
+
+.left-buffer {
+  padding-left:20px;
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+  vertical-align: inherit;
+}
+
+.nav-tabs > li > a {
+  font-size:16px;
+}
+
+.nav-tabs > li.active > a {
+  background-color:#fcfcfc;
+}
+
+.ajax-spinner {
+  display: none;
+}
+
+pre {
+  color:#636363;
+  border:none;
+}
+
+textarea {
+  padding:10px;
+}
+
+.page {
+  padding-top:60px;
+}
+
+.navbar .nav > li > a {
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 20px 15px;
+}
+
+/* tables */
+table.table thead th {
+  background-color: #ddd;
+}
+
+.table th, .table td
+{
+  line-height: 21px;
+  vertical-align: inherit;
+}
+
+/* footer */
+.footer {
+    color: #999;
+    margin-top: 50px;
+}
+.footer .container {
+    border-top: 1px solid #ccc;
+
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+}
+.footer .container .inner {
+    padding: 20px;
+}
+.footer a,
+.footer a:visited {
+    color: #999;
+}
+.footer ul.links {
+    margin: 0px;
+}
+.footer ul.links li {
+    list-style: none;
+    display: inline-block;
+    padding-right: 10px;
+    margin-right: 10px;
+    border-right: 1px dotted #999;
+}
+.footer ul.links li:last-child {
+    padding-right: 0px;
+    margin-right: 0px;
+    border: none;
+}

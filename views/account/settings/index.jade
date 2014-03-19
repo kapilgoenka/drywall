@@ -7,14 +7,13 @@ block feet
   script(src='/views/account/settings/index.js')
 
 block body
-  div.page-header
-    h1 Account Settings
+  .top-buffer
   div.row
-    div.span9
+    div.col-md-6.col-md-offset-1
       #details.form-horizontal
       #identity.form-horizontal
       #password.form-horizontal
-    div.span3
+    div.col-md-2.col-md-offset-1
       if oauthTwitter || oauthGitHub || oauthFacebook
         legend Social Connections
         if oauthMessage
@@ -71,17 +70,17 @@ block body
         button.close(type='button', data-dismiss='alert') &times;
         | Changes have been saved.
       |<% } %>
-    div.control-group(class!='<%= errfor.first ? "error" : "" %>')
-      label.control-label First Name:
-      div.controls
-        input(type='text', name='first', value!='<%= first %>')
-        span.help-inline <%= errfor.first %>
-    div.control-group(class!='<%= errfor.last ? "error" : "" %>')
-      label.control-label Last Name:
-      div.controls
-        input(type='text', name='last', value!='<%= last %>')
-        span.help-inline <%= errfor['last'] %>
-    div.form-actions
+    div.form-group(class!='<%= errfor.first ? "error" : "" %>')
+      label.control-label.col-md-3 First Name:
+      div.col-md-6
+        input.form-control(type='text', name='first', value!='<%= first %>')
+        span.help-block <%= errfor.first %>
+    div.form-group(class!='<%= errfor.last ? "error" : "" %>')
+      label.control-label.col-md-3 Last Name:
+      div.col-md-6
+        input.form-control(type='text', name='last', value!='<%= last %>')
+        span.help-block <%= errfor['last'] %>
+    div.form-actions.col-md-offset-3
       button.btn.btn-primary.btn-update(type='button') Update
 
   script(type='text/template', id='tmpl-identity')
@@ -97,17 +96,17 @@ block body
         button.close(type='button', data-dismiss='alert') &times;
         | Changes have been saved.
       |<% } %>
-    div.control-group(class!='<%= errfor.username ? "error" : "" %>')
-      label.control-label Username:
-      div.controls
-        input(type='text', name='username', value!='<%= username %>')
-        span.help-inline <%= errfor.username %>
-    div.control-group(class!='<%= errfor.email ? "error" : "" %>')
-      label.control-label Email:
-      div.controls
-        input(type='text', name='email', value!='<%= email %>')
-        span.help-inline <%= errfor.email %>
-    div.form-actions
+    div.form-group(class!='<%= errfor.username ? "error" : "" %>')
+      label.control-label.col-md-3 Username:
+      div.col-md-6
+        input.form-control(type='text', name='username', value!='<%= username %>')
+        span.help-block <%= errfor.username %>
+    div.form-group(class!='<%= errfor.email ? "error" : "" %>')
+      label.control-label.col-md-3 Email:
+      div.col-md-6
+        input.form-control(type='text', name='email', value!='<%= email %>')
+        span.help-block <%= errfor.email %>
+    div.form-actions.col-md-offset-3
       button.btn.btn-primary.btn-update(type='button') Update
 
   script(type='text/template', id='tmpl-password')
@@ -123,17 +122,17 @@ block body
       button.close(type='button', data-dismiss='alert') &times;
       | A new password has been set.
     |<% } %>
-    div.control-group(class!='<%= errfor.newPassword ? "error" : "" %>')
-      label.control-label New Password:
-      div.controls
-        input(type='password', name='newPassword', value!='<%= newPassword %>')
-        span.help-inline <%= errfor.newPassword %>
-    div.control-group(class!='<%= errfor.confirm ? "error" : "" %>')
-      label.control-label Confirm Password:
-      div.controls
-        input(type='password', name='confirm', value!='<%= confirm %>')
-        span.help-inline <%= errfor.confirm %>
-    div.form-actions
+    div.form-group(class!='<%= errfor.newPassword ? "error" : "" %>')
+      label.control-label.col-md-3 New Password:
+      div.col-md-6
+        input.form-control(type='password', name='newPassword', value!='<%= newPassword %>')
+        span.help-block <%= errfor.newPassword %>
+    div.form-group(class!='<%= errfor.confirm ? "error" : "" %>')
+      label.control-label.col-md-3 Confirm Password:
+      div.col-md-6
+        input.form-control(type='password', name='confirm', value!='<%= confirm %>')
+        span.help-block <%= errfor.confirm %>
+    div.form-actions.col-md-offset-3
       button.btn.btn-primary.btn-password(type='button') Set Password
 
   script(type='text/template', id='data-account') !{data.account}

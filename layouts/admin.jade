@@ -4,39 +4,32 @@ html
     block head
       title #{title}
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    link(rel='stylesheet', href='/vendor/bootstrap/css/bootstrap.min.css')
-    link(rel='stylesheet', href='/vendor/bootstrap/css/bootstrap-responsive.min.css')
-    link(rel='stylesheet', href='/vendor/font-awesome/css/font-awesome.min.css')
-    link(rel='stylesheet', href='/layouts/utility.css')
-    link(rel='stylesheet', href='/layouts/default.css')
+    link(rel='stylesheet', href='/vendor/bootstrap-sortable/bootstrap-sortable.css')
+    link(rel='stylesheet', href='/layouts/theme.css')
+    link(rel='stylesheet', href='/layouts/theme-override.css')
     block neck
   body
-    div.navbar.navbar-inverse.navbar-fixed-top
-      div.navbar-inner
-        div.container
-          a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
-          a.brand(href='/admin/')
-            img(src='/media/logo-white.png', width='150')
-          div.nav-collapse
-            ul.nav
-              li.dropdown
-                a.dropdown-toggle(href='#', data-toggle='dropdown')
-                  | System
-                  span.caret
-                ul.dropdown-menu
-                  li.nav-header User Admin
-                  li: a(href='/admin/users/') Users
-                  li: a(href='/admin/facebook/') Facebook
-                  li: a(href='/admin/twitter/') Twitter
-                  li: a(href='/admin/google/') Google
-                  li: a(href='/admin/accounts/') Accounts
-                  li: a(href='/admin/administrators/') Administrators
-                  li: a(href='/admin/admin-groups/') Admin Groups
-            form.navbar-search.pull-right
-              #_search
+    .navbar.navbar-inverse.navbar-fixed-top.
+      <div class='navbar-inner'>
+        <div class='container'>
+          <button data-toggle='collapse' data-target='.navbar-collapse' class='navbar-toggle'>
+            <span class='icon-bar'></span>
+            <span class='icon-bar'></span>
+            <span class='icon-bar'></span>
+          </button>
+          <a href='#' class='navbar-brand'>Account System</a>
+          <div class='collapse navbar-collapse'>
+            <ul class='nav navbar-nav'>
+              <li class='users'><a href='/admin/users/'>Users</a></li>
+              <li class='events'><a href='/admin/events/'>Events</a></li>
+              <li class='partners'><a href='/admin/organizations/'>Partners</a></li>
+            </ul>
+            <ul class='nav navbar-nav pull-right'>
+              <li><a href='/logout/'>Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
 
     div.page
       div.container
@@ -55,9 +48,9 @@ html
     script(src='/vendor/jquery/jquery-1.9.1.min.js')
     script(src='/vendor/underscore/underscore-min.js')
     script(src='/vendor/backbone/backbone-min.js')
-    script(src='/vendor/bootstrap/js/bootstrap.min.js')
+    script(src='//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js')
     script(src='/vendor/moment/moment.min.js')
-    script(src='/layouts/utility.js')
+    script(src='/vendor/bootstrap-sortable/bootstrap-sortable.js')
     script(src='/util/TaskRunner.js')
     script(src='/util/ScriptLoader.js')
 

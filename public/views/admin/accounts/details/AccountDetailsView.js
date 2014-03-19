@@ -40,8 +40,8 @@ app.DetailsView = Backbone.View.extend(
     this.$el.html(this.template(this.model.attributes));
 
     //set input values
-    for (var key in this.model.attributes.events)
-      this.$el.find('[name="' + key + '"]').html(JSON.stringify(this.model.attributes.events[key], null, 4));
+    for (var key in this.model.attributes.event)
+      this.$el.find('[name="' + key + '"]').html(JSON.stringify(this.model.attributes.event[key], null, 4));
       // this.$el.find('[name="' + key + '"]').val(JSON.stringify(this.model.attributes.events[key]));
   },
 

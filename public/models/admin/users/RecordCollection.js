@@ -5,11 +5,13 @@
 //  Created by Satish Bhatti
 //  Copyright 2013 SportStream. All rights reserved.
 //
+
 var app = app || {};
 
 app.RecordCollection = Backbone.Collection.extend(
 {
-  model: app.Record,
+  model: app.UserRecord,
+
   url: '/admin/users/',
 
   parse: function(results)

@@ -13,11 +13,7 @@ block body
   #results-paging
 
   script(type='text/template', id='tmpl-header')
-    div.page-header
-      form.form-inline.pull-right
-        div.input-append
-          input(name='username', type='text', placeholder='enter a username', value!='<%= username %>')
-          button.btn.btn-info.btn-add(type='button') Add New
+    div
       h1 Users
 
   script(type='text/template', id='tmpl-filters')
@@ -56,7 +52,7 @@ block body
             option(value='100') 100 items
 
   script(type='text/template', id='tmpl-results-table')
-    table.table.table-striped
+    table.table.table-striped.sortable
       thead
         tr
           th
@@ -68,7 +64,7 @@ block body
 
   script(type='text/template', id='tmpl-results-row')
     td
-      input.btn.btn-details(type='button', value='Edit')
+      input.btn.btn-details(type='button', value='Details')
     td <%= displayName %>
     td <%= username %>
     td <%= organization %>

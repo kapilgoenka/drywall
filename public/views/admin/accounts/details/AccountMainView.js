@@ -22,7 +22,7 @@ app.MainView = Backbone.View.extend(
     //sub views
     app.headerView = new app.HeaderView();
     app.detailsView = new app.DetailsView();
-    app.deleteView = new app.DeleteView();
-    app.loginView = new app.LoginView();
+    // app.deleteView = new app.DeleteView();
+    // app.loginView = new app.LoginView();
   }
 });

@@ -1,7 +1,9 @@
 /* compensate for navbar */
 body {
+  /*letter-spacing: normal;*/
   padding-top: 60px;
   padding-bottom: 40px;
+  font-family: Helvetica, Arial, sans-serif;
 }
 @media (max-width: 980px) {
   body {
@@ -23,6 +25,17 @@ body {
   padding-top: 0;
 }
 
+.page {
+  padding-top:60px;
+}
+
+.page-header
+{
+  margin-top:10px;
+  margin-bottom:10px;
+  padding-bottom:0;
+}
+
 #filters
 {
   display:none;
@@ -30,71 +43,31 @@ body {
 
 /* global font/type settings */
 h1, h2 {
-  letter-spacing: -2px;
+  /*letter-spacing: -2px;*/
 }
 h1, h2, h3, h4, h5, h6 {
   font-weight: normal;
 }
 legend {
-  letter-spacing: -1px;
+  /*letter-spacing: -1px;*/
 }
 
-/* customize nav bar */
-.navbar .navbar-inner {
-  border: 0;
-  -webkit-box-shadow: 0 2px 10px rgba(0,0,0,.25);
-  -moz-box-shadow: 0 2px 10px rgba(0,0,0,.25);
-  box-shadow: 0 2px 10px rgba(0,0,0,.25);
-}
-.navbar .brand {
-  position: relative;
-  width: 160px;
-}
-.navbar .brand img {
-  top: 20px;
-  left: 30px;
-  position: absolute;
-}
 .navbar .nav > li > a {
   font-size: 12px;
   text-transform: uppercase;
   font-weight: bold;
   padding: 20px 15px;
 }
-@media (max-width: 980px) {
-  .navbar-fixed-top, .navbar-fixed-bottom {
-    position: relative;
-    margin-bottom: 0px;
-    margin-left: 0px;
-    margin-right: 0px;
-  }
-  .navbar .brand {
-    position: static;
-    width: 150px;
-    height: 30px;
-  }
-  .navbar .btn-navbar {
-    margin-top: 10px;
-  }
-  .navbar .brand img {
-    top: 10px;
-    left: 10px;
-    position: absolute;
-  }
-  .navbar .nav > li > a {
-    font-size: 12px;
-    text-transform: uppercase;
-    font-weight: bold;
-    padding: 10px 10px;
-  }
-}
-.navbar-search {
-  margin-top: 15px;
-}
 
 /* tables */
 table.table thead th {
   background-color: #ddd;
+}
+
+.table th, .table td
+{
+  line-height: 21px;
+  vertical-align: inherit;
 }
 
 /* footer */

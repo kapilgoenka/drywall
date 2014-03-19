@@ -6,6 +6,7 @@
 //  Copyright 2013 SportStream. All rights reserved.
 //
 //@ sourceURL=UserPassword.js
+
 var app = app || {};
 
 app.Password = Backbone.Model.extend(

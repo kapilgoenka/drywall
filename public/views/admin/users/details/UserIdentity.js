@@ -6,6 +6,7 @@
 //  Copyright 2013 SportStream. All rights reserved.
 //
 //@ sourceURL=UserIdentity.js
+
 var app = app || {};
 
 app.Identity = Backbone.Model.extend(
@@ -19,6 +20,7 @@ app.Identity = Backbone.Model.extend(
     errfor: {},
     isActive: '',
     username: '',
+    organization: '',
     email: ''
   },
 

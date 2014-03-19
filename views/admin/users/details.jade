@@ -23,7 +23,7 @@ block body
         |  / <%= username %>
 
   script(type='text/template', id='tmpl-identity')
-    legend Identity
+    legend.col-md-offset-1 Identity
     div.alerts
       |<% _.each(errors, function(err) { %>
       div.alert.alert-error
@@ -36,42 +36,42 @@ block body
         | Changes have been saved.
       |<% } %>
 
-    div.control-group
-      label.control-label Id:
-      div.controls
-        input(type='text', readonly="readonly", name='userId', value!='<%= _id %>')
+    div.form-group
+      label.control-label.col-sm-2 Id:
+      div.col-sm-5
+        input.form-control(type='text', readonly="readonly", name='userId', value!='<%= _id %>')
 
-    //- div.control-group(class!='<%= errfor.isActive ? "error" : "" %>')
-    //-   label.control-label Is Active:
-    //-   div.controls
+    //- div.form-group(class!='<%= errfor.isActive ? "error" : "" %>')
+    //-   label.control-label.col-sm-2 Is Active:
+    //-   div.col-sm-5
     //-     select(name='isActive')
     //-       option(value='yes') yes
     //-       option(value='no') no
-    //-     span.help-inline <%= errfor.isActive %>
+    //-     span.help-block <%= errfor.isActive %>
 
-    div.control-group(class!='<%= errfor.username ? "error" : "" %>')
-      label.control-label Username:
-      div.controls
-        input(type='text', name='username', value!='<%= username %>')
-        span.help-inline <%= errfor.username %>
+    div.form-group(class!='<%= errfor.username ? "error" : "" %>')
+      label.control-label.col-sm-2 Username:
+      div.col-sm-5
+        input.form-control(type='text', name='username', value!='<%= username %>')
+        span.help-block <%= errfor.username %>
 
-    div.control-group(class!='<%= errfor.email ? "error" : "" %>')
-      label.control-label Email:
-      div.controls
-        input(type='text', name='email', value!='<%= email %>')
-        span.help-inline <%= errfor.email %>
+    div.form-group(class!='<%= errfor.email ? "error" : "" %>')
+      label.control-label.col-sm-2 Email:
+      div.col-sm-5
+        input.form-control(type='text', name='email', value!='<%= email %>')
+        span.help-block <%= errfor.email %>
 
-    div.control-group(class!='<%= errfor.organization ? "error" : "" %>')
-      label.control-label Organization:
-      div.controls
-        input(type='text', name='organization', value!='<%= organization %>')
-        span.help-inline <%= errfor.organization %>
+    div.form-group(class!='<%= errfor.organization ? "error" : "" %>')
+      label.control-label.col-sm-2 Organization:
+      div.col-sm-5
+        input.form-control(type='text', name='organization', value!='<%= organization %>')
+        span.help-block <%= errfor.organization %>
 
-    div.form-actions
+    div.form-actions.col-md-offset-2
       button.btn.btn-primary.btn-update(type='button') Update
 
   script(type='text/template', id='tmpl-social')
-    legend Social Accounts
+    legend.col-md-offset-1 Social Accounts
     div.alerts
       |<% _.each(errors, function(err) { %>
       div.alert.alert-error
@@ -80,70 +80,81 @@ block body
       |<% }); %>
 
     if userData.socialAccounts && userData.socialAccounts.facebook
-      div.control-group(class!='<%= errfor.facebook ? "error" : "" %>')
-        label.control-label Facebook:
-        div.controls
-          div.input-append
-            |<% if (socialAccounts.facebook.profile) { %>
-            span.uneditable-input
-              |<%= socialAccounts.facebook.profile.id %>
-            button.btn.btn-warning.btn-facebook-unlink(type='button') Unlink
+      div.form-group(class!='<%= errfor.facebook ? "error" : "" %>')
+        label.control-label.col-sm-2 Facebook:
+        div.col-sm-5
+          div.input.input-group
+            |<% if (facebookId) { %>
+            span.uneditable-input.form-control
+              |<%= facebookId %>
+            //- button.btn.btn-warning.btn-facebook-unlink(type='button') Unlink
             button.btn.btn-facebook-open(type='button') Open
             |<% } %>
-          span.help-inline <%= errfor.facebook %>
+          span.help-block <%= errfor.facebook %>
 
     if userData.socialAccounts.google && userData.socialAccounts.google
-      div.control-group(class!='<%= errfor.google ? "error" : "" %>')
-        label.control-label Google:
-        div.controls
-          div.input-append
-            |<% if (socialAccounts.google.profile) { %>
-            span.uneditable-input
-              |<%= socialAccounts.google.profile.id %>
-            button.btn.btn-warning.btn-google-unlink(type='button') Unlink
+      div.form-group(class!='<%= errfor.google ? "error" : "" %>')
+        label.control-label.col-sm-2 Google:
+        div.col-sm-5
+          div.input.input-group
+            |<% if (googleId) { %>
+            span.uneditable-input.form-control
+              |<%= googleId %>
+            //- button.btn.btn-warning.btn-google-unlink(type='button') Unlink
             button.btn.btn-google-open(type='button') Open
             |<% } %>
-          span.help-inline <%= errfor.google %>
+          span.help-block <%= errfor.google %>
 
     if userData.socialAccounts && userData.socialAccounts.twitter
-      div.control-group(class!='<%= errfor.twitter ? "error" : "" %>')
-        label.control-label Twitter:
-        div.controls
-          div.input-append
-            |<% if (socialAccounts.twitter.profile) { %>
-            span.uneditable-input
-              |<%= socialAccounts.twitter.profile.id %>
-            button.btn.btn-warning.btn-twitter-unlink(type='button') Unlink
+      div.form-group(class!='<%= errfor.twitter ? "error" : "" %>')
+        label.control-label.col-sm-2 Twitter:
+        div.col-sm-5
+          div.input.input-group
+            |<% if (twitterId) { %>
+            span.uneditable-input.form-control
+              |<%= twitterId %>
+            //- button.btn.btn-warning.btn-twitter-unlink(type='button') Unlink
             button.btn.btn-twitter-open(type='button') Open
             |<% } %>
-          span.help-inline <%= errfor.twitter %>
+          span.help-block <%= errfor.twitter %>
 
   script(type='text/template', id='tmpl-accounts')
-    legend Accounts
-    div.alerts
+    legend.col-md-offset-1 Accounts
+    div.alerts.col-sm-offset-2
       |<% _.each(errors, function(err) { %>
-      div.alert.alert-error
+      div.alert.text-danger
         button.close(type='button', data-dismiss='alert') &times;
         |<%= err %>
       |<% }); %>
 
-    div.control-group(class!='<%= errfor.newAccountId ? "error" : "" %>')
-      label.control-label Media Curation:
-      div.controls
-        div.input-append
+    div.form-group(class!='<%= errfor.newAdminId ? "error" : "" %>')
+      label.control-label.col-sm-2 Admin:
+      .col-md-5
+        <% if (accounts && accounts.admin) { %>
+        span.uneditable-input.form-control
+          <%= accounts.admin.user.id %>
+        <% } else { %>
+        button.btn.btn-success.btn-admin-link(type='button') Make Admin
+        <% } %>
+      span.help-block <%= errfor.newAdminId %>
+
+    div.form-group(class!='<%= errfor.newAccountId ? "error" : "" %>')
+      label.control-label.col-sm-2 Media Curation:
+      div.col-md-5
+        div.input.input-group
           |<% if (accounts && accounts.media_curation) { %>
-          span.uneditable-input
+          span.uneditable-input.form-control
             |<%= accounts.media_curation %>
-          button.btn.btn-warning.btn-account-unlink(type='button') Unlink
+          //- button.btn.btn-warning.btn-account-unlink(type='button') Unlink
           button.btn.btn-account-open(type='button') Open
           |<% } else { %>
-          input(name='newAccountId', type='text', placeholder='enter account id')
+          input.form-control(name='newAccountId', type='text', placeholder='enter account id')
           button.btn.btn-success.btn-account-link(type='button') Link
           |<% } %>
-        span.help-inline <%= errfor.newAccountId %>
+        span.help-block <%= errfor.newAccountId %>
 
   script(type='text/template', id='tmpl-password')
-    legend Set Password
+    legend.col-md-offset-1 Set Password
     div.alerts
       |<% _.each(errors, function(err) { %>
       div.alert.alert-error
@@ -155,33 +166,33 @@ block body
       button.close(type='button', data-dismiss='alert') &times;
       | A new password has been set.
     |<% } %>
-    div.control-group(class!='<%= errfor.newPassword ? "error" : "" %>')
-      label.control-label New Password:
-      div.controls
-        input(type='password', name='newPassword', value!='<%= newPassword %>')
-        span.help-inline <%= errfor.newPassword %>
-    div.control-group(class!='<%= errfor.confirm ? "error" : "" %>')
-      label.control-label Confirm Password:
-      div.controls
-        input(type='password', name='confirm', value!='<%= confirm %>')
-        span.help-inline <%= errfor.confirm %>
-    div.form-actions
+    div.form-group(class!='<%= errfor.newPassword ? "error" : "" %>')
+      label.control-label.col-sm-2 New Password:
+      div.col-sm-5
+        input.form-control(type='password', name='newPassword', value!='<%= newPassword %>')
+        span.help-block <%= errfor.newPassword %>
+    div.form-group(class!='<%= errfor.confirm ? "error" : "" %>')
+      label.control-label.col-sm-2 Confirm Password:
+      div.col-sm-5
+        input.form-control(type='password', name='confirm', value!='<%= confirm %>')
+        span.help-block <%= errfor.confirm %>
+    div.form-actions.col-md-offset-2
       button.btn.btn-primary.btn-password(type='button') Set Password
 
   script(type='text/template', id='tmpl-delete')
-    legend Danger Zone
-    div.alerts
-      |<% _.each(errors, function(err) { %>
-      div.alert.alert-error
-        button.close(type='button', data-dismiss='alert') &times;
-        |<%= err %>
-      |<% }); %>
-    span.badge.badge-important
-      | If you do this, it cannot be undone.
-    |
-    span.muted
-      | You may also create orphaned document relationships too.
-    div.form-actions
-      button.btn.btn-danger.btn-delete(type='button') Delete
+    //- legend.col-md-offset-1 Danger Zone
+    //- div.alerts
+    //-   |<% _.each(errors, function(err) { %>
+    //-   div.alert.alert-error
+    //-     button.close(type='button', data-dismiss='alert') &times;
+    //-     |<%= err %>
+    //-   |<% }); %>
+    //- span.badge.badge-important
+    //-   | If you do this, it cannot be undone.
+    //- |
+    //- span.muted
+    //-   | You may also create orphaned document relationships too.
+    //- div.form-actions.col-md-offset-2
+    //-   button.btn.btn-danger.btn-delete(type='button') Delete
 
   script(type='text/template', id='data-record') !{data.record}

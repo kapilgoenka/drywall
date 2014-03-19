@@ -6,6 +6,7 @@
 //  Copyright 2013 SportStream. All rights reserved.
 //
 //@ sourceURL=UserSocialAccountsView.js
+
 var app = app || {};
 
 app.SocialAccountsView = Backbone.View.extend(
@@ -29,11 +30,9 @@ app.SocialAccountsView = Backbone.View.extend(
   initialize: function()
   {
     this.model = new app.Social();
-    this.syncUp();
     app.mainView.model.bind('change', this.syncUp, this);
-
     this.model.on('change', this.render, this);
-    this.render();
+    this.syncUp();
   },
 
   syncUp: function()
@@ -41,27 +40,30 @@ app.SocialAccountsView = Backbone.View.extend(
     this.model.set(
     {
       _id: app.mainView.model.id,
-      twitter: app.mainView.model.get('twitter'),
-      facebook: app.mainView.model.get('facebook'),
-      google: app.mainView.model.get('google'),
-      socialAccounts: app.mainView.model.get('socialAccounts')
+      twitterId: app.mainView.model.getTwitterId(),
+      facebookId: app.mainView.model.getFacebookId(),
+      googleId: app.mainView.model.getGoogleId()
     });
   },
 
   render: function()
   {
-    // Render
     this.$el.html(this.template(this.model.attributes));
-/*
-    // Set input values
-    for (var key in this.model.attributes)
-      this.$el.find('[name="' + key + '"]').val(this.model.attributes[key]);
-*/
   },
 
   twitterOpen: function()
   {
-    location.href = '/admin/twitter/' + this.model.get('socialAccounts').twitter._id + '/';
+    location.href = '/admin/twitter/' + this.model.getTwitterId() + '/';
+  },
+
+  facebookOpen: function()
+  {
+    location.href = '/admin/facebook/' + this.model.getFacebookId() + '/';
+  },
+
+  googleOpen: function()
+  {
+    location.href = '/admin/google/' + this.model.getGoogleId() + '/';
   },
 
   twitterUnlink: function()
@@ -69,19 +71,9 @@ app.SocialAccountsView = Backbone.View.extend(
     this.socialUnlink("twitter");
   },
 
-  facebookOpen: function()
-  {
-    location.href = '/admin/facebook/' + this.model.get('socialAccounts').facebook._id + '/';
-  },
-
   facebookUnlink: function()
   {
     this.socialUnlink("facebook");
-  },
-
-  googleOpen: function()
-  {
-    location.href = '/admin/google/' + this.model.get('socialAccounts').google._id + '/';
   },
 
   googleUnlink: function()

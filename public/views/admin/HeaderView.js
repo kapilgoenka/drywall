@@ -6,6 +6,7 @@
 //  Copyright 2013 SportStream. All rights reserved.
 //
 //@ sourceURL=HeaderView.js
+
 var app = app || {};
 
 app.HeaderView = Backbone.View.extend(

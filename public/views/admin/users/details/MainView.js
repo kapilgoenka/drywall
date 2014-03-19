@@ -1,17 +1,19 @@
 //
-//  UserMainView.js
+//  MainView.js
 //  SportStream Account Server
 //
 //  Created by Satish Bhatti
 //  Copyright 2013 SportStream. All rights reserved.
 //
-//@ sourceURL=UserMainView.js
+//@ sourceURL=MainView.js
+
 var app = app || {};
 
 app.MainView = Backbone.View.extend(
 {
   el: '.page .container',
-  initialize: function()
+
+  initialize: function(options)
   {
     app.mainView = this;
 

@@ -6,6 +6,7 @@
 //  Copyright 2013 SportStream. All rights reserved.
 //
 //@ sourceURL=UserSocial.js
+
 var app = app || {};
 
 app.Social = Backbone.Model.extend(
@@ -19,13 +20,27 @@ app.Social = Backbone.Model.extend(
     errfor: {},
     twitter: {},
     facebook: {},
-    google: {},
-    socialAccounts: {}
+    google: {}
   },
 
   url: function()
   {
     return '/admin/users/' + app.mainView.model.id + '/';
+  },
+
+  getTwitterId: function()
+  {
+    return this.get('twitterId');
+  },
+
+  getFacebookId: function()
+  {
+    return this.get('facebookId');
+  },
+
+  getGoogleId: function()
+  {
+    return this.get('googleId');
   },
 
   parse: function(response)

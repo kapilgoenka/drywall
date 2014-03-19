@@ -12,9 +12,13 @@ app.ResultsRowView = Backbone.View.extend(
 {
   tagName: 'tr',
 
-  template: _.template($('#tmpl-results-row').html()),
+  initialize: function(options)
+  {
+    this.template = _.template($(options.templateSelector).html());
+  },
 
-  events: {
+  events:
+  {
     'click .btn-details': 'viewDetails'
   },
 
@@ -25,7 +29,7 @@ app.ResultsRowView = Backbone.View.extend(
 
   render: function()
   {
-    this.$el.html(this.template(this.model.attributes));
+    this.$el.html(this.template(this.model.toJSON()));
     return this;
   }
 });

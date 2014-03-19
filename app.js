@@ -1,5 +1,6 @@
 //dependencies
-var Config = require('app-server/config'),
+var App = module.exports,
+    Config = require('app-server/config'),
     log = require('app-server/log-controller').LogController.initLoggers(Config.logLevel),
     express = require('express'),
     exphbs  = require('express3-handlebars'),
@@ -11,7 +12,9 @@ var Config = require('app-server/config'),
     passport = require('passport'),
     crypto = require('crypto'),
     cors = require('app-server/cors'),
-    RiakDBAccessor = require('lib/app-server/db/RiakDBAccessor');
+    RiakDBAccessor = require('lib/app-server/db/RiakDBAccessor'),
+    AdminUtil = require('lib/app-server/db/AdminUtil'),
+    MigrateScript = require('app-server/MigrateScript');
 
 //  When there's no NODE_ENV environment variable, default to development
 if (!process.env.NODE_ENV)
@@ -44,16 +47,9 @@ process.on('uncaughtException', function(err)
   log.error('Killing process with pid =' + process.pid + ' due to uncaught exception');
 });
 
-var App = module.exports;
 var app = express();
 App.app = app;
 app.db = RiakDBAccessor;
-
-require('app-server/MigrateScript').initMigrate(function(error, response)
-{
-  console.log(error);
-  console.log(response);
-});
 
 app.encryptPassword = function(password)
 {
@@ -69,50 +65,37 @@ app.defaultReturnUrl = function(user)
 {
   var returnUrl = '/account/';
 
-  // if (this.canPlayRoleOf(user, 'media_curation'))
-  //   returnUrl = '/account/';
-
   if (this.canPlayRoleOf(user, 'admin'))
-    returnUrl = '/admin/';
+    returnUrl = '/admin/users/';
 
   return returnUrl;
 };
 
 function initialize()
 {
-  // Configure all.
-  app.configure(configureApp);
-
-  // Config dev
-  app.configure('development', function()
+  AdminUtil.createRootUserIfNeeded(function(error, response)
   {
-    app.use(express.errorHandler());
+    if (error)
+      throw new Error(error);
 
-    require('lib/app-server/db/RiakDBAccessor').findOne('users', { username: 'root' }, function(error, user)
+    MigrateScript.updateUserDisplayNames(function(error, response)
     {
-      if (error || !user)
+      if (error)
+        throw new Error(error);
+
+      MigrateScript.insertEventMetadata(function(error, response)
       {
-        require('lib/app-server/db/RiakDBAccessor').insertRootUser(function(error, user)
-        {
-          user.password = app.encryptPassword('evriONE88');
-
-          require('lib/app-server/db/RiakDBAccessor').update('users', user._id, user, function(error, user)
-          {
-            if (error)
-              console.log('error updating root user');
-
-            require('lib/app-server/db/RiakDBAccessor').insertRootAdmin(user, function(error, admin)
-            {
-              require('lib/app-server/db/RiakDBAccessor').insertRootGroup(function(error, group)
-              {
-                console.log('done');
-              });
-            });
-          });
-        });
-      }
+        if (error)
+          throw new Error(error);
+      });
     });
   });
+
+  configureApp();
+
+  // Config dev
+  if (app.get('env') === 'development')
+    app.use(express.errorHandler());
 
   //config passport
   require('app-server/passport')(app, passport);
@@ -216,7 +199,8 @@ function configureApp()
 
   app.use(function(req, res, next)
   {
-    req.isAjaxRequest = req.headers['cookie'] === undefined;
+    req.isAjaxRequest = req.headers.cookie === undefined;
+
     next();
   });
 

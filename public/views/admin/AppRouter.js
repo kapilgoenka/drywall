@@ -16,9 +16,20 @@ app.AppRouter = Backbone.Router.extend(
     'q/:params': 'query'
   },
 
-  initialize: function()
+  initialize: function(options)
   {
     app.mainView = new app.MainView();
+
+    $('.navbar li').removeClass('active');
+
+    if (window.location.pathname.indexOf('organizations')!== -1)
+      $('.navbar li.partners').addClass('active');
+
+    if (window.location.pathname.indexOf('events')!== -1)
+      $('.navbar li.events').addClass('active');
+
+    if (window.location.pathname.indexOf('users')!== -1)
+      $('.navbar li.users').addClass('active');
   },
 
   default: function()

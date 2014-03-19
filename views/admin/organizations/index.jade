@@ -1,0 +1,46 @@
+extends ../../../layouts/admin
+
+block head
+  title Manage Organizations
+
+block feet
+  script(src='/views/admin/organizations/index.js')
+
+block body
+  #header
+  #filters
+  #results-table
+  #results-paging
+
+  script(type='text/template', id='tmpl-header')
+    div
+      h1 Organizations
+
+  script(type='text/template', id='tmpl-filters')
+
+  script(type='text/template', id='tmpl-results-table')
+    table.table.table-striped
+      thead
+        tr
+          th
+          th Name
+      tbody#results-rows
+
+  script(type='text/template', id='tmpl-results-row')
+    td.col-md-1
+      input.btn.btn-details(type='button', value='Details')
+    td <%= displayName %>
+
+  script(type='text/template', id='tmpl-results-empty-row')
+    tr
+      td(colspan='5') no documents matched
+
+  script(type='text/template', id='tmpl-results-paging')
+    div.well
+      span Page <%= pages.current %> of <%= pages.total %> | Results <%= items.begin %> - <%= items.end %> of <%= items.total %>
+      span.btn-group.pull-right
+        button.btn.btn-page.btn-prev(data-page!='<%= pages.prev %>') Prev
+        button.btn.btn-page.btn-next(data-page!='<%= pages.next %>')  Next
+      div.clear
+
+  script(type='text/template', id='data-results') !{data.results}

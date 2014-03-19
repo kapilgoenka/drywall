@@ -6,18 +6,15 @@
 //  Copyright 2013 SportStream. All rights reserved.
 //
 //@ sourceURL=ResultsView.js
+
 var app = app || {};
 
 app.ResultsView = Backbone.View.extend(
 {
-  el: '#results-table',
-
-  template: _.template($('#tmpl-results-table').html()),
-
-  initialize: function()
+  initialize: function(options)
   {
-    // this.collection = new app.RecordCollection(app.mainView.results.data);
-    this.collection = new app.RecordCollection(app.mainView.results);
+    this.template = _.template($(options.templateSelector).html());
+    this.collection = new app.RecordCollection(options.results, { model: options.model });
     this.collection.on('reset', this.render, this);
     this.render();
   },
@@ -28,11 +25,18 @@ app.ResultsView = Backbone.View.extend(
 
     this.collection.each(function(record)
     {
-      var view = new app.ResultsRowView({ model: record });
-      $('#results-rows').append(view.render().$el);
-    }, this );
+      var view = new app.ResultsRowView(
+      {
+        model: record,
+        templateSelector: this.options.rowTemplateSelector
+      });
 
-    if (this.collection.length === 0)
-      $('#results-rows').append($('#tmpl-results-empty-row').html());
+      $(this.options.resultContentSelector).append(view.render().$el);
+    }, this);
+
+    $.bootstrapSortable();
+
+    if (!this.collection.length)
+      $(this.options.resultContentSelector).append($('#tmpl-results-empty-row').html());
   }
 });

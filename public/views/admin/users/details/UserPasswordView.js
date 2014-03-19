@@ -6,6 +6,7 @@
 //  Copyright 2013 SportStream. All rights reserved.
 //
 //@ sourceURL=UserPasswordView.js
+
 var app = app || {};
 
 app.PasswordView = Backbone.View.extend(
@@ -16,7 +17,7 @@ app.PasswordView = Backbone.View.extend(
 
   events:
   {
-    'click .btn-password': 'password'
+    'click .btn-password': 'updatePassword'
   },
 
   initialize: function()
@@ -28,15 +29,10 @@ app.PasswordView = Backbone.View.extend(
 
   render: function()
   {
-    //render
-    this.$el.html(this.template(this.model.attributes));
-
-    //set input values
-    for (var key in this.model.attributes)
-      this.$el.find('[name="' + key + '"]').val(this.model.attributes[key]);
+    this.$el.html(this.template(this.model.toJSON()));
   },
 
-  password: function()
+  updatePassword: function()
   {
     this.model.save(
     {

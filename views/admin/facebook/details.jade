@@ -11,72 +11,73 @@ block body
   #identity.form-horizontal
 
   script(type='text/template', id='tmpl-header')
-    div.page-header
+    div
       h1
         a(href='/admin/facebook/') Facebook Accounts
         |  / <%= profile.name %>
 
   script(type='text/template', id='tmpl-identity')
     legend Identity
-    div.control-group
-      label.control-label Id:
-      div.controls
-        input(type='text', readonly="readonly", name='id', value!='<%= profile.id %>')
+    div.form-group
+      label.control-label.col-md-2 Id:
+      div.col-md-6
+        input.form-control(type='text', readonly="readonly", name='id', value!='<%= profile.id %>')
 
-    div.control-group
-      label.control-label User Id:
-      div.controls
-        input(type='text', readonly="readonly", name='userId', value!='<%= userId %>')
-        button.btn.btn-user-open(type='button') Open
+    div.form-group
+      label.control-label.col-md-2 User Id:
+      div.col-md-6
+        div.input.input-group
+          input.form-control(type='text', readonly="readonly", name='userId', value!='<%= userId %>')
+          button.btn.btn-user-open(type='button') Open
 
-    div.control-group
-      label.control-label Name:
-      div.controls
-        input(type='text', readonly="readonly", name='name', value!='<%= profile.name %>')
+    div.form-group
+      label.control-label.col-md-2 Name:
+      div.col-md-6
+        input.form-control(type='text', readonly="readonly", name='name', value!='<%= profile.name %>')
 
-    div.control-group
-      label.control-label First Name:
-      div.controls
-        input(type='text', readonly="readonly", name='first_name', value!='<%= profile.first_name %>')
+    div.form-group
+      label.control-label.col-md-2 First Name:
+      div.col-md-6
+        input.form-control(type='text', readonly="readonly", name='first_name', value!='<%= profile.first_name %>')
 
-    div.control-group
-      label.control-label Last Name:
-      div.controls
-        input(type='text', readonly="readonly", name='last_name', value!='<%= profile.last_name %>')
+    div.form-group
+      label.control-label.col-md-2 Last Name:
+      div.col-md-6
+        input.form-control(type='text', readonly="readonly", name='last_name', value!='<%= profile.last_name %>')
 
-    div.control-group
-      label.control-label Username:
-      div.controls
-        input(type='text', readonly="readonly", name='username', value!='<%= profile.username %>')
+    div.form-group
+      label.control-label.col-md-2 Username:
+      div.col-md-6
+        input.form-control(type='text', readonly="readonly", name='username', value!='<%= profile.username %>')
 
-    div.control-group
-      label.control-label Link:
-      div.controls
-        input(type='text', class="input-xxlarge", readonly="readonly", name='link', value!='<%= profile.link %>')
+    div.form-group
+      label.control-label.col-md-2 Link:
+      div.col-md-6
+        input.form-control(type='text', class="input.form-control-xxlarge", readonly="readonly", name='link', value!='<%= profile.link %>')
 
-    div.control-group
-      label.control-label Gender:
-      div.controls
-        input(type='text', readonly="readonly", name='gender', value!='<%= profile.gender %>')
+    div.form-group
+      label.control-label.col-md-2 Gender:
+      div.col-md-6
+        input.form-control(type='text', readonly="readonly", name='gender', value!='<%= profile.gender %>')
 
-    div.control-group
-      label.control-label Time Zone:
-      div.controls
-        input(type='text', readonly="readonly", name='timezone', value!='<%= profile.timezone %>')
+    div.form-group
+      label.control-label.col-md-2 Time Zone:
+      div.col-md-6
+        input.form-control(type='text', readonly="readonly", name='timezone', value!='<%= profile.timezone %>')
 
-    div.control-group
-      label.control-label Locale:
-      div.controls
-        input(type='text', readonly="readonly", name='locale', value!='<%= profile.locale %>')
+    div.form-group
+      label.control-label.col-md-2 Locale:
+      div.col-md-6
+        input.form-control(type='text', readonly="readonly", name='locale', value!='<%= profile.locale %>')
 
-    div.control-group
-      label.control-label Verified:
-      div.controls
-        input(type='text', readonly="readonly", name='verified', value!='<%= profile.verified %>')
+    div.form-group
+      label.control-label.col-md-2 Verified:
+      div.col-md-6
+        input.form-control(type='text', readonly="readonly", name='verified', value!='<%= profile.verified %>')
 
-    div.control-group
-      label.control-label Email:
-      div.controls
-        input(type='text', readonly="readonly", name='email', value!='<%= profile.email %>')
+    div.form-group
+      label.control-label.col-md-2 Email:
+      div.col-md-6
+        input.form-control(type='text', readonly="readonly", name='email', value!='<%= profile.email %>')
 
   script(type='text/template', id='data-record') !{data.record}

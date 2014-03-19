@@ -6,6 +6,7 @@
 //  Copyright 2013 SportStream. All rights reserved.
 //
 //@ sourceURL=UserDelete.js
+
 var app = app || {};
 
 app.Delete = Backbone.Model.extend(

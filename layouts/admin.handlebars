@@ -3,35 +3,29 @@
   <head>
     <title>{{title}}</title>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <link rel='stylesheet' href='/vendor/bootstrap/css/bootstrap.min.css'>
-    <link rel='stylesheet' href='/vendor/bootstrap/css/bootstrap-responsive.min.css'>
-    <link rel='stylesheet' href='/vendor/font-awesome/css/font-awesome.min.css'>
-    <link rel='stylesheet' href='/layouts/utility.css'>
-    <link rel='stylesheet' href='/layouts/default.css'>
+    <link rel='stylesheet' href='/layouts/theme.css'>
+    <link rel='stylesheet' href='/layouts/theme-override.css'>
     {{{neck}}}
   </head>
   <body>
     <div class='navbar navbar-inverse navbar-fixed-top'>
       <div class='navbar-inner'>
-        <div class='container'><a data-toggle='collapse' data-target='.nav-collapse' class='btn btn-navbar'><span class='icon-bar'></span><span class='icon-bar'></span><span class='icon-bar'></span></a><a href='/admin/' class='brand'><img src='/media/logo-white.png' width='150'></a>
-          <div class='nav-collapse'>
-            <ul class='nav'>
-              <li class='dropdown'><a href='#' data-toggle='dropdown' class='dropdown-toggle'>System<span class='caret'></span></a>
-                <ul class='dropdown-menu'>
-                  <li class='nav-header'>User Admin</li>
-                  <li><a href='/admin/users/'>Users</a></li>
-                  <li><a href='/admin/facebook/'>Facebook</a></li>
-                  <li><a href='/admin/twitter/'>Twitter</a></li>
-                  <li><a href='/admin/google/'>Google</a></li>
-                  <li><a href='/admin/accounts/'>Accounts</a></li>
-                  <li><a href='/admin/administrators/'>Administrators</a></li>
-                  <li><a href='/admin/admin-groups/'>Admin Groups</a></li>
-                </ul>
-              </li>
+        <div class='container'>
+          <button data-toggle='collapse' data-target='.navbar-collapse' class='navbar-toggle'>
+            <span class='icon-bar'></span>
+            <span class='icon-bar'></span>
+            <span class='icon-bar'></span>
+          </button>
+          <a href='#' class='navbar-brand'>Account System</a>
+          <div class='collapse navbar-collapse'>
+            <ul class='nav navbar-nav'>
+              <li class='users'><a href='/admin/users/'>Users</a></li>
+              <li class='events'><a href='/admin/events/'>Events</a></li>
+              <li class='partners'><a href='/admin/organizations/'>Partners</a></li>
             </ul>
-            <form class='navbar-search pull-right'>
-              <div id='_search'></div>
-            </form>
+            <ul class='nav navbar-nav pull-right'>
+              <li><a href='/logout/'>Logout</a></li>
+            </ul>
           </div>
         </div>
       </div>
@@ -55,10 +49,10 @@
     <script src='/vendor/jquery/jquery-1.9.1.min.js'></script>
     <script src='/vendor/underscore/underscore-min.js'></script>
     <script src='/vendor/backbone/backbone-min.js'></script>
-    <script src='/vendor/bootstrap/js/bootstrap.min.js'></script>
+    <script src='//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js'></script>
     <script src='/vendor/moment/moment.min.js'></script>
     <script src='//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js'></script>
-    <script src='/layouts/utility.js'></script>
+    <!--<script src='/layouts/utility.js'></script>-->
     <script src='/util/TaskRunner.js'></script>
     <script src='/util/ScriptLoader.js'></script>
     {{{feet}}}

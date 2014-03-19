@@ -1,0 +1,75 @@
+extends ../../../layouts/admin
+
+block head
+  title Organization / Details
+
+block feet
+  script(src='/views/admin/organizations/details.js')
+
+block body
+  #header
+  #results-table
+  #all-events-table
+
+  script(type='text/template', id='tmpl-header')
+    div
+      h2
+        a(href='/admin/organizations/') Organizations
+        |  / #{data.name}
+
+  script(type='text/template', id='tmpl-results-table')
+    h2 Users
+    table.table.table-striped
+      thead
+        tr
+          th
+          th Name
+          th Username
+          th Organization
+          th ID
+      tbody#results-rows
+
+  script(type='text/template', id='tmpl-results-row')
+    td
+      input.btn.btn-details(type='button', value='Details')
+    td <%= displayName %>
+    td <%= username %>
+    td <%= organization %>
+    td <%= _id %>
+
+  script(type='text/template', id='tmpl-org-events-table')
+    h2 Events
+    table.table.table-striped.span4
+      thead
+        tr
+          th
+          th Name
+          th Customized for #{data.name}
+      tbody#org-events-rows
+
+  script(type='text/template', id='tmpl-org-events-row')
+    td.col-md-2
+      input.btn.btn-details(type='button', value='Edit')
+    td.col-md-2 <%= displayName %>
+    td.col-md-2 <%= isCustomized %>
+
+  script(type='text/template', id='tmpl-generic-events-table')
+    .row
+      .col-md-6
+        h2 Events
+        table.table.table-striped
+          thead
+            tr
+              th
+              th Event
+              th Customized for #{data.name}
+          tbody#generic-events-rows
+
+  script(type='text/template', id='tmpl-generic-events-row')
+    td.col-md-2
+      input.btn.btn-details(type='button', value='Customize')
+    td.col-md-2 <%= displayName %>
+    td.col-md-2 <%= isCustomized %>
+
+  script(type='text/template', id='data-results') !{data.results}
+  script(type='text/template', id='data-events') !{data.events}
