@@ -14,13 +14,6 @@ block body
   if oauthTwitter || oauthGitHub || oauthFacebook
     div.form-horizontal
       //- h2 Or Login With...
-      if oauthMessage
-        div.alerts
-          div.alert.alert-info
-            button.close(type='button', data-dismiss='alert') &times;
-            |#{oauthMessage}
-            b
-              a(href='/signup/') Sign Up Here
       div.form-actions.col-md-offset-5
         div.btn-group
           //- if oauthTwitter
@@ -40,8 +33,14 @@ block body
           //-     i.icon-facebook-sign.icon-large
           //-     |  Google
 
+      if oauthMessage
+        div.alerts.col-md-offset-5.top-buffer
+          div.alert
+            button.close(type='button', data-dismiss='alert') &times;
+            |#{oauthMessage}
+
   script(type='text/template', id='tmpl-login')
-    form.form-horizontal
+    form.form-horizontal.hidden
       div.alerts
         |<% _.each(errors, function(err) { %>
         div.alert.alert-error
