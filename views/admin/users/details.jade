@@ -180,19 +180,19 @@ block body
       button.btn.btn-primary.btn-password(type='button') Set Password
 
   script(type='text/template', id='tmpl-delete')
-    //- legend.col-md-offset-1 Danger Zone
-    //- div.alerts
-    //-   |<% _.each(errors, function(err) { %>
-    //-   div.alert.alert-error
-    //-     button.close(type='button', data-dismiss='alert') &times;
-    //-     |<%= err %>
-    //-   |<% }); %>
+    legend.col-md-offset-1 Danger Zone
+    div.alerts
+      |<% _.each(errors, function(err) { %>
+      div.alert.alert-error
+        button.close(type='button', data-dismiss='alert') &times;
+        |<%= err %>
+      |<% }); %>
     //- span.badge.badge-important
     //-   | If you do this, it cannot be undone.
     //- |
     //- span.muted
     //-   | You may also create orphaned document relationships too.
-    //- div.form-actions.col-md-offset-2
-    //-   button.btn.btn-danger.btn-delete(type='button') Delete
+    div.form-actions.col-md-offset-1
+      button.btn.btn-danger.btn-delete(type='button') Delete
 
   script(type='text/template', id='data-record') !{data.record}
