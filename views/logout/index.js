@@ -1,8 +1,12 @@
-exports.init = function(req, res){
-  req.logout();
+var LogoutProcessor = require('app-server/logout/LogoutProcessor');
 
+exports.init = function(req, res)
+{
   if (req.xhr)
-    res.send(200);
+    LogoutProcessor.logout(req, res);
   else
+  {
+    req.logout();
     res.redirect('/');
+  }
 };

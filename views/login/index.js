@@ -21,6 +21,15 @@ exports.init = LoginProcessor.init;
 exports.login = LoginProcessor.loginUsernamePassword;
 
 /*******************************************************************************
+ * isLoggedIn
+ *******************************************************************************
+ *
+ * Inputs:
+ *   request, response
+ */
+exports.isLoggedIn = LoginProcessor.isLoggedIn;
+
+/*******************************************************************************
  * loginTwitter
  *******************************************************************************
  * Login using Twitter auth.
