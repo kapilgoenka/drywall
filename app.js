@@ -193,7 +193,7 @@ function configureApp()
       next();
   });
 
-  app.use(express.logger());
+  app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
 

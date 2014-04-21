@@ -23,14 +23,14 @@
     "passport-singly": ">= 0.0.0",
     "redis": "0.8.4",
     "underscore": "1.6.0",
-    "winston": "0.6.2",
-    "winston-graylog2": "0.1.8",
+    "winston": "0.7.3",
     "yaml": "0.2.3",
     "node-uuid": "~1.4.1",
     "jwt-simple": "~0.1.0",
     "express3-handlebars": "~0.5.0",
     "consolidate": "~0.10.0",
     "handlebars": "~2.0.0-alpha.1",
-    "nodiak": "~0.3.2"
+    "nodiak": "~0.3.2",
+    "winston-graylogger": "0.0.1"
   }
 }

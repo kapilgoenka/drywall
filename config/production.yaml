@@ -2,9 +2,9 @@ redis:
   host: '127.0.0.1'
   port: 6379
 
-# graylog2:
-#   host: '10.168.225.44'
-#   port: 12201
+graylog2:
+  host: '50.18.84.205'
+  port: 12201
 
 riak:
   host: '54.215.2.216'
