@@ -1,1 +1,5 @@
 node_modules
+.APP-SERVER-ENV
+.APP-SERVER-PID
+logs
+nohup.out
