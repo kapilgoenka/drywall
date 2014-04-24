@@ -26,3 +26,12 @@
 #status-collection #status-items div.status:nth-child(even) {
   background-color: #f5f5f5;
 }
+
+.nav-tabs > li.active > a {
+  background-color: #45619d;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+  background-color: #45619d;
+  color: white;
+}
