@@ -23,7 +23,7 @@
     "passport-singly": ">= 0.0.0",
     "redis": "0.8.4",
     "underscore": "1.6.0",
-    "winston": "0.6.2",
+    "winston": "0.7.3",
     "yaml": "0.2.3",
     "node-uuid": "~1.4.1",
     "jwt-simple": "~0.1.0",
