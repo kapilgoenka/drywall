@@ -24,7 +24,7 @@ app.Roles = Backbone.Model.extend(
 
   url: function()
   {
-    return '/admin/users/' + app.mainView.model.id + '/';
+    return '/admin/users/' + app.mainView.model.id;
   },
 
   parse: function(response)

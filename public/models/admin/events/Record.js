@@ -13,8 +13,8 @@ app.Record = app.EventRecord = Backbone.Model.extend(
   url: function()
   {
     if (window.location.pathname.indexOf('organizations') !== -1)
-      return window.location.href + this.get('name') + '/';
+      return window.location.href + '/' + this.get('name');
 
-    return '/admin/events/' + this.get('name') + '/';
+    return '/admin/events/' + this.get('name');
   }
 });

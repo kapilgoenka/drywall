@@ -41,7 +41,7 @@ app.DeleteView = Backbone.View.extend(
         success: function(model, response, options)
         {
           if (response.success)
-            location.href = '/admin/users/';
+            location.href = '/admin/users';
           else
             app.deleteView.model.set(response);
         }

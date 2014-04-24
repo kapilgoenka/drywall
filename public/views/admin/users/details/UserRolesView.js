@@ -55,12 +55,12 @@ app.RolesView = Backbone.View.extend(
 
   adminOpen: function()
   {
-    location.href = '/admin/administrators/' + this.model.get('accounts').admin._id + '/';
+    location.href = '/admin/administrators/' + this.model.get('accounts').admin._id;
   },
 
   adminLink: function()
   {
-    this.model.save({ newAdminId: $('[name="newAdminId"]').val() }, { url: this.model.url() + 'role-admin/' });
+    this.model.save({ newAdminId: $('[name="newAdminId"]').val() }, { url: this.model.url() + 'role-admin' });
   },
 
   adminUnlink: function()
@@ -69,7 +69,7 @@ app.RolesView = Backbone.View.extend(
     {
       this.model.destroy(
       {
-        url: this.model.url() + 'role-admin/',
+        url: this.model.url() + 'role-admin',
 
         success: function(model, response, options)
         {
@@ -88,12 +88,12 @@ app.RolesView = Backbone.View.extend(
   accountOpen: function()
   {
     // location.href = '/admin/accounts/' + this.model.get('accounts').account._id + '/';
-    location.href = '/admin/accounts/' + this.model.get('accounts').media_curation + '/';
+    location.href = '/admin/accounts/' + this.model.get('accounts').media_curation;
   },
 
   accountLink: function()
   {
-    this.model.save({ newAccountId: $('[name="newAccountId"]').val() }, { url: this.model.url() + 'role-account/' });
+    this.model.save({ newAccountId: $('[name="newAccountId"]').val() }, { url: this.model.url() + 'role-account' });
   },
 
   accountUnlink: function()
@@ -102,7 +102,7 @@ app.RolesView = Backbone.View.extend(
     {
       this.model.destroy(
       {
-        url: this.model.url() + 'role-account/',
+        url: this.model.url() + 'role-account',
 
         success: function(model, response, options)
         {

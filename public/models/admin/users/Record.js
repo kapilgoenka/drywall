@@ -22,6 +22,6 @@ app.Record = app.UserRecord = Backbone.Model.extend(
 
   url: function()
   {
-    return '/admin/users/' + (this.isNew() ? '' : this.id + '/');
+    return '/admin/users/' + (this.isNew() ? '' : this.id);
   }
 });

@@ -53,7 +53,7 @@ app.LoginView = Backbone.View.extend(
 
   userOpen: function()
   {
-    location.href = '/admin/users/' + this.model.get('id') + '/';
+    location.href = '/admin/users/' + this.model.get('id');
   },
 
   userLink: function()
