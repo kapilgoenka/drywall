@@ -12,6 +12,6 @@ app.Record = app.OrganizationRecord = Backbone.Model.extend(
 {
   url: function()
   {
-    return '/admin/organizations/' + this.get('displayName').replace(' ', '_') + '/';
+    return '/admin/organizations/' + this.get('urlName');
   }
 });
