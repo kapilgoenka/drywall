@@ -63,10 +63,10 @@ app.canPlayRoleOf = function(user, role)
 
 app.defaultReturnUrl = function(user)
 {
-  var returnUrl = '/account/';
+  var returnUrl = '/account';
 
   if (this.canPlayRoleOf(user, 'admin'))
-    returnUrl = '/admin/users/';
+    returnUrl = '/admin/users';
 
   return returnUrl;
 };

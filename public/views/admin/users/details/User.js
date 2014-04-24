@@ -15,7 +15,7 @@ app.User = Backbone.Model.extend(
 
   url: function()
   {
-    return '/admin/users/' + this.id + '/';
+    return '/admin/users/' + this.id;
   },
 
   getIsActive: function()

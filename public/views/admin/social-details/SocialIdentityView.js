@@ -36,7 +36,7 @@ app.IdentityView = Backbone.View.extend(
 
   userOpen: function()
   {
-    location.href = '/admin/users/' + this.model.get('userId') + '/';
+    location.href = '/admin/users/' + this.model.get('userId');
   },
 
   render: function()

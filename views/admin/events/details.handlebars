@@ -1,7 +1,7 @@
 <div id='header'></div>
 
 <div class='row'>
-  <div class='col-md-10 col-md-offset-1'>
+  <div class='col-md-12'>
     <div id='details' class='form-horizontal'></div>
   </div>
 </div>
@@ -36,8 +36,8 @@
 
   <div class='tab-content'>
     \{{#each event.properties}}
-      <div class="tab-pane" id="\{{@key}}">
-        <pre rows='4' style='width:100%' name='\{{@key}}'></pre>
+      <div class="tab-pane fade" id="\{{@key}}">
+        <div class='\{{@key}}-container'></div>
       </div>
     \{{/each}}
   </div>

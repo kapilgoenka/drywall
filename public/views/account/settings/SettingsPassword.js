@@ -21,7 +21,7 @@ app.Password = Backbone.Model.extend(
       confirm: ''
     },
 
-    url: '/account/settings/password/',
+    url: '/account/settings/password',
 
     parse: function(response)
     {

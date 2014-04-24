@@ -12,7 +12,7 @@ app.RecordCollection = Backbone.Collection.extend(
 {
   model: app.UserRecord,
 
-  url: '/admin/users/',
+  url: '/admin/users',
 
   parse: function(results)
   {
