@@ -150,10 +150,11 @@ function configureApp()
 
   //email (smtp) settings
   app.set('email-from-name', app.get('project-name')+ ' Website');
-  app.set('email-from-address', 'xxx@gmail.com');
+  app.set('email-from-address', 'ss.dev.reports@gmail.com');
+  app.set('email-dev-support-address', 'kgoenka@fb.com');
   app.set('email-credentials', {
-    user: 'xxx@gmail.com',
-    password: '',
+    user: 'ss.dev.reports@gmail.com',
+    password: 'evriONE88',
     host: 'smtp.gmail.com',
     ssl: true
   });
