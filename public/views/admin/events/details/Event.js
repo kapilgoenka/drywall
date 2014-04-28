@@ -14,6 +14,6 @@ app.Event = Backbone.Model.extend(
 
   url: function()
   {
-    return '/admin/events/'+ this.id +'/';
+    return '/admin/events/' + this.id;
   }
 });

@@ -3,7 +3,7 @@ $.ajaxSetup({
         xhr.setRequestHeader(
             'X-Requested-With',
             {
-                toString: function() { return ''; }
+                toString: function() { return 'AdminPortal-XMLHttpRequest'; }
             }
         );
     }
