@@ -19,7 +19,9 @@ app.DetailsView = Backbone.View.extend(
   events:
   {
     'click .btn-update': 'update',
-    'click .btn-edit': 'edit'
+    'click .btn-edit': 'edit',
+    'click .btn-upload-csv': 'uploadCsv',
+    'change #csv-file-input': 'csvInputChange'
   },
 
   initialize: function()
@@ -27,6 +29,30 @@ app.DetailsView = Backbone.View.extend(
     this.model = app.mainView.model;
     this.model.on('change', this.render, this);
     this.render();
+    this.reader = new FileReader();
+  },
+
+  csvInputChange: function($event)
+  {
+    var self = this;
+
+    self.reader.onload = function(e)
+    {
+      var text = self.reader.result;
+      text = text.replace(/\r/g, "\n")
+      CSVParser.resetLog();
+      var parseOutput = CSVParser.parse(text, "checked", "auto", false, false);
+
+      if (parseOutput.errors)
+      {
+        alert('Errors in input!');
+        return;
+      }
+
+      var jsonStr = CSVParser.json(parseOutput.dataGrid, parseOutput.headerNames, parseOutput.headerTypes, "  ", "\n");
+      $('.tab-pane.active textarea').text(jsonStr);
+    }
+    self.reader.readAsText($event.currentTarget.files[0]);
   },
 
   render: function()
@@ -126,6 +152,7 @@ app.DetailsView = Backbone.View.extend(
     }, this);
 
     $('.btn-update').hide();
+    $('.btn-upload-csv').hide();
     $('.nav-tabs li:nth-child(' + this.selectedTab + ')').addClass('active');
     $('.tab-content div:nth-child(' + this.selectedTab + ')').addClass('active in');
 
@@ -222,12 +249,27 @@ app.DetailsView = Backbone.View.extend(
     });
   },
 
+  uploadCsv: function()
+  {
+    if (window.File && window.FileReader && window.FileList && window.Blob)
+    {
+      var $fileSelector = $('#csv-file-input');
+      $fileSelector.click();
+    }
+    else
+    {
+      alert('The File APIs are not fully supported in this browser.');
+      return;
+    }
+  },
+
   edit: function()
   {
     if ($('.btn-edit').text() === 'Edit')
     {
       $('.btn-edit').text('Cancel');
       $('.btn-update').show();
+      $('.btn-upload-csv').show();
       $('.tab-pane.active table').hide();
       $('.tab-pane.active textarea').remove();
       $('.tab-pane.active').append('<textarea rows="20" style="width:100%;margin-top:20px;margin-bottom:20px;"></textarea>');
