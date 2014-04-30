@@ -35,3 +35,18 @@
   background-color: #45619d;
   color: white;
 }
+
+#partner-selection
+{
+  width:268px;
+  padding:5px;
+  font-size:18px;
+  line-height:1;
+  border-radius:0;
+  height:44px;
+}
+
+#display-msg
+{
+  font-weight:bold;
+}

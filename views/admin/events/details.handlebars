@@ -1,7 +1,7 @@
 <div id='header'></div>
 
 <div class='row'>
-  <div class='col-md-12'>
+  <div class='col-md-10 col-md-offset-1'>
     <div id='details' class='form-horizontal'></div>
   </div>
 </div>
@@ -15,6 +15,19 @@
 </script>
 
 <script type='text/template' id='tmpl-details'>
+
+  \{{#if showPartnerSelection}}
+    <select id='partner-selection'>
+      <option>Select Partner</option>
+      \{{#each partners}}
+        <option>\{{displayName}}</option>
+      \{{/each}}
+    </select>
+    <br><br><br>
+    <h3 id='display-msg'>Event properties common across all partners</h3>
+    <br>
+  \{{/if}}
+
   <div class='alerts'>
     \{{#each errors}}
       <div class='alert alert-error'>\{{this}}</div>
@@ -27,25 +40,36 @@
   </div>
 
   <ul class='nav nav-tabs'>
-    \{{#each event.properties}}
+    \{{#each sortedEventProperties}}
       <li>
-        <a href='#\{{@key}}' data-toggle='tab'>\{{@key}}</a>
+        <a href='#\{{this}}' data-toggle='tab'>\{{this}}</a>
       </li>
     \{{/each}}
+
+    \{{#if isGenericEvent}}
+      <div class='form-actions no-padding'>
+        <button type='button' class='btn btn-add-property'>Add property</button>
+        \{{#if hasProperties}}
+          <button type='button' class='btn btn-rm-property'>Remove property</button>
+        \{{/if}}
+      </div>
+    \{{/if}}
   </ul>
 
   <div class='tab-content'>
-    \{{#each event.properties}}
-      <div class="tab-pane fade" id="\{{@key}}">
-        <div class='\{{@key}}-container'></div>
+    \{{#each sortedEventProperties}}
+      <div class="tab-pane fade" id="\{{this}}">
+        <div class='\{{this}}-container'></div>
       </div>
     \{{/each}}
   </div>
 
-  <div class='form-actions no-padding'>
-    <button type='button' class='btn btn-edit'>Edit</button>
-    <button type='button' class='btn btn-primary btn-update'>Update</button>
-  </div>
+  \{{#if hasProperties}}
+    <div class='form-actions no-padding'>
+      <button type='button' class='btn btn-edit'>Edit</button>
+      <button type='button' class='btn btn-primary btn-update'>Update</button>
+    </div>
+  \{{/if}}
 </script>
 
 <script type='text/template' id='data-record'>

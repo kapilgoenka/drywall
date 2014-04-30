@@ -1,11 +1,11 @@
 //
-//  AccountDetailsView.js
+//  DetailsView.js
 //  SportStream Account Server
 //
 //  Created by Satish Bhatti
 //  Copyright 2013 SportStream. All rights reserved.
 //
-//@ sourceURL=EventDetailsView.js
+//@ sourceURL=DetailsView.js
 /*jshint loopfunc: true */
 
 var app = app || {};
@@ -24,23 +24,28 @@ app.DetailsView = Backbone.View.extend(
 
   initialize: function()
   {
-    this.model = new app.Details();
-    this.syncUp();
-    app.mainView.model.bind('change', this.syncUp, this);
-
+    this.model = app.mainView.model;
     this.model.on('change', this.render, this);
     this.render();
   },
 
-  syncUp: function()
-  {
-    this.model.set(app.mainView.model.toJSON());
-  },
-
   render: function()
   {
+    var self = this;
+
     // render
-    this.$el.html(this.template(this.model.toJSON()));
+    var data = _.extend({}, this.model.toJSON());
+    data.sortedEventProperties = Object.keys(data.event.properties).sort();
+    data.hasProperties = data.sortedEventProperties.length > 0;
+    data.isGenericEvent = this.model.get('partner') === undefined;
+    data.showPartnerSelection = window.location.pathname.indexOf('organizations') === -1;
+    this.$el.html(this.template(data));
+
+    if (this.model.get('partner'))
+    {
+      $('#partner-selection').val(this.model.get('partner'));
+      $('#display-msg').text('Event propeties specific to ' + this.model.get('partner'));
+    }
 
     // set selected tab
     this.selectedTab = this.selectedTab || 1;
@@ -70,16 +75,22 @@ app.DetailsView = Backbone.View.extend(
           return _(row).size();
         });
 
-        columnTitles = _(elementWithMaxProperties).keys();
+        if (elementWithMaxProperties)
+          columnTitles = _(elementWithMaxProperties).keys();
+        else
+          columnTitles = [];
 
         columnValues = data.map(function(v)
         {
           var row = [];
 
+          if (!columnTitles.length)
+            return ['No value entered'];
+
           _(columnTitles).each(function(columnTitle)
           {
             if (!v[columnTitle])
-              row.push('');
+              row.push('No value entered');
 
             else if (_(v[columnTitle]).isString())
               row.push(v[columnTitle]);
@@ -107,8 +118,6 @@ app.DetailsView = Backbone.View.extend(
 
             table.find('td,th').css({
               'border':'1px solid #CCCCCC',
-              // 'max-width': columnTitles.length > 6 ? '400px' : '1000px',
-              'max-width': '400px',
               'overflow': 'scroll'
             });
           }
@@ -121,7 +130,71 @@ app.DetailsView = Backbone.View.extend(
     $('.tab-content div:nth-child(' + this.selectedTab + ')').addClass('active in');
 
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+      $('.tab-pane.active table').show();
+      $('.tab-pane.active textarea').remove();
       $('.btn-edit').text('Edit');
+    });
+
+    $('.btn-add-property').click(function()
+    {
+      var newProperty = prompt('Enter property name');
+
+      if (newProperty)
+      {
+        $.ajax(
+        {
+          url: self.model.url() + '/' + newProperty,
+          type: 'POST',
+          data: JSON.stringify({}),
+          contentType: 'application/json',
+          success: function(data, textStatus, jqXHR)
+          {
+            window.location.reload();
+          },
+          error: function(data, textStatus, jqXHR)
+          {
+            alert(data.responseText);
+          }
+        });
+      }
+    });
+
+    $('.btn-rm-property').click(function()
+    {
+      var newProperty = prompt('Enter property name');
+
+      if (newProperty)
+      {
+        $.ajax(
+        {
+          url: self.model.url() + '/' + newProperty,
+          type: 'DELETE',
+          success: function(data, textStatus, jqXHR)
+          {
+            window.location.reload();
+          },
+          error: function(data, textStatus, jqXHR)
+          {
+            alert(data.responseText);
+          }
+        });
+      }
+    });
+
+    $('#partner-selection').change(function()
+    {
+      if ($(this).val() === 'Select Partner')
+      {
+        $('#display-msg').text('Event properties common across all partners');
+        self.model.unset('partner', { silent: true });
+      }
+      else
+      {
+        $('#display-msg').text('Event propeties specific to ' + $(this).val());
+        self.model.set('partner', $(this).val(), { silent: true });
+      }
+
+      self.model.fetch();
     });
   },
 
@@ -133,7 +206,7 @@ app.DetailsView = Backbone.View.extend(
 
     $.ajax(
     {
-      url: this.model.url() + key,
+      url: this.model.url() + '/' + key,
       type: 'POST',
       data: JSON.stringify(val),
       contentType: 'application/json',
@@ -157,7 +230,7 @@ app.DetailsView = Backbone.View.extend(
       $('.btn-update').show();
       $('.tab-pane.active table').hide();
       $('.tab-pane.active textarea').remove();
-      $('.tab-pane.active').append('<textarea rows="20" style="width:100%;margin-bottom:20px;"></textarea>');
+      $('.tab-pane.active').append('<textarea rows="20" style="width:100%;margin-top:20px;margin-bottom:20px;"></textarea>');
       $('.tab-pane.active textarea').text(JSON.stringify(this.model.toJSON().event.properties[$('.tab-pane.active').attr('id')], null, 4));
     }
     else

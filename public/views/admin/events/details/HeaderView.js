@@ -1,11 +1,11 @@
 //
-//  AccountHeaderView.js
+//  HeaderView.js
 //  SportStream Account Server
 //
 //  Created by Satish Bhatti
 //  Copyright 2013 SportStream. All rights reserved.
 //
-//@ sourceURL=AccountHeaderView.js
+//@ sourceURL=HeaderView.js
 var app = app || {};
 
 app.HeaderView = Backbone.View.extend(
@@ -14,7 +14,7 @@ app.HeaderView = Backbone.View.extend(
 
   template: Handlebars.compile($('#tmpl-header').html()),
 
-  initialize: function()
+  initialize: function(options)
   {
     this.model = app.mainView.model;
     this.model.on('change', this.render, this);

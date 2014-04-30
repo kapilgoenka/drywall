@@ -16,8 +16,12 @@ app.MainView = Backbone.View.extend(
   {
     app.mainView = this;
 
+    //setup model
+    this.model = new app.DetailsModel(JSON.parse($('#data-record').html()));
+
     //sub views
     app.headerView = new app.HeaderView();
+    app.detailsView = new app.DetailsView();
 
     app.usersView = new app.ResultsView(
     {
@@ -28,19 +32,5 @@ app.MainView = Backbone.View.extend(
       results: JSON.parse($('#data-results').html()),
       model: app.UserRecord
     });
-
-    app.allEventsView = new app.ResultsView(
-    {
-      el: '#all-events-table',
-      templateSelector: '#tmpl-generic-events-table',
-      rowTemplateSelector: '#tmpl-generic-events-row',
-      resultContentSelector: '#generic-events-rows',
-      results: JSON.parse($('#data-events').html()).all,
-      model: app.EventRecord
-    });
-
-    // app.allEventsView
-    // app.filterView = new app.FilterView();
-    // app.pagingView = new app.PagingView();
   }
 });
