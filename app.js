@@ -194,6 +194,15 @@ function configureApp()
       next();
   });
 
+  app.use(function(req, res, next)
+  {
+    // Ajax requests from the admin portal are marked with a specific header
+    // to differentiate them from regular ajax requests coming from apps
+    if (req.headers['x-requested-with'] === 'AdminPortal-XMLHttpRequest')
+      req.admin_xhr = true;
+    next();
+  });
+
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
@@ -207,7 +216,7 @@ function configureApp()
     store: new RedisStore({ client: redisClient/*, ttl: 60*/ }),
     cookie:
     {
-      maxAge: 30 * 60 * 1000
+      maxAge: 6 * 30 * 60 * 1000
     }
   }));
 

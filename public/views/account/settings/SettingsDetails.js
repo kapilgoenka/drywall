@@ -25,7 +25,7 @@ app.Details = Backbone.Model.extend(
     zip: ''
   },
 
-  url: '/account/settings/',
+  url: '/account/settings',
 
   parse: function(response)
   {

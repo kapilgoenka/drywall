@@ -11,7 +11,7 @@ app.RecordCollection = Backbone.Collection.extend(
 {
   model: app.EventRecord,
 
-  url: '/admin/events/',
+  url: '/admin/events',
 
   parse: function(results)
   {

@@ -14,7 +14,7 @@ app.Details = Backbone.Model.extend(
 
   url: function()
   {
-    return '/admin/events/'+ app.mainView.model.toJSON().event.name +'/';
+    return '/admin/events/'+ app.mainView.model.toJSON().event.name;
   },
 
   parse: function(response)

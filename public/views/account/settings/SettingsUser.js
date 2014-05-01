@@ -11,5 +11,5 @@ var app = app || {};
 app.User = Backbone.Model.extend(
 {
   idAttribute: '_id',
-  url: '/account/settings/'
+  url: '/account/settings'
 });

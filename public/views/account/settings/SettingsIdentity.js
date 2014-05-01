@@ -21,7 +21,7 @@ app.Identity = Backbone.Model.extend(
     email: ''
   },
 
-  url: '/account/settings/identity/',
+  url: '/account/settings/identity',
 
   parse: function(response)
   {
