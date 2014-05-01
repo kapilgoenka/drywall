@@ -10,13 +10,10 @@ var app = app || {};
 $(document).ready(function()
 {
   app.loadScripts([
-    '/views/admin/events/details/Event.js',
-    '/views/admin/events/details/EventDetails.js',
-    '/views/admin/events/details/EventHeaderView.js',
-    '/views/admin/events/details/EventDetailsView.js',
-    '/views/admin/events/details/EventMainView.js',
-    '/models/admin/events/Record.js',
-    '/models/admin/events/RecordCollection.js',
+    '/views/admin/events/details/DetailsModel.js',
+    '/views/admin/events/details/HeaderView.js',
+    '/views/admin/events/details/DetailsView.js',
+    '/views/admin/events/details/MainView.js',
     '/views/admin/AppRouter.js'
   ],
   function()

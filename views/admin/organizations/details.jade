@@ -4,6 +4,7 @@ block head
   title Organization / Details
 
 block feet
+  script(src='/vendor/jquery-tidy-table/jquery.tidy.table.min.js')
   script(src='/views/admin/organizations/details.js')
 
 block body
@@ -72,4 +73,4 @@ block body
     td.col-md-2 <%= isCustomized %>
 
   script(type='text/template', id='data-results') !{data.results}
-  script(type='text/template', id='data-events') !{data.events}
+  script(type='text/template', id='data-record') !{data.record}

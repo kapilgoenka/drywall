@@ -44,7 +44,6 @@ process.on('uncaughtException', function(err)
   text += "\n";
 
   log.error(text);
-  log.error('Killing process with pid =' + process.pid + ' due to uncaught exception');
 });
 
 var app = express();
@@ -151,7 +150,7 @@ function configureApp()
   //email (smtp) settings
   app.set('email-from-name', app.get('project-name')+ ' Website');
   app.set('email-from-address', 'ss.dev.reports@gmail.com');
-  app.set('email-dev-support-address', 'kgoenka@fb.com');
+  app.set('email-dev-support-address', 'ss.dev.reports@gmail.com');
   app.set('email-credentials', {
     user: 'ss.dev.reports@gmail.com',
     password: 'evriONE88',
