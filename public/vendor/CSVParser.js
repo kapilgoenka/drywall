@@ -288,6 +288,23 @@ var CSVParser = {
     var numRows = dataGrid.length;
     var numColumns = headerNames.length;
 
+    if (numColumns === 1)
+    {
+      if (numRows > 0)
+      {
+        for (var i = 0; i < numRows; i++)
+        {
+          var currValue = dataGrid[i][0];
+          outputText = outputText + '"' + currValue + '",';
+        }
+        outputText = outputText.substring(0,outputText.length - 1);
+        outputText = outputText + "]";
+        return outputText;
+      }
+      else
+        return '[]';
+    }
+
     //begin render loop
     for (var i=0; i < numRows; i++) {
       var row = dataGrid[i];
