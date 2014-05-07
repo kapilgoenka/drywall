@@ -143,8 +143,7 @@ app.DetailsView = Backbone.View.extend(
             });
 
             table.find('td,th').css({
-              'border':'1px solid #CCCCCC',
-              'overflow': 'scroll'
+              'border':'1px solid #CCCCCC'
             });
           }
         }
