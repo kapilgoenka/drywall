@@ -295,7 +295,9 @@ var CSVParser = {
         for (var i = 0; i < numRows; i++)
         {
           var currValue = dataGrid[i][0];
-          outputText = outputText + '"' + currValue + '",';
+
+          if (currValue && currValue != "" && currValue != " ")
+            outputText = outputText + '"' + currValue + '",';
         }
         outputText = outputText.substring(0,outputText.length - 1);
         outputText = outputText + "]";
