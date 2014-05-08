@@ -307,23 +307,49 @@ var CSVParser = {
         return '[]';
     }
 
+    //validate data by ensuring each record has a non-null 'name' field
+    var hasName = false;
+    var nameIndex = -1;
+    for (var j=0; j < numColumns; j++)
+    {
+      if (!hasName && headerNames[j] === 'name')
+      {
+        hasName = true;
+        nameIndex = j;
+      }
+    }
+
+    if (!hasName)
+      return "data has no 'name' field!";
+
+    var ignoreRows = [];
+    for (var i=0; i < numRows; i++)
+    {
+      var nameValue = dataGrid[i][nameIndex];
+      if (!nameValue || nameValue === '' || nameValue === "")
+        ignoreRows.push(i);
+    }
+
     //begin render loop
     for (var i=0; i < numRows; i++) {
-      var row = dataGrid[i];
-      outputText += "{";
-      for (var j=0; j < numColumns; j++) {
-        if ((headerTypes[j] == "int")||(headerTypes[j] == "float")) {
-          var rowOutput = row[j] || "null";
-        } else {
-          var rowOutput = '"' + ( row[j] || "" ) + '"';
+      if (ignoreRows.indexOf(i) === -1)
+      {
+        var row = dataGrid[i];
+        outputText += "{";
+        for (var j=0; j < numColumns; j++) {
+          if ((headerTypes[j] == "int")||(headerTypes[j] == "float")) {
+            var rowOutput = row[j] || "null";
+          } else {
+            var rowOutput = '"' + ( row[j] || "" ) + '"';
+          };
+
+        outputText += ('"'+headerNames[j] +'"' + ":" + rowOutput );
+
+          if (j < (numColumns-1)) {outputText+=","};
         };
-
-      outputText += ('"'+headerNames[j] +'"' + ":" + rowOutput );
-
-        if (j < (numColumns-1)) {outputText+=","};
-      };
-      outputText += "}";
-      if (i < (numRows-1)) {outputText += ","+newLine};
+        outputText += "}";
+        if (i < (numRows-1)) {outputText += ","+newLine};
+      }
     };
     outputText += "]";
 
