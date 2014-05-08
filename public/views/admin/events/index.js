@@ -20,5 +20,29 @@ $(document).ready(function()
     app.firstLoad = true;
     app.router = new app.AppRouter();
     Backbone.history.start();
+
+    $('.btn-add-property').click(function()
+    {
+      var newEvent = prompt('Enter event name');
+
+      if (newEvent)
+      {
+        $.ajax(
+        {
+          type: 'POST',
+          url: '/admin/events/' + newEvent,
+          data: JSON.stringify({}),
+          contentType: 'application/json',
+          success: function(data, textStatus, jqXHR)
+          {
+            window.location.reload();
+          },
+          error: function(data, textStatus, jqXHR)
+          {
+            alert(data.responseText);
+          }
+        });
+      }
+    });
   });
 });
