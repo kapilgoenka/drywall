@@ -1,18 +1,20 @@
 ﻿table.sortable span.sign {
-    display: block;
-    position: absolute;
-    top: 50%;
-    right: 25px;
+    /*display: block;*/
+    /*position: absolute;*/
+    /*top: 50%;*/
+    /*right: 25px;*/
     font-size: 12px;
-    margin-top: -10px;
+    /*margin-top: -10px;*/
     color: #bfbfc1;
+    margin-left: 10px;
+    vertical-align: middle;
 }
 
 table.sortable span.arrow, span.reversed {
     border-style: solid;
     border-width: 5px;
     font-size: 0;
-    border-color: #ccc transparent transparent transparent;
+    border-color: #111 transparent transparent transparent;
     line-height: 0;
     height: 0;
     width: 0;
@@ -20,17 +22,17 @@ table.sortable span.arrow, span.reversed {
 }
 
     table.sortable span.arrow.up {
-        border-color: transparent transparent #ccc transparent;
+        border-color: transparent transparent #111 transparent;
         margin-top: -7px;
     }
 
 table.sortable span.reversed {
-    border-color: transparent transparent #ccc transparent;
+    border-color: transparent transparent #111 transparent;
     margin-top: -7px;
 }
 
     table.sortable span.reversed.up {
-        border-color: #ccc transparent transparent transparent;
+        border-color: #111 transparent transparent transparent;
         margin-top: -2px;
     }
 

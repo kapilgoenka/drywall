@@ -22,11 +22,11 @@ block body
   script(type='text/template', id='tmpl-filters')
 
   script(type='text/template', id='tmpl-results-table')
-    table.table.table-striped
+    table.table.table-striped.sortable
       thead
         tr
           th
-          th Name
+          th(data-defaultsort="asc") Name
       tbody#results-rows
 
   script(type='text/template', id='tmpl-results-row')
