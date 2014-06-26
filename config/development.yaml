@@ -37,6 +37,7 @@ crossDomain:
     - 'devaccounts.sportstream.com:3000'
     - 'our.intern.facebook.com'
     - 'kgoenka-mbp:3000'
+    - 'kgoenka-mbp.dhcp.thefacebook.com:3000'
   allowedOrigins:
     - 'http://ota.sportstream.com:3001'
     - 'http://sirri.sportstream.com:3001'
@@ -59,6 +60,7 @@ crossDomain:
     - 'http://localhost:3001'
     - 'https://our.intern.facebook.com'
     - 'http://kgoenka-mbp:3000'
+    - 'http://kgoenka-mbp.dhcp.thefacebook.com:3000'
   accessControl:
     Access_Control_Allow_Methods: 'GET,PUT,POST,DELETE,OPTIONS'
     Access_Control_Allow_Headers: 'Content-Type, Accept-Encoding, x-app-id, x-authtoken, x-ss-app-version, x-ss-twitter-authtoken, x-ss-twitter-authtoken-secret, X-Requested-With'
